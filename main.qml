@@ -23,6 +23,14 @@ Window {
         }
     }
 
+    Location {
+        id: nuremberg
+        coordinate {
+            latitude: 49.4531
+            longitude: 11.0743
+        }
+    }
+
     Map {
         id: map
         anchors.fill: parent
@@ -63,7 +71,7 @@ Window {
         Button {
             anchors.top: parent.top
             text: "Center"
-            onClicked: map.center = oslo.coordinate
+            onClicked: map.center = nuremberg.coordinate
         }
 
 
