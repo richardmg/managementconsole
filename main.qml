@@ -10,6 +10,11 @@ Window {
     visible: true
     visibility: Window.AutomaticVisibility
 
+    property var defaultLocation: nuremberg
+    property int defaultZoomLevel: 16
+
+    property var _overlayList: new Array
+
     Plugin {
         id: osmPlugin
         name: "osm"
@@ -35,46 +40,65 @@ Window {
         id: map
         anchors.fill: parent
         plugin: osmPlugin
+        center: defaultLocation.coordinate
+        zoomLevel: defaultZoomLevel
 
-//        zoomLevel: (map.zoomLevel > minimumZoomLevel + 3) ? minimumZoomLevel + 3 : 2.5
-//        center: map.center
-//        gesture.enabled: false
-
-//        MapRectangle {
-//            color: "#44ff0000"
-//            border.width: 1
-//            border.color: "red"
-//            topLeft {
-//                latitude: miniMap.center.latitude + 5
-//                longitude: miniMap.center.longitude - 5
-//            }
-//            bottomRight {
-//                latitude: miniMap.center.latitude - 5
-//                longitude: miniMap.center.longitude + 5
-//            }
-//        }
+        onCenterChanged: updateOverlays()
+        onZoomLevelChanged: updateOverlays()
 
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                var circle = Qt.createQmlObject('import QtLocation 5.5; MapCircle {}', map)
-                circle.center = map.toCoordinate(Qt.point(mouse.x, mouse.y));
-                circle.radius = 5000.0
-                circle.color = 'green'
-                circle.border.width = 3
-                map.addMapItem(circle)
-                print("added pin:", circle.center.latitude, circle.center.longitude)
-//                QtPositioning.coordinate()
+                var clickedCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y));
+                var overlay = overlayParkingLotComp.createObject(map, { coordinate: clickedCoord })
+                _overlayList.push(overlay)
             }
         }
 
         Button {
             anchors.top: parent.top
             text: "Center"
-            onClicked: map.center = nuremberg.coordinate
+            onClicked: {
+                map.center = defaultLocation.coordinate
+                map.zoomLevel = defaultZoomLevel
+            }
         }
+    }
 
+    function updateOverlays()
+    {
+        for (var i = 0; i < _overlayList.length; ++i)
+            _overlayList[i].updateOverlay()
+    }
 
+    Component {
+        id: overlayParkingLotComp
+        Rectangle {
+            width: 20
+            height: 20
+            color: "red"
+
+            property var coordinate
+            onCoordinateChanged: updateOverlay()
+
+            function updateOverlay()
+            {
+                var pos = map.fromCoordinate(coordinate)
+                x = pos.x
+                y = pos.y
+            }
+        }
+    }
+
+    function createNativeOverlay(coord)
+    {
+        // map overlays from location cannot have child items, and scale upon zoom, so we don't use them.
+        var circle = parkingLotMapComp.createObject(map)
+        circle.center = coord
+        circle.radius = 20.0
+        circle.color = 'white'
+        circle.border.width = 1
+        map.addMapItem(circle)
     }
 
 }

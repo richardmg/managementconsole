@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = app
-QT += gui qml quick
+QT += gui qml quick location positioning
 RESOURCES += main.qrc
 
 # Input
