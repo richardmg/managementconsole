@@ -43,8 +43,8 @@ Window {
     Location {
         id: nuremberg
         coordinate {
-            latitude: 49.4531
-            longitude: 11.0743
+            latitude: 49.45284
+            longitude: 11.07895
         }
     }
 
@@ -57,8 +57,13 @@ Window {
         }
         ListElement {
             name: "Karlstadt"
-            latitude: 49.45370
-            longitude: 11.07515
+            latitude: 49.45297
+            longitude: 11.08270
+        }
+        ListElement {
+            name: "Adlerstrase"
+            latitude: 49.45211
+            longitude: 11.07700
         }
     }
 
@@ -119,7 +124,6 @@ Window {
             width: 80
             height: 80
             source: "qrc:/img/parkingsign.png"
-            opacity: 0.2
 
             property var modelData
 
@@ -133,7 +137,7 @@ Window {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: print("You clicked parking lot:", parkingLotId)
+                onClicked: print("You clicked parking lot:", modelData.name)
             }
         }
     }
