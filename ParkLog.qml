@@ -5,6 +5,7 @@ Rectangle {
     border.width: 2
     border.color: appDarkLine
 
+    property string name
     property alias model: listView.model
 
     Item {
@@ -13,9 +14,10 @@ Rectangle {
 
         TextEdit {
             id: headerEdit
-            text: "Park A"
+            text: name
             font: appBigFont.font
             readOnly: true
+            x: 10
             y: 6
         }
 
