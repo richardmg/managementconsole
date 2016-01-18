@@ -2,11 +2,12 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.2
 
 Rectangle {
+    id: parkLog
     border.width: 2
     border.color: appDarkLine
 
     property string name
-    property alias model: listView.model
+    property var model
 
     Item {
         anchors.fill: parent
@@ -36,10 +37,12 @@ Rectangle {
             anchors.bottom: parent.bottom
             width: parent.width
             clip: true
+            model: parkLog.model.log
 
             delegate: Item {
                 width: parent.width
                 height: logMessage.paintedHeight + 20
+                property var log: parkLog.model.log[index]
 
                 RowLayout {
                     id: modelContent
@@ -58,7 +61,7 @@ Rectangle {
                             height: width
                             radius: width
                             anchors.centerIn: parent
-                            color: listView.model[index].icon === "normal" ? "green" : "red"
+                            color: log.icon === "normal" ? "green" : "red"
                         }
                     }
 
@@ -71,7 +74,7 @@ Rectangle {
 
                     TextEdit {
                         id: logMessage
-                        text: listView.model[index].message
+                        text: log.message
                         font: appNormalFont.font
                         readOnly: true
                         Layout.fillWidth: true
@@ -86,7 +89,7 @@ Rectangle {
 
                     TextEdit {
                         id: logTime
-                        text: listView.model[index].time
+                        text: log.time
                         font: appNormalFont.font
                         readOnly: true
                     }

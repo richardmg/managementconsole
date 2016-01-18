@@ -15,8 +15,8 @@ Window {
     // Layout guide lines
 
     property int xContent1Start: 10
-    property int xContent1Stop: 500
-    property int xContent2Start: 510
+    property int xContent1Stop: 600
+    property int xContent2Start: 610
     property int xContent2Stop: width - 10
 
     property int yButtonStart: 10
@@ -66,7 +66,7 @@ Window {
         y: yContent1Start
         width: xContent2Stop - x
         height: yContent1Stop - y
-        model: Model.getParkingLotHistory()
+        model: Model.getParkingLotModel("ParkA")
         name: "Park A"
     }
 
@@ -76,7 +76,7 @@ Window {
         y: yContent2Start
         width: xContent2Stop - x
         height: yContent2Stop - y
-        model: Model.getParkingLotHistory()
+        model: Model.getParkingLotModel("ParkB")
         name: "Park B"
     }
 }
