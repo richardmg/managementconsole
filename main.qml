@@ -4,6 +4,8 @@ import QtLocation 5.5
 import QtPositioning 5.5
 import QtQuick.Controls 1.4
 
+import "model.js" as Model
+
 Window {
     width: 1024
     height: 600
@@ -11,13 +13,18 @@ Window {
     visibility: Window.AutomaticVisibility
 
     // Layout guide lines
-    property int topLine1: 10
-    property int topLine2: 100
-    property int topLine3: height - 10
 
-    property int leftLine1: 10
-    property int leftLine2: 600
-    property int leftLine3: 620
+    property int xContent1Start: 10
+    property int xContent1Stop: 500
+    property int xContent2Start: 510
+    property int xContent2Stop: width - 10
+
+    property int yButtonStart: 10
+    property int yButtonStop: 100
+    property int yContent1Start: 110
+    property int yContent1Stop: 350
+    property int yContent2Start: yContent1Start + (yContent2Stop - yContent1Start + 20) / 2
+    property int yContent2Stop: height - 10
 
     ListModel {
         id: parkingLots
@@ -38,12 +45,29 @@ Window {
         }
     }
 
-    MapWithParkingLots {
-        x: leftLine1
-        y: topLine2
-        width: leftLine2 - x
-        height: topLine3 - y
-        parkingLots: parkingLots
+    ParkMap {
+        x: xContent1Start
+        y: yContent1Start
+        width: xContent1Stop - x
+        height: yContent2Stop - y
+        parks: parkingLots
     }
 
+    ParkLog {
+        id: parkA
+        x: xContent2Start
+        y: yContent1Start
+        width: xContent2Stop - x
+        height: yContent1Stop - y
+        model: parkingLots
+    }
+
+    ParkLog {
+        id: parkB
+        x: xContent2Start
+        y: yContent2Start
+        width: xContent2Stop - x
+        height: yContent2Stop - y
+        model: parkingLots
+    }
 }

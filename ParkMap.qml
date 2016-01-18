@@ -4,7 +4,7 @@ import QtPositioning 5.5
 import QtQuick.Controls 1.4
 
 Rectangle {
-    property ListModel parkingLots
+    property ListModel parks
     property int startZoomLevel: 16
     property var startLocation: Location {
             id: nuremberg
@@ -42,9 +42,9 @@ Rectangle {
     property var _overlayList: new Array
 
     Component.onCompleted: {
-        // Create overlay items for all places listed in the parkingLots model
-        for (var i = 0; i < parkingLots.count; ++i) {
-            var data = parkingLots.get(i)
+        // Create overlay items for all places listed in the parks model
+        for (var i = 0; i < parks.count; ++i) {
+            var data = parks.get(i)
             var overlay = overlayComponent.createObject(map, { modelData: data })
             _overlayList.push(overlay)
         }
