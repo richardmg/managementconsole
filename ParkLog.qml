@@ -39,7 +39,7 @@ Rectangle {
 
             delegate: Item {
                 width: parent.width
-                height: 60//childrenRect.height
+                height: logMessage.paintedHeight + 20
 
                 RowLayout {
                     id: modelContent
@@ -54,9 +54,9 @@ Rectangle {
                         width: 40
                         height: 20
                         Rectangle {
-                            width: 20
-                            height: 20
-                            radius: 20
+                            width: logMessage.paintedHeight
+                            height: width
+                            radius: width
                             anchors.centerIn: parent
                             color: listView.model[index].icon === "normal" ? "green" : "red"
                         }
@@ -65,7 +65,7 @@ Rectangle {
                     Rectangle {
                         id: separator1
                         width: 2
-                        height: parent.height
+                        height: logMessage.paintedHeight
                         color: appDarkLine
                     }
 
@@ -80,7 +80,7 @@ Rectangle {
                     Rectangle {
                         id: separator2
                         width: 2
-                        height: parent.height
+                        height: logMessage.paintedHeight
                         color: appDarkLine
                     }
 
@@ -95,7 +95,7 @@ Rectangle {
                 Rectangle {
                     id: underline
                     width: parent.width
-                    height: 2
+                    height: 1
                     anchors.bottom: parent.bottom
                     color: appLightLine
                 }
