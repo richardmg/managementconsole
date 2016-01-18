@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Rectangle {
     border.width: 2
-    border.color: "black"
+    border.color: appDarkLine
 
     property alias model: listView.model
 
@@ -13,7 +13,7 @@ Rectangle {
         TextEdit {
             id: headerEdit
             text: "Park A"
-            font.pixelSize: 24
+            font: appBigFont.font
         }
 
         Rectangle {
@@ -22,7 +22,7 @@ Rectangle {
             anchors.topMargin: 10
             width: parent.width
             height: 3
-            color: "darkgray"//Qt.rgba(1.0, 1.0, 1.0, 1.0)
+            color: appDarkLine
         }
 
         ListView {
@@ -41,13 +41,13 @@ Rectangle {
                     width: parent.width
                     height: 2
                     anchors.bottom: parent.bottom
-                    color: "lightgray"
+                    color: appLightLine
                 }
 
                 TextEdit {
                     id: logMessageEdit
                     text: name
-                    font.pixelSize: 18
+                    font: appNormalFont.font
                     anchors.verticalCenter: parent.verticalCenter
                 }
             }

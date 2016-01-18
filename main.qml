@@ -1,4 +1,4 @@
-import QtQuick 2.1
+import QtQuick 2.4
 import QtQuick.Window 2.1
 import QtLocation 5.5
 import QtPositioning 5.5
@@ -25,6 +25,13 @@ Window {
     property int yContent1Stop: 350
     property int yContent2Start: yContent1Start + (yContent2Stop - yContent1Start + 20) / 2
     property int yContent2Stop: height - 10
+
+    property color appDarkLine: Qt.rgba(0.3, 0.3, 0.3, 1.0)
+    property color appLightLine: Qt.rgba(0.6, 0.6, 0.6, 1.0)
+
+    property FontMetrics appBigFont: FontMetrics { font.pixelSize: 24 }
+    property FontMetrics appNormalFont: FontMetrics { font.pixelSize: 18 }
+    property FontMetrics appSmallFont: FontMetrics { font.pixelSize: 14 }
 
     ListModel {
         id: parkingLots
