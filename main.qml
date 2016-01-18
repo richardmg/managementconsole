@@ -33,31 +33,11 @@ Window {
     property FontMetrics appNormalFont: FontMetrics { font.family: "verdana"; font.pixelSize: 18 }
     property FontMetrics appSmallFont: FontMetrics { font.family: "verdana"; font.pixelSize: 14 }
 
-    ListModel {
-        id: parkingLots
-        ListElement {
-            name: "Augustinerhof"
-            latitude: 49.45370
-            longitude: 11.07515
-        }
-        ListElement {
-            name: "Karlstadt"
-            latitude: 49.45297
-            longitude: 11.08270
-        }
-        ListElement {
-            name: "Adlerstrase"
-            latitude: 49.45211
-            longitude: 11.07700
-        }
-    }
-
     ParkMap {
         x: xContent1Start
         y: yContent1Start
         width: xContent1Stop - x
         height: yContent2Stop - y
-        parks: parkingLots
     }
 
     ParkLog {
@@ -66,8 +46,7 @@ Window {
         y: yContent1Start
         width: xContent2Stop - x
         height: yContent1Stop - y
-        model: Model.getParkingLotModel("ParkA")
-        name: "Park A"
+        model: Model.getParkingLotModel(1)
     }
 
     ParkLog {
@@ -76,7 +55,6 @@ Window {
         y: yContent2Start
         width: xContent2Stop - x
         height: yContent2Stop - y
-        model: Model.getParkingLotModel("ParkB")
-        name: "Park B"
+        model: Model.getParkingLotModel(2)
     }
 }

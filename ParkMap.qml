@@ -2,6 +2,7 @@ import QtQuick 2.1
 import QtLocation 5.5
 import QtPositioning 5.5
 import QtQuick.Controls 1.4
+import "model.js" as Model
 
 Rectangle {
     property ListModel parks
@@ -20,11 +21,11 @@ Rectangle {
             height: 80
             source: "qrc:/img/parkingsign.png"
 
-            property var modelData
+            property var parkModel
 
             function updateOverlay()
             {
-                var coordinate = QtPositioning.coordinate(modelData.latitude, modelData.longitude)
+                var coordinate = QtPositioning.coordinate(parkModel.latitude, parkModel.longitude)
                 var pos = map.fromCoordinate(coordinate)
                 x = pos.x - (width / 2)
                 y = pos.y - (height / 2)
@@ -43,9 +44,12 @@ Rectangle {
 
     Component.onCompleted: {
         // Create overlay items for all places listed in the parks model
-        for (var i = 0; i < parks.count; ++i) {
-            var data = parks.get(i)
-            var overlay = overlayComponent.createObject(map, { modelData: data })
+
+        var idArray = Model.getAllParkingLotIds()
+
+        for (var i = 0; i < idArray.length; ++i) {
+            var parkModel = Model.getParkingLotModel(idArray[i])
+            var overlay = overlayComponent.createObject(map, { parkModel: parkModel })
             _overlayList.push(overlay)
         }
 

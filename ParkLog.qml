@@ -6,25 +6,42 @@ Rectangle {
     border.width: 2
     border.color: appDarkLine
 
-    property string name
     property var model
 
     Item {
         anchors.fill: parent
         anchors.margins: 5
 
-        TextEdit {
-            id: headerEdit
-            text: name
-            font: appBigFont.font
-            readOnly: true
-            x: 10
-            y: 6
+        RowLayout {
+            id: listHeader
+            spacing: 10
+            x: spacing
+            width: parent.width - (x * 2)
+            height: headerParkName.paintedHeight + 6
+
+            TextEdit {
+                id: headerParkName
+                text: parkLog.model.parkName
+                font: appBigFont.font
+                Layout.fillWidth: true
+                readOnly: true
+                x: 10
+                y: 6
+            }
+
+            TextEdit {
+                id: headerFreeSpaces
+                text: "Free spaces: " + parkLog.model.freeSpaces
+                font: appSmallFont.font
+                readOnly: true
+                x: 10
+                y: 6
+            }
         }
 
         Rectangle {
             id: headerLine
-            anchors.top: headerEdit.bottom
+            anchors.top: listHeader.bottom
             anchors.topMargin: 10
             width: parent.width
             height: 2
