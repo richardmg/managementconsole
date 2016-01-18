@@ -66,7 +66,7 @@ Window {
         y: yContent1Start
         width: xContent2Stop - x
         height: yContent1Stop - y
-        model: parkingLots
+        model: Model.getParkingLotHistory()
     }
 
     ParkLog {
@@ -75,6 +75,6 @@ Window {
         y: yContent2Start
         width: xContent2Stop - x
         height: yContent2Stop - y
-        model: parkingLots
+        model: Model.getParkingLotHistory()
     }
 }
