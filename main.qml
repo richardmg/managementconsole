@@ -10,46 +10,17 @@ Window {
     visible: true
     visibility: Window.AutomaticVisibility
 
-    property var defaultLocation: nuremberg
-    property int defaultZoomLevel: 16
+    // Layout guide lines
+    property int topLine1: 10
+    property int topLine2: 100
+    property int topLine3: height - 10
 
-    property var _overlayList: new Array
-
-    Component.onCompleted: {
-        // Create overlay items for all places listed in the parkinglots model
-        for (var i = 0; i < parkinglots.count; ++i) {
-            var data = parkinglots.get(i)
-            var overlay = overlayParkingLotComp.createObject(map, { modelData: data })
-            _overlayList.push(overlay)
-        }
-
-        // Workaround bug: map.fromCoordinate does not work unless a map is loaded.
-        // And currently I cannot detect at which point that is ready.
-        delayedUpdateOverlaysTimer.start()
-    }
-
-    /********************************************
-      POIs
-     ********************************************/
-
-    Location {
-        id: oslo
-        coordinate {
-            latitude: 59.9128
-            longitude: 10.7386
-        }
-    }
-
-    Location {
-        id: nuremberg
-        coordinate {
-            latitude: 49.45284
-            longitude: 11.07895
-        }
-    }
+    property int leftLine1: 10
+    property int leftLine2: 600
+    property int leftLine3: 620
 
     ListModel {
-        id: parkinglots
+        id: parkingLots
         ListElement {
             name: "Augustinerhof"
             latitude: 49.45370
@@ -67,92 +38,12 @@ Window {
         }
     }
 
-    /********************************************
-      Map and overlay
-     ********************************************/
-
-    Map {
-        id: map
-        anchors.fill: parent
-        plugin: Plugin { name: "osm" }
-        center: defaultLocation.coordinate
-        zoomLevel: defaultZoomLevel
-
-        onCenterChanged: updateOverlays()
-        onZoomLevelChanged: updateOverlays()
-        onErrorChanged: print("error code:", error) // todo: show backup static map image
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                var clickedCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y));
-                print("lat:", clickedCoord.latitude, "lon:", clickedCoord.longitude, clickedCoord)
-            }
-        }
-
-        Button {
-            anchors.top: parent.top
-            text: "Center"
-            onClicked: {
-                map.center = defaultLocation.coordinate
-                map.zoomLevel = defaultZoomLevel
-            }
-        }
-    }
-
-    Timer {
-        id: delayedUpdateOverlaysTimer
-        interval: 100
-        onTriggered: updateOverlays()
-    }
-
-    function updateOverlays()
-    {
-        if (!_overlayList) {
-            // Work-around Map wrongly emits signals (onCenterChanged) before it's
-            // completed, which makes us access variables (_overlayList) that is not yet ready.
-            return
-        }
-
-        for (var i = 0; i < _overlayList.length; ++i)
-            _overlayList[i].updateOverlay()
-    }
-
-    Component {
-        id: overlayParkingLotComp
-        Image {
-            width: 80
-            height: 80
-            source: "qrc:/img/parkingsign.png"
-
-            property var modelData
-
-            function updateOverlay()
-            {
-                var coordinate = QtPositioning.coordinate(modelData.latitude, modelData.longitude)
-                var pos = map.fromCoordinate(coordinate)
-                x = pos.x - (width / 2)
-                y = pos.y - (height / 2)
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: print("You clicked parking lot:", modelData.name)
-            }
-        }
-    }
-
-    function createNativeOverlay(coord)
-    {
-        // Map overlays from QtLocation cannot have child items (and they scale
-        // upon zoom), so we don't use them. But I leave this code section here
-        // if for nothing else than showing this comment.
-        var circle = parkingLotMapComp.createObject(map)
-        circle.center = coord
-        circle.radius = 20.0
-        circle.color = 'white'
-        circle.border.width = 1
-        map.addMapItem(circle)
+    MapWithParkingLots {
+        x: leftLine1
+        y: topLine2
+        width: leftLine2 - x
+        height: topLine3 - y
+        parkingLots: parkingLots
     }
 
 }

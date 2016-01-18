@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>img/parkingsign.png</file>
+        <file>MapWithParkingLots.qml</file>
     </qresource>
 </RCC>

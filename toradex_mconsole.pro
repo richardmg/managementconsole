@@ -14,3 +14,6 @@ OTHER_FILES += \
 
 target.path = /home/root/apps/$$TARGET
 INSTALLS += target
+
+DISTFILES += \
+    MapWithParkingLots.qml
