@@ -52,7 +52,7 @@ Window {
         y: yContent1Start
         width: xContent2Stop - x
         height: yContent1Stop - y
-        model: Model.getParkingLotModel(0)
+        parkId: 0
     }
 
     ParkLog {
@@ -61,6 +61,20 @@ Window {
         y: yContent2Start
         width: xContent2Stop - x
         height: yContent2Stop - y
-        model: Model.getParkingLotModel(1)
+        parkId: 1
+    }
+
+    function gSelectPark(parkId)
+    {
+        var prev = gParkMap.getOverlay(gSelectedParkId)
+        if (prev)
+            prev.highlight(false)
+
+        var curr = gParkMap.getOverlay(parkId)
+        if (curr) {
+            curr.highlight(true)
+            gParkMap.centerOnAllParks()
+            gSelectedParkId = parkId
+        }
     }
 }

@@ -1,78 +1,76 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
 
+import "model.js" as Model
+
 Rectangle {
     id: parkLog
     border.width: 2
     border.color: appDarkLine
 
-    property var model
+    property int parkId: -1
+
+    property var _model: Model.getParkingLotModel(parkId)
 
     Item {
         anchors.fill: parent
         anchors.margins: 5
 
-        RowLayout {
+        Rectangle {
             id: listHeader
-            spacing: 10
-            x: spacing
             width: parent.width - (x * 2)
-            height: headerParkName.paintedHeight + 6
+            height: headerParkName.paintedHeight + 20
+            RowLayout {
+                anchors.fill: parent
+                spacing: 10
+                x: spacing
 
-            TextEdit {
-                id: headerParkName
-                text: parkLog.model.parkName
-                font: appBigFont.font
-                Layout.fillWidth: true
-                readOnly: true
-                x: 10
-                y: 6
+                TextEdit {
+                    id: headerParkName
+                    text: parkLog._model.parkName
+                    font: appBigFont.font
+                    Layout.fillWidth: true
+                    readOnly: true
+                    x: 10
+                    y: 6
+                }
+
+                TextEdit {
+                    id: headerFreeSpaces
+                    text: "Free spaces: " + parkLog._model.freeSpaces
+                    font: appSmallFont.font
+                    readOnly: true
+                    x: 10
+                    y: 6
+                }
             }
 
-            TextEdit {
-                id: headerFreeSpaces
-                text: "Free spaces: " + parkLog.model.freeSpaces
-                font: appSmallFont.font
-                readOnly: true
-                x: 10
-                y: 6
+            Rectangle {
+                id: headerLine
+                anchors.bottom: parent.bottom
+                width: parent.width
+                height: 2
+                color: appDarkLine
             }
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: {
-                    var prev = gParkMap.getOverlay(gSelectedParkId)
-                    if (prev)
-                        prev.highlight(false)
-
-                    gParkMap.getOverlay(model.parkId).highlight(true)
-                    gParkMap.centerOnAllParks()
-                    gSelectedParkId = model.parkId
-                }
+                onClicked: gSelectPark(parkLog._model.parkId)
             }
-        }
-
-        Rectangle {
-            id: headerLine
-            anchors.top: listHeader.bottom
-            anchors.topMargin: 10
-            width: parent.width
-            height: 2
-            color: appDarkLine
         }
 
         ListView {
             id: listView
-            anchors.top: headerLine.bottom
+            anchors.top: listHeader.bottom
             anchors.bottom: parent.bottom
             width: parent.width
             clip: true
-            model: parkLog.model.log
+            model: parkLog._model.log
 
             delegate: Item {
                 width: parent.width
                 height: logMessage.paintedHeight + 20
-                property var log: parkLog.model.log[index]
+                property var log: parkLog._model.log[index]
 
                 RowLayout {
                     id: modelContent

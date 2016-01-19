@@ -4,7 +4,8 @@ function getAllParkIds() {
     return [0, 1]
 }
 
-function getParkingLotModel(id) {
+function getParkingLotModel(id)
+{
     var model = {}
 
     if (id === 0) {
@@ -33,6 +34,19 @@ function getParkingLotModel(id) {
         log.push({message:"Vehicle has arrived", time:"09:22", icon:"normal"})
         log.push({message:"Vehicle has arrived", time:"09:21", icon:"normal"})
         log.push({message:"Vehicle has left", time:"09:13", icon:"normal"})
+        model.log = log
+    } else if (parkId === -1) {
+        // Create empty model
+        var model = {}
+
+        model.parkId = -1
+        model.parkName = "Waiting..."
+        model.freeSpaces = "Empty"
+        model.latitude = 49.45370
+        model.longitude = 11.07515
+
+        var log = new Array
+        log.push({message:"No log received!", time:"00:00", icon:"normal"})
         model.log = log
     }
 
