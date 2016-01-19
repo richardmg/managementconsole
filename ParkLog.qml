@@ -6,7 +6,7 @@ import "model.js" as Model
 Rectangle {
     id: parkLog
     border.width: 2
-    border.color: appDarkLine
+    border.color: gColorDarkLine
 
     property int parkId: -1
 
@@ -29,7 +29,7 @@ Rectangle {
             id: listHeader
             width: parent.width - (x * 2)
             height: headerParkName.paintedHeight + 20
-            color: gSelectedParkId === parkId ? appSelectedBg : "white"
+            color: gSelectedParkId === parkId ? gColorSelectedBg : "white"
 
             RowLayout {
                 anchors.fill: parent
@@ -39,7 +39,7 @@ Rectangle {
                 TextEdit {
                     id: headerParkName
                     text: parkLog._model.parkName
-                    font: appBigFont.font
+                    font: gFontBig.font
                     Layout.fillWidth: true
                     readOnly: true
                     x: 10
@@ -49,7 +49,7 @@ Rectangle {
                 TextEdit {
                     id: headerFreeSpaces
                     text: "Free spaces: " + parkLog._model.freeSpaces
-                    font: appSmallFont.font
+                    font: gFontSmall.font
                     readOnly: true
                     x: 10
                     y: 6
@@ -61,7 +61,7 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 width: parent.width
                 height: 2
-                color: appDarkLine
+                color: gColorDarkLine
             }
 
             MouseArea {
@@ -108,13 +108,13 @@ Rectangle {
                         id: separator1
                         width: 2
                         height: logMessage.paintedHeight
-                        color: appDarkLine
+                        color: gColorDarkLine
                     }
 
                     TextEdit {
                         id: logMessage
                         text: log.message
-                        font: appNormalFont.font
+                        font: gFontNormal.font
                         readOnly: true
                         Layout.fillWidth: true
                     }
@@ -123,13 +123,13 @@ Rectangle {
                         id: separator2
                         width: 2
                         height: logMessage.paintedHeight
-                        color: appDarkLine
+                        color: gColorDarkLine
                     }
 
                     TextEdit {
                         id: logTime
                         text: log.time
-                        font: appNormalFont.font
+                        font: gFontNormal.font
                         readOnly: true
                     }
                 }
@@ -139,7 +139,7 @@ Rectangle {
                     width: parent.width
                     height: 1
                     anchors.bottom: parent.bottom
-                    color: appLightLine
+                    color: gColorLightLine
                 }
 
             }

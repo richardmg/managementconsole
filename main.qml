@@ -13,7 +13,7 @@ Window {
     visible: true
     visibility: Window.AutomaticVisibility
 
-    // Layout guide lines
+    // App global props
 
     property int xContent1Start: 10
     property int xContent1Stop: 600
@@ -27,15 +27,13 @@ Window {
     property int yContent2Start: yContent1Start + (yContent2Stop - yContent1Start + 20) / 2
     property int yContent2Stop: height - 10
 
-    property color appDarkLine: Qt.rgba(0.3, 0.3, 0.3, 1.0)
-    property color appLightLine: Qt.rgba(0.6, 0.6, 0.6, 1.0)
-    property color appSelectedBg: Qt.rgba(0.9, 0.9, 0.9, 1.0)
+    property color gColorDarkLine: Qt.rgba(0.3, 0.3, 0.3, 1.0)
+    property color gColorLightLine: Qt.rgba(0.6, 0.6, 0.6, 1.0)
+    property color gColorSelectedBg: Qt.rgba(0.9, 0.9, 0.9, 1.0)
 
-    property FontMetrics appBigFont: FontMetrics { font.family: "verdana"; font.pixelSize: 24 }
-    property FontMetrics appNormalFont: FontMetrics { font.family: "verdana"; font.pixelSize: 18 }
-    property FontMetrics appSmallFont: FontMetrics { font.family: "verdana"; font.pixelSize: 14 }
-
-    // Global object accessors
+    property FontMetrics gFontBig: FontMetrics { font.family: "verdana"; font.pixelSize: 24 }
+    property FontMetrics gFontNormal: FontMetrics { font.family: "verdana"; font.pixelSize: 18 }
+    property FontMetrics gFontSmall: FontMetrics { font.family: "verdana"; font.pixelSize: 14 }
 
     property alias gParkMap: parkMap
     property int gSelectedParkId: -1
