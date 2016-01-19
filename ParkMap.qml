@@ -5,15 +5,41 @@ import QtQuick.Controls 1.4
 import "model.js" as Model
 
 Rectangle {
-    property ListModel parks
     property alias zoomLevel: map.zoomLevel
     property alias center: map.center
+    property bool useAnimation: true
+
+    property var _overlayList: new Array
+
+    property real _centerX
+    property real _centerY
+
+    // Map.center does not support animations by default, so we need some extra properties
+    on_CenterXChanged: map.center = QtPositioning.coordinate(_centerX, _centerY)
+    on_CenterYChanged: map.center = QtPositioning.coordinate(_centerX, _centerY)
+    Behavior on _centerX { enabled: useAnimation; NumberAnimation{ easing.type: Easing.OutCubic } }
+    Behavior on _centerY { enabled: useAnimation; NumberAnimation{ easing.type: Easing.OutCubic } }
+    Behavior on zoomLevel { enabled: useAnimation; NumberAnimation{ easing.type: Easing.OutCubic } }
+
+    function animateToCoordinate(lat, lon)
+    {
+        if (!useAnimation) {
+            center = QtPositioning.coordinate(lat, lon)
+        } else {
+            useAnimation = false
+            _centerX = center.latitude
+            _centerY = center.longitude
+            useAnimation = true
+            _centerX = lat
+            _centerY = lon
+        }
+    }
 
     function centerOnPark(id)
     {
         var park = Model.getParkingLotModel(id)
-        map.center = QtPositioning.coordinate(park.latitude, park.longitude)
-        map.zoomLevel = 20
+        animateToCoordinate(park.latitude, park.longitude)
+        zoomLevel = 18
     }
 
     function centerOnAllParks()
@@ -49,8 +75,6 @@ Rectangle {
     }
 
     //=====================================
-
-    property var _overlayList: new Array
 
     Component.onCompleted: {
         // Create overlay items for all places listed in the parks model
@@ -123,17 +147,8 @@ Rectangle {
             _overlayList[i].updateOverlay()
     }
 
-    function createNativeOverlay(coord)
-    {
-        // Map overlays from QtLocation cannot have child items (and they scale
-        // upon zoom), so we don't use them. But I leave this code section here
-        // if for nothing else than showing this comment.
-        var circle = parkingLotMapComp.createObject(map)
-        circle.center = coord
-        circle.radius = 20.0
-        circle.color = 'white'
-        circle.border.width = 1
-        map.addMapItem(circle)
+    NumberAnimation {
+        target: map
+        properties: "center"
     }
-
 }
