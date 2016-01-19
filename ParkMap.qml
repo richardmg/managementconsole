@@ -57,12 +57,12 @@ Rectangle {
 
             function highlight(highlight)
             {
-                color = highlight ? "red" : "transparent"
+                color = highlight ? "black" : "transparent"
             }
 
             Image {
                 anchors.fill: parent
-                anchors.margins: 2
+                anchors.margins: 5
                 source: "qrc:/img/parkingsign.png"
             }
 

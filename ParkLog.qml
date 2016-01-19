@@ -29,6 +29,8 @@ Rectangle {
             id: listHeader
             width: parent.width - (x * 2)
             height: headerParkName.paintedHeight + 20
+            color: gSelectedParkId === parkId ? appSelectedBg : "white"
+
             RowLayout {
                 anchors.fill: parent
                 spacing: 10

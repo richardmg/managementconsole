@@ -29,6 +29,7 @@ Window {
 
     property color appDarkLine: Qt.rgba(0.3, 0.3, 0.3, 1.0)
     property color appLightLine: Qt.rgba(0.6, 0.6, 0.6, 1.0)
+    property color appSelectedBg: Qt.rgba(0.9, 0.9, 0.9, 1.0)
 
     property FontMetrics appBigFont: FontMetrics { font.family: "verdana"; font.pixelSize: 24 }
     property FontMetrics appNormalFont: FontMetrics { font.family: "verdana"; font.pixelSize: 18 }
