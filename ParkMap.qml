@@ -6,14 +6,20 @@ import "model.js" as Model
 
 Rectangle {
     property ListModel parks
-    property int startZoomLevel: 16
-    property var startLocation: Location {
-            id: nuremberg
-            coordinate {
-                latitude: 49.45284
-                longitude: 11.07895
-            }
-        }
+    property alias zoomLevel: map.zoomLevel
+    property alias center: map.center
+
+    function centerOnPark(id)
+    {
+        var park = Model.getParkingLotModel(id)
+        map.center = QtPositioning.coordinate(park.latitude, park.longitude)
+        map.zoomLevel = 16
+    }
+
+    function centerOnAllParks()
+    {
+        map.fitViewportToMapItems()
+    }
 
     property Component overlayComponent: Component {
         Image {
@@ -27,13 +33,17 @@ Rectangle {
             {
                 var coordinate = QtPositioning.coordinate(parkModel.latitude, parkModel.longitude)
                 var pos = map.fromCoordinate(coordinate)
-                x = pos.x - (width / 2)
-                y = pos.y - (height / 2)
+                // Only be visible if overlay is inside visible map
+                visible = pos.x && pos.y
+                if (visible) {
+                    x = pos.x - (width / 2)
+                    y = pos.y - (height / 2)
+                }
             }
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: print("You clicked parking lot:", modelData.name)
+                onClicked: print("You clicked parking lot:", parkModel.parkName)
             }
         }
     }
@@ -49,9 +59,19 @@ Rectangle {
 
         for (var i = 0; i < idArray.length; ++i) {
             var parkModel = Model.getParkingLotModel(idArray[i])
+            // We create custom overlays since QtLocation overlays cannot have children
             var overlay = overlayComponent.createObject(map, { parkModel: parkModel })
             _overlayList.push(overlay)
+
+            // ... but add dummy QtLocation overlays to simplify map centering:
+            var overlay2 = Qt.createQmlObject('import QtLocation 5.3; MapCircle {}', map)
+            overlay2.center = QtPositioning.coordinate(parkModel.latitude, parkModel.longitude)
+            overlay2.radius = 100
+            overlay2.opacity = 0
+            map.addMapItem(overlay2)
         }
+
+        centerOnAllParks()
 
         // Workaround bug: map.fromCoordinate does not work unless a map is loaded.
         // And currently I cannot detect at which point that is ready.
@@ -62,12 +82,13 @@ Rectangle {
         id: map
         anchors.fill: parent
         plugin: Plugin { name: "osm" }
-        center: startLocation.coordinate
-        zoomLevel: startZoomLevel
+        zoomLevel: 16
 
         onCenterChanged: updateOverlays()
         onZoomLevelChanged: updateOverlays()
         onErrorChanged: print("error code:", error) // todo: show backup static map image
+
+//        Behavior on center { NumberAnimation { duration: 1000 } }
 
         MouseArea {
             anchors.fill: parent
@@ -80,10 +101,7 @@ Rectangle {
         Button {
             anchors.top: parent.top
             text: "Center"
-            onClicked: {
-                map.center = startLocation.coordinate
-                map.zoomLevel = startZoomLevel
-            }
+            onClicked: centerOnAllParks()
         }
     }
 
