@@ -7,6 +7,7 @@ import QtQuick.Controls 1.4
 import "model.js" as Model
 
 Window {
+    id: root
     width: 1024
     height: 600
     visible: true
@@ -37,6 +38,18 @@ Window {
 
     property alias gParkMap: parkMap
     property int gSelectedParkId: -1
+
+    signal parkModelUpdated(int parkId)
+
+    Button {
+        text: "Load data"
+        onClicked: {
+            Model.dataSource = Model.kFakeDataSource
+            parkModelUpdated(0)
+            parkModelUpdated(1)
+            gParkMap.centerOnAllParks()
+        }
+    }
 
     ParkMap {
         id: parkMap

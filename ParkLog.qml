@@ -12,6 +12,15 @@ Rectangle {
 
     property var _model: Model.getParkingLotModel(parkId)
 
+    Connections {
+        target: root
+        onParkModelUpdated: {
+            if (parkId !== parkLog.parkId)
+                return
+            _model = Model.getParkingLotModel(parkId)
+        }
+    }
+
     Item {
         anchors.fill: parent
         anchors.margins: 5

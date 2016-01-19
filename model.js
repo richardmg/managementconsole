@@ -1,10 +1,27 @@
 .pragma library
 
-function getAllParkIds() {
-    return [0, 1]
+var kNoDataSource = 0
+var kFakeDataSource = 1
+var kRemoteDataSource = 2
+
+var dataSource = kNoDataSource
+
+function createEmptyParkingLotModel(id)
+{
+    var model = {}
+
+    model.parkId = -1
+    model.emptyParkModel = true
+    model.parkName = "[Empty]"
+    model.freeSpaces = "Empty"
+    model.latitude = 0
+    model.longitude = 0
+    model.log = new Array
+
+    return model
 }
 
-function getParkingLotModel(id)
+function getFakeParkingLotModel(id)
 {
     var model = {}
 
@@ -35,21 +52,33 @@ function getParkingLotModel(id)
         log.push({message:"Vehicle has arrived", time:"09:21", icon:"normal"})
         log.push({message:"Vehicle has left", time:"09:13", icon:"normal"})
         model.log = log
-    } else if (parkId === -1) {
-        // Create empty model
-        var model = {}
-
-        model.parkId = -1
-        model.parkName = "Waiting..."
-        model.freeSpaces = "Empty"
-        model.latitude = 49.45370
-        model.longitude = 11.07515
-
-        var log = new Array
-        log.push({message:"No log received!", time:"00:00", icon:"normal"})
-        model.log = log
+    } else {
+        model = createEmptyParkingLotModel()
+        log.push({message:"Error: requested park ID does not exist: " + id, time:"00:00", icon:"error"})
     }
 
     return model
+}
+
+function getAllParkIds() {
+    if (dataSource === kNoDataSource)
+        return [0, 1]
+    else if (dataSource === kFakeDataSource)
+        return [0, 1]
+    else if (dataSource === kRemoteDataSource)
+        return [0, 1]
+}
+
+function getParkingLotModel(id)
+{
+    if (dataSource === kNoDataSource)
+        return createEmptyParkingLotModel(id)
+    else if (dataSource === kFakeDataSource)
+        return getFakeParkingLotModel(id)
+    else if (dataSource === kRemoteDataSource) {
+        model = createEmptyParkingLotModel()
+        log.push({message:"Error: kRemoveDataSource NOT YET IMPLEMENTED!", time:"00:00", icon:"error"})
+        return model
+    }
 }
 

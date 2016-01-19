@@ -75,15 +75,39 @@ Rectangle {
 
     //=====================================
 
+    Connections {
+        target: root
+        onParkModelUpdated: recreateOverlay()
+    }
+
     Component.onCompleted: {
-        // Create overlay items for all places listed in the parks model
+        recreateOverlay()
+        // Workaround bug: map.fromCoordinate does not work unless a map is loaded.
+        // And currently I cannot detect at which point that is ready.
+        delayedUpdateOverlaysTimer.start()
+        centerOnAllParks()
+    }
+
+    function recreateOverlay()
+    {
+        for (var i = 0; i < _overlayList.length; ++i) {
+            _overlayList[i].parent = null
+            _overlayList[i].destroy()
+        }
+
+        _overlayList = new Array
+        map.clearMapItems()
 
         var idArray = Model.getAllParkIds()
 
-        for (var i = 0; i < idArray.length; ++i) {
+        for (i = 0; i < idArray.length; ++i) {
             var parkModel = Model.getParkingLotModel(idArray[i])
+            if (parkModel.emptyParkModel)
+                continue
+
             // We create custom overlays since QtLocation overlays cannot have children
             var overlay = overlayComponent.createObject(map, { parkModel: parkModel })
+            overlay.updateOverlay()
             _overlayList.push(overlay)
 
             // ... but add dummy QtLocation overlays to simplify map centering:
@@ -93,12 +117,6 @@ Rectangle {
             overlay2.opacity = 0
             map.addMapItem(overlay2)
         }
-
-        centerOnAllParks()
-
-        // Workaround bug: map.fromCoordinate does not work unless a map is loaded.
-        // And currently I cannot detect at which point that is ready.
-        delayedUpdateOverlaysTimer.start()
     }
 
     Map {
