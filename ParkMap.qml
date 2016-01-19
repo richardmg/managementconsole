@@ -13,7 +13,7 @@ Rectangle {
     {
         var park = Model.getParkingLotModel(id)
         map.center = QtPositioning.coordinate(park.latitude, park.longitude)
-        map.zoomLevel = 16
+        map.zoomLevel = 20
     }
 
     function centerOnAllParks()
@@ -55,7 +55,7 @@ Rectangle {
     Component.onCompleted: {
         // Create overlay items for all places listed in the parks model
 
-        var idArray = Model.getAllParkingLotIds()
+        var idArray = Model.getAllParkIds()
 
         for (var i = 0; i < idArray.length; ++i) {
             var parkModel = Model.getParkingLotModel(idArray[i])

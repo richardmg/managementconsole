@@ -37,6 +37,11 @@ Rectangle {
                 x: 10
                 y: 6
             }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: gParkMap.centerOnPark(model.parkId)
+            }
         }
 
         Rectangle {

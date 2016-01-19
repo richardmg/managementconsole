@@ -1,13 +1,14 @@
 .pragma library
 
-function getAllParkingLotIds() {
-    return [1, 2]
+function getAllParkIds() {
+    return [0, 1]
 }
 
 function getParkingLotModel(id) {
     var model = {}
 
-    if (id === 1) {
+    if (id === 0) {
+        model.parkId = 0
         model.parkName = "Augustinerhof"
         model.freeSpaces = 6
         model.latitude = 49.45370
@@ -19,7 +20,8 @@ function getParkingLotModel(id) {
         log.push({message:"Vehicle has arrived", time:"09:28", icon:"normal"})
         log.push({message:"Vehicle has left", time:"09:02", icon:"normal"})
         model.log = log
-    } else {
+    } else if (id === 1) {
+        model.parkId = 1
         model.parkName = "Karlstadt"
         model.freeSpaces = "Full"
         model.latitude = 49.45297

@@ -33,7 +33,12 @@ Window {
     property FontMetrics appNormalFont: FontMetrics { font.family: "verdana"; font.pixelSize: 18 }
     property FontMetrics appSmallFont: FontMetrics { font.family: "verdana"; font.pixelSize: 14 }
 
+    // Global object accessors
+
+    property alias gParkMap: parkMap
+
     ParkMap {
+        id: parkMap
         x: xContent1Start
         y: yContent1Start
         width: xContent1Stop - x
@@ -46,7 +51,7 @@ Window {
         y: yContent1Start
         width: xContent2Stop - x
         height: yContent1Stop - y
-        model: Model.getParkingLotModel(1)
+        model: Model.getParkingLotModel(0)
     }
 
     ParkLog {
@@ -55,6 +60,6 @@ Window {
         y: yContent2Start
         width: xContent2Stop - x
         height: yContent2Stop - y
-        model: Model.getParkingLotModel(2)
+        model: Model.getParkingLotModel(1)
     }
 }
