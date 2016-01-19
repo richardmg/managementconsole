@@ -122,8 +122,11 @@ Rectangle {
         }
 
         Button {
-            anchors.top: parent.top
-            text: "Center"
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            width: 100
+            height: 50
+            text: "Reset"
             onClicked: centerOnAllParks()
         }
     }
