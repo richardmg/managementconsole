@@ -66,7 +66,7 @@ Rectangle {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: gSelectPark(parkLog._model.parkId)
+                onClicked: gSelectedParkId = parkLog._model.parkId
             }
         }
 

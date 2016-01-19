@@ -39,7 +39,7 @@ Rectangle {
             width: 80
             height: 80
             radius: 5
-            color: "transparent"
+            color: gSelectedParkId === parkModel.parkId ? "black" : "transparent"
 
             property var parkModel
 
@@ -55,20 +55,15 @@ Rectangle {
                 }
             }
 
-            function highlight(highlight)
-            {
-                color = highlight ? "black" : "transparent"
-            }
-
             Image {
                 anchors.fill: parent
-                anchors.margins: 5
+                anchors.margins: 3
                 source: "qrc:/img/parkingsign.png"
             }
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: print("You clicked parking lot:", parkModel.parkName)
+                onClicked: gSelectedParkId = parkModel.parkId
             }
         }
     }
