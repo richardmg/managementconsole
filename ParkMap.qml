@@ -128,25 +128,6 @@ Rectangle {
         onCenterChanged: updateOverlays()
         onZoomLevelChanged: updateOverlays()
         onErrorChanged: print("error code:", error) // todo: show backup static map image
-
-//        Behavior on center { NumberAnimation { duration: 1000 } }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                var clickedCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y));
-                print("lat:", clickedCoord.latitude, "lon:", clickedCoord.longitude, clickedCoord)
-            }
-        }
-
-        Button {
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            width: 100
-            height: 50
-            text: "Reset"
-            onClicked: centerOnAllParks()
-        }
     }
 
     Timer {
