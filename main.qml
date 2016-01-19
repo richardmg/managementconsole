@@ -42,6 +42,8 @@ Window {
 
     Button {
         text: "Load data"
+        width: 100
+        height: 50
         onClicked: {
             Model.dataSource = Model.kFakeDataSource
             parkModelUpdated(0)
