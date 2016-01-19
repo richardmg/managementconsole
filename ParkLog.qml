@@ -40,7 +40,15 @@ Rectangle {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: gParkMap.centerOnPark(model.parkId)
+                onClicked: {
+                    var prev = gParkMap.getOverlay(gSelectedParkId)
+                    if (prev)
+                        prev.highlight(false)
+
+                    gParkMap.getOverlay(model.parkId).highlight(true)
+                    gParkMap.centerOnAllParks()
+                    gSelectedParkId = model.parkId
+                }
             }
         }
 

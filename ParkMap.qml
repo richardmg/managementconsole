@@ -7,37 +7,16 @@ import "model.js" as Model
 Rectangle {
     property alias zoomLevel: map.zoomLevel
     property alias center: map.center
-    property bool useAnimation: true
+    property bool useAnimation: false
 
     property var _overlayList: new Array
 
     property real _centerX
     property real _centerY
 
-    // Map.center does not support animations by default, so we need some extra properties
-    on_CenterXChanged: map.center = QtPositioning.coordinate(_centerX, _centerY)
-    on_CenterYChanged: map.center = QtPositioning.coordinate(_centerX, _centerY)
-    Behavior on _centerX { enabled: useAnimation; NumberAnimation{ easing.type: Easing.OutCubic } }
-    Behavior on _centerY { enabled: useAnimation; NumberAnimation{ easing.type: Easing.OutCubic } }
-    Behavior on zoomLevel { enabled: useAnimation; NumberAnimation{ easing.type: Easing.OutCubic } }
-
-    function animateToCoordinate(lat, lon)
+    function centerOnPark(parkId)
     {
-        if (!useAnimation) {
-            center = QtPositioning.coordinate(lat, lon)
-        } else {
-            useAnimation = false
-            _centerX = center.latitude
-            _centerY = center.longitude
-            useAnimation = true
-            _centerX = lat
-            _centerY = lon
-        }
-    }
-
-    function centerOnPark(id)
-    {
-        var park = Model.getParkingLotModel(id)
+        var park = Model.getParkingLotModel(parkId)
         animateToCoordinate(park.latitude, park.longitude)
         zoomLevel = 18
     }
@@ -47,11 +26,20 @@ Rectangle {
         map.fitViewportToMapItems()
     }
 
+    function getOverlay(parkId)
+    {
+        for (var i = 0; i < _overlayList.length; ++i)
+            if (_overlayList[i].parkModel.parkId === parkId)
+                return _overlayList[i]
+        return null
+    }
+
     property Component overlayComponent: Component {
-        Image {
+        Rectangle {
             width: 80
             height: 80
-            source: "qrc:/img/parkingsign.png"
+            radius: 5
+            color: "transparent"
 
             property var parkModel
 
@@ -65,6 +53,17 @@ Rectangle {
                     x = pos.x - (width / 2)
                     y = pos.y - (height / 2)
                 }
+            }
+
+            function highlight(highlight)
+            {
+                color = highlight ? "red" : "transparent"
+            }
+
+            Image {
+                anchors.fill: parent
+                anchors.margins: 2
+                source: "qrc:/img/parkingsign.png"
             }
 
             MouseArea {
@@ -147,8 +146,25 @@ Rectangle {
             _overlayList[i].updateOverlay()
     }
 
-    NumberAnimation {
-        target: map
-        properties: "center"
+    // Experimental
+    // Map.center does not support animations by default, so we need some extra properties
+    on_CenterXChanged: map.center = QtPositioning.coordinate(_centerX, _centerY)
+    on_CenterYChanged: map.center = QtPositioning.coordinate(_centerX, _centerY)
+    Behavior on _centerX { enabled: useAnimation; NumberAnimation{ easing.type: Easing.OutCubic } }
+    Behavior on _centerY { enabled: useAnimation; NumberAnimation{ easing.type: Easing.OutCubic } }
+    Behavior on zoomLevel { enabled: useAnimation; NumberAnimation{ easing.type: Easing.OutCubic } }
+
+    function animateToCoordinate(lat, lon)
+    {
+        if (!useAnimation) {
+            center = QtPositioning.coordinate(lat, lon)
+        } else {
+            useAnimation = false
+            _centerX = center.latitude
+            _centerY = center.longitude
+            useAnimation = true
+            _centerX = lat
+            _centerY = lon
+        }
     }
 }

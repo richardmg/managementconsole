@@ -36,6 +36,7 @@ Window {
     // Global object accessors
 
     property alias gParkMap: parkMap
+    property int gSelectedParkId: -1
 
     ParkMap {
         id: parkMap
