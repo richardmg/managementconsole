@@ -11,13 +11,10 @@ Rectangle {
 
     property var _overlayList: new Array
 
-    property real _centerX
-    property real _centerY
-
     function centerOnPark(parkId)
     {
         var park = Model.getParkingLotModel(parkId)
-        animateToCoordinate(park.latitude, park.longitude)
+        moveToLatLon(park.latitude, park.longitude)
         zoomLevel = 18
     }
 
@@ -145,13 +142,15 @@ Rectangle {
 
     // Experimental
     // Map.center does not support animations by default, so we need some extra properties
+    property real _centerX
+    property real _centerY
     on_CenterXChanged: map.center = QtPositioning.coordinate(_centerX, _centerY)
     on_CenterYChanged: map.center = QtPositioning.coordinate(_centerX, _centerY)
     Behavior on _centerX { enabled: useAnimation; NumberAnimation{ easing.type: Easing.OutCubic } }
     Behavior on _centerY { enabled: useAnimation; NumberAnimation{ easing.type: Easing.OutCubic } }
     Behavior on zoomLevel { enabled: useAnimation; NumberAnimation{ easing.type: Easing.OutCubic } }
 
-    function animateToCoordinate(lat, lon)
+    function moveToLatLon(lat, lon)
     {
         if (!useAnimation) {
             center = QtPositioning.coordinate(lat, lon)
