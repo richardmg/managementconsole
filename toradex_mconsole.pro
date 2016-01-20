@@ -12,7 +12,7 @@ SOURCES += main.cpp
 OTHER_FILES += \
     main.qml
 
-target.path = /home/root/apps/$$TARGET
+target.path = /home/app/apps/$$TARGET
 INSTALLS += target
 
 DISTFILES += \

@@ -36,7 +36,7 @@ Rectangle {
             width: 80
             height: 80
             radius: 5
-            color: gSelectedParkId === parkModel.parkId ? "black" : "transparent"
+            color: app.mainView.selectedParkId === parkModel.parkId ? "black" : "transparent"
 
             property var parkModel
 
@@ -60,7 +60,7 @@ Rectangle {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: gSelectedParkId = parkModel.parkId
+                onClicked: app.mainView.selectedParkId = parkModel.parkId
             }
         }
     }
@@ -68,7 +68,7 @@ Rectangle {
     //=====================================
 
     Connections {
-        target: root
+        target: app
         onParkModelUpdated: recreateOverlay()
     }
 

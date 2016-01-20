@@ -13,7 +13,7 @@ Rectangle {
     property var _model: Model.getParkingLotModel(parkId)
 
     Connections {
-        target: root
+        target: app
         onParkModelUpdated: {
             if (parkId !== parkLog.parkId)
                 return
@@ -29,7 +29,7 @@ Rectangle {
             id: listHeader
             width: parent.width - (x * 2)
             height: headerParkName.paintedHeight + 20
-            color: gSelectedParkId === parkId ? gColorSelectedBg : "white"
+            color: app.mainView.selectedParkId === parkId ? gColorSelectedBg : "white"
 
             RowLayout {
                 anchors.fill: parent
@@ -67,8 +67,8 @@ Rectangle {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    gSelectedParkId = parkLog._model.parkId
-                    gParkMap.centerOnAllParks()
+                    app.mainView.selectedParkId = parkLog._model.parkId
+                    app.mainView.parkMap.centerOnAllParks()
                 }
             }
         }
