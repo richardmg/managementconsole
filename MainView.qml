@@ -10,42 +10,35 @@ Item {
     property alias parkMap: parkMap
     property int selectedParkId: -1
 
-    property real splitX: 0.5
-    property real splitY: 0.6
+    property real margin: 10
+    property real splitX: 0.6
+    property real splitY: 0.5
 
     ParkMap {
         id: parkMap
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        width: parent.width * splitY
+        width: parent.width * splitX
     }
 
     ParkLog {
         id: parkA
         anchors.top: parent.top
-        anchors.bottom: spacing.top
         anchors.left: parkMap.right
+        anchors.leftMargin: margin
         anchors.right: parent.right
-        anchors.margins: 10
-        anchors.topMargin: 0
+        height: parent.height * splitY
         parkId: 0
-    }
-
-    Item {
-        id: spacing
-        width: 10
-        height: 10
-        y: (parent.height - height) * splitX
     }
 
     ParkLog {
         id: parkB
-        anchors.top: spacing.bottom
+        anchors.top: parkA.bottom
+        anchors.topMargin: margin
         anchors.bottom: parent.bottom
         anchors.left: parkMap.right
+        anchors.leftMargin: margin
         anchors.right: parent.right
-        anchors.margins: 10
-        anchors.bottomMargin: 0
         parkId: 1
     }
 }
