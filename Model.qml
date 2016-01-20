@@ -30,7 +30,8 @@ QtObject {
             return getFakeParkingLotModel(id)
         else if (dataSource === kRemoteDataSource) {
             var model = createEmptyParkingLotModel()
-            model.log.push({message:"Error: kRemoveDataSource NOT YET IMPLEMENTED!", time:"00:00", icon:"error"})
+            model.log.push({message:"Server mode", time:"00:01", icon:"error"})
+            model.log.push({message:"not implemented!", time:"00:00", icon:"error"})
             return model
         }
     }
