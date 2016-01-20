@@ -23,6 +23,9 @@ Window {
     property FontMetrics fontNormal: FontMetrics { font.family: "verdana"; font.pixelSize: 18 }
     property FontMetrics fontSmall: FontMetrics { font.family: "verdana"; font.pixelSize: 14 }
 
+    property real margin: 10
+    property real spacing: 10
+
     // Global API:
 
     property alias mainView: mainView
@@ -43,7 +46,7 @@ Window {
     MainView {
         id: mainView
         anchors.fill: parent
-        anchors.margins: 10
+        anchors.margins: margin
         anchors.topMargin: 100
     }
 }
