@@ -8,8 +8,6 @@ Rectangle {
     property alias center: map.center
     property bool useAnimation: false
 
-    property var _overlayList: new Array
-
     function centerOnPark(parkId)
     {
         var park = app.model.getParkingLotModel(parkId)
@@ -20,13 +18,15 @@ Rectangle {
     function centerOnAllParks()
     {
         map.fitViewportToMapItems()
+        if (mapNotReady())
+            centerOnAllParksWhenMapReadyTimer.restart()
     }
 
     function getOverlay(parkId)
     {
-        for (var i = 0; i < _overlayList.length; ++i)
-            if (_overlayList[i].parkModel.parkId === parkId)
-                return _overlayList[i]
+        for (var i = 0; i < map.mapItems.length; ++i)
+            if (map.mapItems[i].parkModel.parkId === parkId)
+                return _map.mapItems[i].overlay
         return null
     }
 
@@ -38,18 +38,6 @@ Rectangle {
             color: app.mainView.selectedParkId === parkModel.parkId ? "black" : "transparent"
 
             property var parkModel
-
-            function updateOverlay()
-            {
-                var coordinate = QtPositioning.coordinate(parkModel.latitude, parkModel.longitude)
-                var pos = map.fromCoordinate(coordinate)
-                // Only be visible if overlay is inside visible map
-                visible = pos.x && pos.y
-                if (visible) {
-                    x = pos.x - (width / 2)
-                    y = pos.y - (height / 2)
-                }
-            }
 
             Image {
                 anchors.fill: parent
@@ -68,28 +56,71 @@ Rectangle {
 
     Connections {
         target: app.model
-        onParkModelUpdated: {
-            recreateOverlay()
-        }
+        onParkModelUpdated: recreateOverlay()
     }
 
     Component.onCompleted: {
         recreateOverlay()
-        // Workaround bug: map.fromCoordinate does not work unless a map is loaded.
-        // And currently I cannot detect at which point that is ready.
-        delayedUpdateOverlaysTimer.start()
         centerOnAllParks()
+    }
+
+    function mapNotReady()
+    {
+        return map.zoomLevel === 0 && Math.round(map.center.longitude) === 0
+    }
+
+    Timer {
+        id: centerOnAllParksWhenMapReadyTimer
+        interval: 100
+        onTriggered: {
+            // Calling fitViewportToMapItems before the map is ready will not cause
+            // it to change. And there seems to be no way to check for that condition.
+            // So we need to poll...
+            map.fitViewportToMapItems()
+            if (mapNotReady())
+                centerOnAllParksWhenMapReadyTimer.restart()
+            else
+                centerOnAllParks()
+        }
+    }
+
+    Component {
+        id: overlayProxyComp
+        // MapCircle cannot have children. For that reason, since our overlays need to
+        // be styled, we need to create a proxy overlay like this that just forwards
+        // its own position to an item placed as a child of the map
+        MapCircle {
+            center: QtPositioning.coordinate(parkModel.latitude, parkModel.longitude)
+            radius: 100
+            opacity: 0
+
+            property var parkModel
+            property Item overlay
+
+            Component.onCompleted: {
+                overlay = overlayComponent.createObject(map, { parkModel: parkModel })
+                overlay.x = Qt.binding(function() { return x + (width - overlay.width) / 2 })
+                overlay.y = Qt.binding(function() { return y + (height - overlay.height) / 2 })
+            }
+
+            function destroyOverlay()
+            {
+                overlay.parent = null
+                overlay.destroy()
+            }
+        }
     }
 
     function recreateOverlay()
     {
-        for (var i = 0; i < _overlayList.length; ++i) {
-            _overlayList[i].parent = null
-            _overlayList[i].destroy()
-        }
-
-        _overlayList = new Array
+        var mapItems = map.mapItems
         map.clearMapItems()
+
+        for (var i = 0; i < mapItems.length; ++i) {
+            var mapItem = mapItems[i]
+            mapItem.destroyOverlay()
+            mapItem.destroy()
+        }
 
         var idArray = app.model.getAllParkIds()
 
@@ -98,17 +129,8 @@ Rectangle {
             if (parkModel.isEmpty)
                 continue
 
-            // We create custom overlays since QtLocation overlays cannot have children
-            var overlay = overlayComponent.createObject(map, { parkModel: parkModel })
-            overlay.updateOverlay()
-            _overlayList.push(overlay)
-
-            // ... but add dummy QtLocation overlays to simplify map centering:
-            var overlay2 = Qt.createQmlObject('import QtLocation 5.3; MapCircle {}', map)
-            overlay2.center = QtPositioning.coordinate(parkModel.latitude, parkModel.longitude)
-            overlay2.radius = 100
-            overlay2.opacity = 0
-            map.addMapItem(overlay2)
+            var overlay = overlayProxyComp.createObject(map, { parkModel: parkModel })
+            map.addMapItem(overlay)
         }
     }
 
@@ -117,28 +139,10 @@ Rectangle {
         anchors.fill: parent
         plugin: Plugin { name: "osm" }
         zoomLevel: 16
-
-        onCenterChanged: updateOverlays()
-        onZoomLevelChanged: updateOverlays()
-        onErrorChanged: print("error code:", error) // todo: show backup static map image
-    }
-
-    Timer {
-        id: delayedUpdateOverlaysTimer
-        interval: 100
-        onTriggered: updateOverlays()
-    }
-
-    function updateOverlays()
-    {
-        if (!_overlayList) {
-            // Work-around Map wrongly emits signals (onCenterChanged) before it's
-            // completed, which makes us access variables (_overlayList) that is not yet ready.
-            return
+        onErrorChanged: {
+            print("Map error code:", error)
+            // todo: show backup static map image
         }
-
-        for (var i = 0; i < _overlayList.length; ++i)
-            _overlayList[i].updateOverlay()
     }
 
     // Experimental
