@@ -79,8 +79,6 @@ Rectangle {
             map.fitViewportToMapItems()
             if (mapNotReady())
                 centerOnAllParksWhenMapReadyTimer.restart()
-            else
-                centerOnAllParks()
         }
     }
 
