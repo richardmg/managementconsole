@@ -13,16 +13,19 @@ Window {
     visible: true
     visibility: Window.AutomaticVisibility
 
-    property color gColorDarkLine: Qt.rgba(0.3, 0.3, 0.3, 1.0)
-    property color gColorLightLine: Qt.rgba(0.6, 0.6, 0.6, 1.0)
-    property color gColorSelectedBg: Qt.rgba(0.9, 0.9, 0.9, 1.0)
+    // Style props:
 
-    property FontMetrics gFontBig: FontMetrics { font.family: "verdana"; font.pixelSize: 24 }
-    property FontMetrics gFontNormal: FontMetrics { font.family: "verdana"; font.pixelSize: 18 }
-    property FontMetrics gFontSmall: FontMetrics { font.family: "verdana"; font.pixelSize: 14 }
+    property color colorDarkLine: Qt.rgba(0.3, 0.3, 0.3, 1.0)
+    property color colorLightLine: Qt.rgba(0.6, 0.6, 0.6, 1.0)
+    property color colorSelectedBg: Qt.rgba(0.9, 0.9, 0.9, 1.0)
+
+    property FontMetrics fontBig: FontMetrics { font.family: "verdana"; font.pixelSize: 24 }
+    property FontMetrics fontNormal: FontMetrics { font.family: "verdana"; font.pixelSize: 18 }
+    property FontMetrics fontSmall: FontMetrics { font.family: "verdana"; font.pixelSize: 14 }
+
+    // Global API:
 
     property alias mainView: mainView
-
     signal parkModelUpdated(int parkId)
 
     Button {
