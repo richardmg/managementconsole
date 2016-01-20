@@ -1,8 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
 
-import "model.js" as Model
-
 Rectangle {
     id: parkLog
     border.width: 2
@@ -10,14 +8,14 @@ Rectangle {
 
     property int parkId: -1
 
-    property var _model: Model.getParkingLotModel(parkId)
+    property var _model: app.model.getParkingLotModel(parkId)
 
     Connections {
-        target: app
+        target: app.model
         onParkModelUpdated: {
             if (parkId !== parkLog.parkId)
                 return
-            _model = Model.getParkingLotModel(parkId)
+            _model = app.model.getParkingLotModel(parkId)
         }
     }
 

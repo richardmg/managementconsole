@@ -2,7 +2,6 @@ import QtQuick 2.1
 import QtLocation 5.5
 import QtPositioning 5.5
 import QtQuick.Controls 1.4
-import "model.js" as Model
 
 Rectangle {
     property alias zoomLevel: map.zoomLevel
@@ -13,7 +12,7 @@ Rectangle {
 
     function centerOnPark(parkId)
     {
-        var park = Model.getParkingLotModel(parkId)
+        var park = app.model.getParkingLotModel(parkId)
         moveToLatLon(park.latitude, park.longitude)
         zoomLevel = 18
     }
@@ -68,8 +67,10 @@ Rectangle {
     //=====================================
 
     Connections {
-        target: app
-        onParkModelUpdated: recreateOverlay()
+        target: app.model
+        onParkModelUpdated: {
+            recreateOverlay()
+        }
     }
 
     Component.onCompleted: {
@@ -90,11 +91,11 @@ Rectangle {
         _overlayList = new Array
         map.clearMapItems()
 
-        var idArray = Model.getAllParkIds()
+        var idArray = app.model.getAllParkIds()
 
         for (i = 0; i < idArray.length; ++i) {
-            var parkModel = Model.getParkingLotModel(idArray[i])
-            if (parkModel.emptyParkModel)
+            var parkModel = app.model.getParkingLotModel(idArray[i])
+            if (parkModel.isEmpty)
                 continue
 
             // We create custom overlays since QtLocation overlays cannot have children

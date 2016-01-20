@@ -4,8 +4,6 @@ import QtLocation 5.5
 import QtPositioning 5.5
 import QtQuick.Controls 1.4
 
-import "model.js" as Model
-
 Window {
     id: app
     width: 1024
@@ -28,25 +26,28 @@ Window {
 
     // Global API:
 
+    property Model model: Model{}
+    property TopView currentView: mainView
     property alias mainView: mainView
-    signal parkModelUpdated(int parkId)
 
     Button {
-        text: "Load data"
-        width: 100
-        height: 50
-        onClicked: {
-            Model.dataSource = Model.kFakeDataSource
-            parkModelUpdated(0)
-            parkModelUpdated(1)
-            mainView.parkMap.centerOnAllParks()
+        anchors.right: parent.right
+        text: "Settings"
+        onClicked: currentView = settingsView
+    }
+
+    Row {
+        Button {
+            text: "MainView"
+            onClicked: currentView = mainView
         }
     }
 
     MainView {
         id: mainView
-        anchors.fill: parent
-        anchors.margins: margin
-        anchors.topMargin: 100
+    }
+
+    Settings {
+        id: settingsView
     }
 }

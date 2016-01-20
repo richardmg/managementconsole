@@ -3,8 +3,10 @@
         <file>main.qml</file>
         <file>img/parkingsign.png</file>
         <file>ParkMap.qml</file>
-        <file>model.js</file>
+        <file>Model.qml</file>
         <file>ParkLog.qml</file>
         <file>MainView.qml</file>
+        <file>Settings.qml</file>
+        <file>TopView.qml</file>
     </qresource>
 </RCC>
