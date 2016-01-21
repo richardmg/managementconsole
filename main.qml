@@ -29,6 +29,7 @@ Window {
     property Model model: Model{}
     property TopView currentView: mainView
     property alias mainView: mainView
+    property alias settingsView: settingsView
 
     Button {
         anchors.right: parent.right

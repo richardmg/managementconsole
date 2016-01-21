@@ -1,9 +1,10 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.2
+import QtWebSockets 1.0
 
 TopView {
-    id: top
+    id: topo
 
     //=====================================
     // Sync data source with model
@@ -34,25 +35,56 @@ TopView {
         }
     }
 
+    Component.onCompleted: {
+        app.model.webSocket.url = remoteConnectionUrl.text
+    }
+
     //=====================================
 
     GridLayout {
-        columns: 2
+        columns: 1
 
-        RadioButton {
-            id: remoteSource
-            text: "URL"
-            checked: app.model.dataSource === app.model.kFakeRemoteSource
-            exclusiveGroup: dataSourceGroup
-        }
-        TextField {
-            placeholderText: "url"
+        GridLayout {
+            RadioButton {
+                id: remoteSource
+                text: "Remote server:"
+                checked: app.model.dataSource === app.model.kFakeRemoteSource
+                exclusiveGroup: dataSourceGroup
+            }
+
+            TextField {
+                id: remoteConnectionUrl
+                Layout.preferredWidth: 300
+                text: "wss://echo.websocket.org"
+                onAccepted: app.model.webSocket.url = text
+            }
+
+            Rectangle {
+                id: remoteConnectionStatusIndicator
+                width: 10
+                height: width
+                radius: width
+                color: "gray"
+
+                Connections {
+                    target: app.model.webSocket
+                    onStatusChanged: {
+                        if (status === WebSocket.Connecting)
+                            remoteConnectionStatusIndicator.color = "yellow"
+                        else if (status === WebSocket.Open)
+                            remoteConnectionStatusIndicator.color = "green"
+                        else if (status === WebSocket.Closed)
+                            remoteConnectionStatusIndicator.color = "gray"
+                        else if (status === WebSocket.Error)
+                            remoteConnectionStatusIndicator.color = "red"
+                    }
+                }
+            }
         }
 
         RadioButton {
             id: offlineSource
             text: "Use offline data"
-            Layout.columnSpan: 2
             checked: app.model.dataSource === app.model.kFakeDataSource
             exclusiveGroup: dataSourceGroup
         }
@@ -62,14 +94,12 @@ TopView {
             text: "Use no data"
             checked: app.model.dataSource === app.model.kNoDataSource
             exclusiveGroup: dataSourceGroup
-            Layout.columnSpan: 2
         }
 
-        Rectangle { width: 10; height: 10; color:"transparent"; Layout.columnSpan: 2 }
+        Rectangle { width: 10; height: 10; color:"transparent"; }
 
         CheckBox {
             text: "Use offline map"
-            Layout.rowSpan: 2
             onCheckedChanged: {
                 app.model.dataSource = app.model.kFakeDataSource
                 app.mainView.parkMap.centerOnAllParks()

@@ -1,7 +1,7 @@
 import QtQuick 2.4
 import QtWebSockets 1.0
 
-QtObject {
+Item {
     readonly property int kNoDataSource: 0
     readonly property int kFakeDataSource: 1
     readonly property int kRemoteDataSource: 2
@@ -13,6 +13,8 @@ QtObject {
         parkModelUpdated(0)
         parkModelUpdated(1)
     }
+
+    property alias webSocket: webSocket
 
     function getAllParkIds() {
         if (dataSource === kNoDataSource)
@@ -95,4 +97,22 @@ QtObject {
 
         return model
     }
+
+    Component.onCompleted: dumpModel()
+    function dumpModel()
+    {
+        print(JSON.stringify(getFakeParkingLotModel(0, 0, '\t')))
+    }
+
+    // Move this into separate component?
+
+    WebSocket {
+        id: webSocket
+        active: dataSource == kRemoteDataSource
+
+        onTextMessageReceived: {
+            print("Received message:", message)
+        }
+    }
+
 }
