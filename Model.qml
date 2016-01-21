@@ -98,11 +98,11 @@ Item {
         return model
     }
 
-    Component.onCompleted: dumpModel()
-    function dumpModel()
-    {
-        print(JSON.stringify(getFakeParkingLotModel(0, 0, '\t')))
-    }
+//    Component.onCompleted: dumpModel()
+//    function dumpModel()
+//    {
+//        print(JSON.stringify(getFakeParkingLotModel(0, 0, '\t')))
+//    }
 
     // Move this into separate component?
 

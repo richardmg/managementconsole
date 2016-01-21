@@ -5,6 +5,8 @@ Rectangle {
     anchors.fill: parent
     anchors.margins: margin
     anchors.topMargin: 100
+    anchors.rightMargin: app.contentLeftMargin
+    anchors.leftMargin: app.contentLeftMargin
     visible: app.currentView == root
 }
 

@@ -8,5 +8,8 @@
         <file>MainView.qml</file>
         <file>Settings.qml</file>
         <file>TopView.qml</file>
+        <file>MainToolbar.qml</file>
+        <file>MainToolbarButton.qml</file>
+        <file>ParkDetailsPage.qml</file>
     </qresource>
 </RCC>

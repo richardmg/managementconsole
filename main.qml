@@ -15,7 +15,8 @@ Window {
 
     property color colorDarkLine: Qt.rgba(0.3, 0.3, 0.3, 1.0)
     property color colorLightLine: Qt.rgba(0.6, 0.6, 0.6, 1.0)
-    property color colorSelectedBg: Qt.rgba(0.9, 0.9, 0.9, 1.0)
+    property color colorDarkBg: "#646464"
+    property color colorSelectedBg: "#e45000"
 
     property FontMetrics fontBig: FontMetrics { font.family: "verdana"; font.pixelSize: 24 }
     property FontMetrics fontNormal: FontMetrics { font.family: "verdana"; font.pixelSize: 18 }
@@ -23,32 +24,33 @@ Window {
 
     property real margin: 10
     property real spacing: 10
+    property real contentLeftMargin: 50
 
     // Global API:
 
     property Model model: Model{}
-    property TopView currentView: mainView
-    property alias mainView: mainView
-    property alias settingsView: settingsView
+    property TopView currentView: mainPage
+    property alias mainView: mainPage
+    property alias park0DetailsView: park0DetailsPage
+    property alias park1DetailsView: park1DetailsPage
+    property alias settingsView: settingsPage
 
-    Button {
-        anchors.right: parent.right
-        text: "Settings"
-        onClicked: currentView = settingsView
-    }
-
-    Row {
-        Button {
-            text: "MainView"
-            onClicked: currentView = mainView
-        }
+    MainToolbar {
     }
 
     MainView {
-        id: mainView
+        id: mainPage
+    }
+
+    ParkDetailsPage {
+        id: park0DetailsPage
+    }
+
+    ParkDetailsPage {
+        id: park1DetailsPage
     }
 
     Settings {
-        id: settingsView
+        id: settingsPage
     }
 }
