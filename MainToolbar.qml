@@ -21,6 +21,13 @@ Rectangle {
     }
 
     Rectangle {
+        height: 7
+        width: parent.width
+        anchors.bottom: parent.bottom
+        color: app.colorSelectedBg
+    }
+
+    Rectangle {
         id: selectedBg
         width: mainViewButton.width + (toolbar.spacing * 2)
         height: parent.height
