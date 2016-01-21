@@ -89,8 +89,7 @@ Rectangle {
         // its own position to an item placed as a child of the map
         MapCircle {
             center: QtPositioning.coordinate(parkModel.latitude, parkModel.longitude)
-            radius: 1//00
-            opacity: 0
+            radius: 1
 
             property var parkModel
             property Item overlay

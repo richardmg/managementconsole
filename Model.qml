@@ -1,4 +1,5 @@
 import QtQuick 2.4
+import QtWebSockets 1.0
 
 QtObject {
     readonly property int kNoDataSource: 0
@@ -43,9 +44,10 @@ QtObject {
         model.parkId = -1
         model.isEmpty = true
         model.parkName = "[Empty]"
-        model.freeSpaces = "Empty"
         model.latitude = 0
         model.longitude = 0
+        model.spaceCapacity = 0
+        model.spacesOccupied = []
         model.log = new Array
 
         return model
@@ -58,6 +60,8 @@ QtObject {
         if (id === 0) {
             model.parkId = 0
             model.parkName = "Augustinerhof"
+            model.spaceCapacity = 8
+            model.spacesOccupied = [0, 1, 2, 3]
             model.freeSpaces = 6
             model.latitude = 49.45370
             model.longitude = 11.07515
@@ -71,6 +75,8 @@ QtObject {
         } else if (id === 1) {
             model.parkId = 1
             model.parkName = "Karlstadt"
+            model.spaceCapacity = 8
+            model.spacesOccupied = [3, 4, 6]
             model.freeSpaces = "Full"
             model.latitude = 49.45297
             model.longitude = 11.08270

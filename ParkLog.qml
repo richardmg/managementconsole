@@ -46,7 +46,7 @@ Rectangle {
 
                 TextEdit {
                     id: headerFreeSpaces
-                    text: "Free spaces: " + parkLog._model.freeSpaces
+                    text: "Free spaces: " + (parkLog._model.spaceCapacity - parkLog._model.spacesOccupied.length)
                     font: app.fontSmall.font
                     readOnly: true
                     x: 10
