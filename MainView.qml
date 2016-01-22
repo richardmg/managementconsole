@@ -11,7 +11,7 @@ TopView {
 
     SplitView {
         anchors.fill: parent
-        handleDelegate: Item { width: app.spacing }
+        handleDelegate: Item { width: app.spacingHor }
 
         ParkMap {
             id: parkMap
@@ -20,12 +20,12 @@ TopView {
 
         SplitView {
             orientation: Qt.Vertical
-            handleDelegate: Item { height: app.spacing }
+            handleDelegate: Item { height: app.spacingVer }
             width: 400
 
             ParkLog {
                 id: parkA
-                height: parent.height / 2
+                height: (parent.height - app.spacingVer) / 2
                 parkId: 0
             }
 

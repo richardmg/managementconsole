@@ -1,10 +1,8 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
 
-Rectangle {
+Item {
     id: parkLog
-    border.width: 2
-    border.color: app.colorDarkLine
 
     property int parkId: -1
 
@@ -23,10 +21,10 @@ Rectangle {
         anchors.fill: parent
         anchors.margins: 5
 
-        Rectangle {
+        Item {
             id: listHeader
             width: parent.width - (x * 2)
-            height: headerParkName.paintedHeight + 20
+            height: headerParkName.paintedHeight + 40
 
             RowLayout {
                 anchors.fill: parent
@@ -63,7 +61,7 @@ Rectangle {
                 id: headerLine
                 anchors.bottom: parent.bottom
                 width: parent.width
-                height: 2
+                height: 1
                 color: app.colorDarkLine
             }
 
@@ -110,26 +108,12 @@ Rectangle {
                         }
                     }
 
-                    Rectangle {
-                        id: separator1
-                        width: 2
-                        height: logMessage.paintedHeight
-                        color: app.colorDarkLine
-                    }
-
                     TextEdit {
                         id: logMessage
                         text: log.message
                         font: app.fontNormal.font
                         readOnly: true
                         Layout.fillWidth: true
-                    }
-
-                    Rectangle {
-                        id: separator2
-                        width: 2
-                        height: logMessage.paintedHeight
-                        color: app.colorDarkLine
                     }
 
                     TextEdit {

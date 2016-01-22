@@ -18,12 +18,13 @@ Window {
     property color colorDarkBg: "#646464"
     property color colorSelectedBg: "#e45000"
 
-    property FontMetrics fontBig: FontMetrics { font.family: "verdana"; font.pixelSize: 24 }
-    property FontMetrics fontNormal: FontMetrics { font.family: "verdana"; font.pixelSize: 18 }
+    property FontMetrics fontBig: FontMetrics { font.family: "arial"; font.pixelSize: 20 }
+    property FontMetrics fontNormal: FontMetrics { font.family: "arial"; font.pixelSize: 15 }
     property FontMetrics fontSmall: FontMetrics { font.family: "verdana"; font.pixelSize: 14 }
 
     property real margin: 10
-    property real spacing: 10
+    property real spacingHor: 40
+    property real spacingVer: 20
     property real contentLeftMargin: 50
 
     // Global API:
