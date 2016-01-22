@@ -31,17 +31,25 @@ Rectangle {
     }
 
     property Component overlayComponent: Component {
-        Rectangle {
-            width: 80
-            height: 80
-            radius: 5
-            color: app.mainView.selectedParkId === parkModel.parkId ? "black" : "transparent"
+        Item {
+            width: 150
+            height: 280
 
             property var parkModel
 
+            Rectangle {
+                width: parent.width
+                height: 100
+                radius: 5
+                border.width: 3
+                border.color: app.mainView.selectedParkId === parkModel.parkId ? app.colorSelectedBg : "transparent"
+            }
+
             Image {
-                anchors.fill: parent
-                anchors.margins: 3
+                width: 30
+                height: 30
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: (parent.height / 2) - height
                 source: "qrc:/img/parkingsign.png"
             }
 

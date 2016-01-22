@@ -21,7 +21,7 @@ TopView {
         SplitView {
             orientation: Qt.Vertical
             handleDelegate: Item { height: app.spacingVer }
-            width: 400
+            width: 320
 
             ParkLog {
                 id: parkA
