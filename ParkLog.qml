@@ -43,7 +43,7 @@ Item {
 
                 TextEdit {
                     id: headerFreeSpaces
-                    text: "Free spaces: " + (parkLog._model.spaceCapacity - parkLog._model.spacesOccupied.length)
+                    text: ((parkLog._model.spacesOccupied.length / parkLog._model.spaceCapacity).toFixed(1) * 100) + "%"
                     font: app.fontSmall.font
                     readOnly: true
                     x: 10
