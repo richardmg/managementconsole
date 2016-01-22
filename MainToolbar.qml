@@ -18,6 +18,10 @@ Rectangle {
                 selectedBg.width = button.width + (toolbar.spacing * 2)
             }
         }
+        if (app.currentView === app.settingsView) {
+            selectedBg.x = toolbar.mapFromItem(settingsButton, 0, 0).x - toolbar.spacing
+            selectedBg.width = settingsButton.width + (toolbar.spacing * 2)
+        }
     }
 
     Rectangle {
@@ -72,11 +76,12 @@ Rectangle {
             text: "Karlstadt Park"
             contentView: app.park1DetailsView
         }
-        MainToolbarButton {
-            id: settingsButton
-            text: "Settings"
-            contentView: app.settingsView
-        }
+    }
+    MainToolbarButton {
+        id: settingsButton
+        text: "Settings"
+        contentView: app.settingsView
+        anchors.right: parent.right
     }
 
 //    Button {

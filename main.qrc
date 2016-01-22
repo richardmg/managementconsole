@@ -11,5 +11,7 @@
         <file>MainToolbar.qml</file>
         <file>MainToolbarButton.qml</file>
         <file>ParkDetailsPage.qml</file>
+        <file>img/locationindicator_off.png</file>
+        <file>img/locationindicator_on.png</file>
     </qresource>
 </RCC>

@@ -27,7 +27,6 @@ Rectangle {
             id: listHeader
             width: parent.width - (x * 2)
             height: headerParkName.paintedHeight + 20
-            color: app.mainView.selectedParkId === parkId ? app.colorSelectedBg : "white"
 
             RowLayout {
                 anchors.fill: parent
@@ -51,6 +50,12 @@ Rectangle {
                     readOnly: true
                     x: 10
                     y: 6
+                }
+
+                Image {
+                    source: app.mainView.selectedParkId === parkId ?
+                                "qrc:/img/locationindicator_on.png" :
+                                "qrc:/img/locationindicator_off.png"
                 }
             }
 
