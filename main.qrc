@@ -13,5 +13,6 @@
         <file>ParkDetailsPage.qml</file>
         <file>img/locationindicator_off.png</file>
         <file>img/locationindicator_on.png</file>
+        <file>img/logcar.png</file>
     </qresource>
 </RCC>

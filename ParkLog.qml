@@ -99,12 +99,9 @@ Item {
                         id: logIcon
                         width: 40
                         height: 20
-                        Rectangle {
-                            width: logMessage.paintedHeight
-                            height: width
-                            radius: width
+                        Image {
                             anchors.centerIn: parent
-                            color: log.icon === "normal" ? "green" : "red"
+                            source: log.icon === "normal" ? "qrc:/img/logcar.png" : "qrc:/img/logcar.png"
                         }
                     }
 
