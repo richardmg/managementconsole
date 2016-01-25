@@ -24,6 +24,8 @@ Item {
             anchors.top: parkOverlayName.bottom
             anchors.topMargin: 13
             anchors.horizontalCenter: parent.horizontalCenter
+            capacity: parkModel.spaceCapacity
+            occupied: parkModel.spacesOccupied.length
         }
     }
 
