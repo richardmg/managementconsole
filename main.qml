@@ -17,6 +17,7 @@ Window {
     property color colorDarkBg: "#636363"
     property color colorLightFg: Qt.rgba(0.6, 0.6, 0.6, 1.0)
     property color colorSelectedBg: "#e45000"
+    property color colorGreenBg: "#80c342"
 
     property FontMetrics fontBig: FontMetrics { font.family: "arial"; font.pixelSize: 20 }
     property FontMetrics fontNormal: FontMetrics { font.family: "arial"; font.pixelSize: 15 }

@@ -78,7 +78,7 @@ Item {
             model.parkId = 1
             model.parkName = "Karlstadt"
             model.spaceCapacity = 8
-            model.spacesOccupied = [3, 4, 6]
+            model.spacesOccupied = [0, 1, 2, 3, 4, 5, 6, 7]
             model.freeSpaces = "Full"
             model.latitude = 49.45297
             model.longitude = 11.08270
