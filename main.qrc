@@ -17,5 +17,6 @@
         <file>img/logalert.png</file>
         <file>ParkingSpacePercentageIndicator.qml</file>
         <file>ParkMapOverlay.qml</file>
+        <file>PercentageText.qml</file>
     </qresource>
 </RCC>

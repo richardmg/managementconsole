@@ -4,8 +4,8 @@ Item {
     width: 120
     height: 20
 
-    property int capacity: 10
-    property int occupied: 0
+    property alias capacity: percentageText.capacity
+    property alias occupied: percentageText.occupied
 
     Rectangle {
         width: 80
@@ -13,17 +13,10 @@ Item {
         color: "green"
     }
 
-    Text {
+    PercentageText {
+        id: percentageText
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
-        font: app.fontBig.font
-        color: app.colorDarkFg
-        text: {
-            if (occupied >= capacity)
-                return "FULL"
-            else
-                return  ((occupied / capacity).toFixed(1) * 100) + "%"
-        }
     }
 }
 

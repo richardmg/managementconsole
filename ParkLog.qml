@@ -42,12 +42,10 @@ Item {
                     y: 6
                 }
 
-                TextEdit {
+                PercentageText {
                     id: headerFreeSpaces
-                    text: ((parkLog._model.spacesOccupied.length / parkLog._model.spaceCapacity).toFixed(1) * 100) + "%"
-                    font: app.fontSmall.font
-                    readOnly: true
-                    color: app.colorDarkFg
+                    occupied: parkLog._model.spacesOccupied.length
+                    capacity: parkLog._model.spaceCapacity
                     x: 10
                     y: 6
                 }
