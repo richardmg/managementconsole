@@ -101,7 +101,7 @@ Item {
                         height: 20
                         Image {
                             anchors.centerIn: parent
-                            source: log.icon === "alert" ? "qrc:/img/logalert.png" : "qrc:/img/logcar.png"
+                            source: log.type === "alert" ? "qrc:/img/logalert.png" : "qrc:/img/logcar.png"
                         }
                     }
 
