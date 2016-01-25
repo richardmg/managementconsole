@@ -85,7 +85,7 @@ Item {
             delegate: Item {
                 width: parent.width
                 height: logMessage.paintedHeight + 20
-                property var log: parkLog._model.log[index]
+                property var log: parkLog._model.log[parkLog._model.log.length - index - 1]
 
                 RowLayout {
                     id: modelContent

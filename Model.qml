@@ -98,7 +98,49 @@ Item {
 //        print(JSON.stringify(getFakeParkingLotModel(0, 0, '\t')))
 //    }
 
-    // Move this into separate component?
+    Timer {
+        running: dataSource === kFakeDataSource
+        interval: 1000
+        repeat: true
+        onTriggered: {
+            var parkId = Math.round(Math.random() * (fakeModel.parks.length - 1))
+            var model = fakeModel.parks[parkId]
+
+            var time = new Date()
+            var h = time.getHours()
+            var m = time.getMinutes()
+            h = (h < 10) ? "0" + h : h
+            m = (m < 10) ? "0" + m : m
+            var timeStamp = h + ":" + m
+
+            // Add new log entry:
+            if (model.spacesOccupied.length === 0) {
+                model.spacesOccupied.push(model.spacesOccupied + 1)
+                model.log.push({message:"Vehicle has arrived", time:timeStamp, icon:"normal"})
+            } else if (model.spacesOccupied.length >= model.spaceCapacity) {
+                model.spacesOccupied.splice(-1, 1)
+                model.log.push({message:"Vehicle has left", time:timeStamp, icon:"normal"})
+            } else {
+                var event = Math.round(Math.random() * 11)
+                if (event === 11)
+                    model.log.push({message:"Malfunction alert", time:timeStamp, icon:"alert"})
+                else if (event % 2) {
+                    model.spacesOccupied.push(model.spacesOccupied + 1)
+                    model.log.push({message:"Vehicle has arrived", time:timeStamp, icon:"normal"})
+                } else {
+                    model.spacesOccupied.splice(-1, 1)
+                    model.log.push({message:"Vehicle has left", time:timeStamp, icon:"normal"})
+                }
+            }
+
+            // Trim log length:
+            if (model.log.length > 30)
+                model.log.splice(0, model.log.length - 30)
+
+            parkModelUpdated(0)
+            interval = Math.round(500 + (Math.random() * 5000))
+        }
+    }
 
     WebSocket {
         id: webSocket
