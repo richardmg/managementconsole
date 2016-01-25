@@ -10,7 +10,7 @@ Rectangle {
 
     function centerOnPark(parkId)
     {
-        var park = app.model.getParkingLotModel(parkId)
+        var park = app.model.getParkModel(parkId)
         moveToLatLon(park.latitude, park.longitude)
         zoomLevel = 18
     }
@@ -96,10 +96,10 @@ Rectangle {
             mapItem.destroy()
         }
 
-        var idArray = app.model.getAllParkIds()
+        var idArray = app.model.getParkIds()
 
         for (i = 0; i < idArray.length; ++i) {
-            var parkModel = app.model.getParkingLotModel(idArray[i])
+            var parkModel = app.model.getParkModel(idArray[i])
             if (parkModel.isEmpty)
                 continue
 

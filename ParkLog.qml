@@ -6,14 +6,14 @@ Item {
 
     property int parkId: -1
 
-    property var _model: app.model.getParkingLotModel(parkId)
+    property var _model: app.model.getParkModel(parkId)
 
     Connections {
         target: app.model
         onParkModelUpdated: {
             if (parkId !== parkLog.parkId)
                 return
-            _model = app.model.getParkingLotModel(parkId)
+            _model = app.model.getParkModel(parkId)
         }
     }
 

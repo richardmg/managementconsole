@@ -14,9 +14,10 @@ Item {
         parkModelUpdated(1)
     }
 
+    property var fakeModel: createFakeParkingLotModel()
     property alias webSocket: webSocket
 
-    function getAllParkIds() {
+    function getParkIds() {
         if (dataSource === kNoDataSource)
             return [0, 1]
         else if (dataSource === kFakeDataSource)
@@ -25,18 +26,14 @@ Item {
             return [0, 1]
     }
 
-    function getParkingLotModel(id)
+    function getParkModel(id)
     {
         if (dataSource === kNoDataSource)
             return createEmptyParkingLotModel(id)
         else if (dataSource === kFakeDataSource)
-            return getFakeParkingLotModel(id)
-        else if (dataSource === kRemoteDataSource) {
-            var model = createEmptyParkingLotModel()
-            model.log.push({message:"Server mode", time:"00:01", icon:"error"})
-            model.log.push({message:"not implemented!", time:"00:00", icon:"error"})
-            return model
-        }
+            return fakeModel.parks[id]
+        else if (dataSource === kRemoteDataSource)
+            return fakeModel.parks[id]
     }
 
     function createEmptyParkingLotModel(id)
@@ -55,47 +52,46 @@ Item {
         return model
     }
 
-    function getFakeParkingLotModel(id)
+    function createFakeParkingLotModel()
     {
-        var model = {}
-
-        if (id === 0) {
-            model.parkId = 0
-            model.parkName = "Augustinerhof"
-            model.spaceCapacity = 8
-            model.spacesOccupied = [0, 1, 2, 3]
-            model.freeSpaces = 6
-            model.latitude = 49.45370
-            model.longitude = 11.07515
-
-            var log = new Array
-            log.push({message:"Vehicle has left", time:"10:45", icon:"normal"})
-            log.push({message:"Malfunction Alert", time:"09:37", icon:"alert"})
-            log.push({message:"Vehicle has arrived", time:"09:28", icon:"normal"})
-            log.push({message:"Vehicle has left", time:"09:02", icon:"normal"})
-            model.log = log
-        } else if (id === 1) {
-            model.parkId = 1
-            model.parkName = "Karlstadt"
-            model.spaceCapacity = 8
-            model.spacesOccupied = [0, 1, 2, 3, 4, 5, 6, 7]
-            model.freeSpaces = "Full"
-            model.latitude = 49.45297
-            model.longitude = 11.08270
-
-            log = new Array
-            log.push({message:"Vehicle has arrived", time:"10:45", icon:"normal"})
-            log.push({message:"Vehicle has left", time:"10:10", icon:"normal"})
-            log.push({message:"Vehicle has arrived", time:"09:22", icon:"normal"})
-            log.push({message:"Vehicle has arrived", time:"09:21", icon:"normal"})
-            log.push({message:"Vehicle has left", time:"09:13", icon:"normal"})
-            model.log = log
-        } else {
-            model = createEmptyParkingLotModel()
-            log.push({message:"Error: requested park ID does not exist: " + id, time:"00:00", icon:"error"})
+        var parkModel = {
+            parks: new Array
         }
 
-        return model
+        var park = {}
+        park.parkId = 0
+        park.parkName = "Augustinerhof"
+        park.spaceCapacity = 8
+        park.spacesOccupied = [0, 1, 2, 3]
+        park.freeSpaces = 6
+        park.latitude = 49.45370
+        park.longitude = 11.07515
+        var log = new Array
+        log.push({message:"Vehicle has left", time:"10:45", icon:"normal"})
+        log.push({message:"Malfunction Alert", time:"09:37", icon:"alert"})
+        log.push({message:"Vehicle has arrived", time:"09:28", icon:"normal"})
+        log.push({message:"Vehicle has left", time:"09:02", icon:"normal"})
+        park.log = log
+        parkModel.parks.push(park)
+
+        park = {}
+        park.parkId = 1
+        park.parkName = "Karlstadt"
+        park.spaceCapacity = 8
+        park.spacesOccupied = [0, 1, 2, 3, 4, 5, 6, 7]
+        park.freeSpaces = "Full"
+        park.latitude = 49.45297
+        park.longitude = 11.08270
+        log = new Array
+        log.push({message:"Vehicle has arrived", time:"10:45", icon:"normal"})
+        log.push({message:"Vehicle has left", time:"10:10", icon:"normal"})
+        log.push({message:"Vehicle has arrived", time:"09:22", icon:"normal"})
+        log.push({message:"Vehicle has arrived", time:"09:21", icon:"normal"})
+        log.push({message:"Vehicle has left", time:"09:13", icon:"normal"})
+        park.log = log
+        parkModel.parks.push(park)
+
+        return parkModel
     }
 
 //    Component.onCompleted: dumpModel()
