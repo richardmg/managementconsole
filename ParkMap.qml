@@ -42,7 +42,14 @@ Rectangle {
                 height: 100
                 radius: 5
                 border.width: 3
-                border.color: app.mainView.selectedParkId === parkModel.parkId ? app.colorSelectedBg : "transparent"
+                border.color: app.mainView.selectedParkId === parkModel.parkId ? app.colorSelectedBg : app.colorDarkFg
+                Text {
+                    y: 10
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font: app.fontBig.font
+                    text: parkModel.parkName
+                    color: app.colorDarkFg
+                }
             }
 
             Image {

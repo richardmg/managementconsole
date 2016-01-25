@@ -13,9 +13,9 @@ Window {
 
     // Style props:
 
-    property color colorDarkLine: Qt.rgba(0.3, 0.3, 0.3, 1.0)
-    property color colorLightLine: Qt.rgba(0.6, 0.6, 0.6, 1.0)
-    property color colorDarkBg: "#646464"
+    property color colorDarkFg: "#636363"
+    property color colorDarkBg: "#636363"
+    property color colorLightFg: Qt.rgba(0.6, 0.6, 0.6, 1.0)
     property color colorSelectedBg: "#e45000"
 
     property FontMetrics fontBig: FontMetrics { font.family: "arial"; font.pixelSize: 20 }

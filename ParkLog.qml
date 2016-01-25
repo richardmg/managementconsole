@@ -37,6 +37,7 @@ Item {
                     font: app.fontBig.font
                     Layout.fillWidth: true
                     readOnly: true
+                    color: app.colorDarkFg
                     x: 10
                     y: 6
                 }
@@ -46,6 +47,7 @@ Item {
                     text: ((parkLog._model.spacesOccupied.length / parkLog._model.spaceCapacity).toFixed(1) * 100) + "%"
                     font: app.fontSmall.font
                     readOnly: true
+                    color: app.colorDarkFg
                     x: 10
                     y: 6
                 }
@@ -62,7 +64,7 @@ Item {
                 anchors.bottom: parent.bottom
                 width: parent.width
                 height: 1
-                color: app.colorDarkLine
+                color: app.colorDarkFg
             }
 
             MouseArea {
@@ -111,6 +113,7 @@ Item {
                         font: app.fontNormal.font
                         readOnly: true
                         Layout.fillWidth: true
+                        color: app.colorDarkFg
                     }
 
                     TextEdit {
@@ -118,6 +121,7 @@ Item {
                         text: log.time
                         font: app.fontNormal.font
                         readOnly: true
+                        color: app.colorDarkFg
                     }
                 }
 
@@ -126,7 +130,7 @@ Item {
                     width: parent.width
                     height: 1
                     anchors.bottom: parent.bottom
-                    color: app.colorLightLine
+                    color: app.colorLightFg
                 }
 
             }
