@@ -15,5 +15,6 @@
         <file>img/locationindicator_on.png</file>
         <file>img/logcar.png</file>
         <file>img/logalert.png</file>
+        <file>ParkingSpacePercentageIndicator.qml</file>
     </qresource>
 </RCC>
