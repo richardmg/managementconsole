@@ -11,7 +11,7 @@ Item {
         spacing: 2
         anchors.fill: parent
         Repeater {
-            model: 8
+            model: capacity
             Rectangle {
                 width: 7
                 height: parent.height

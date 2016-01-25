@@ -77,7 +77,6 @@ Rectangle {
             contentView: app.park1DetailsView
         }
     }
-
     MainToolbarButton {
         id: settingsButton
         text: "Settings"

@@ -63,7 +63,6 @@ Item {
         park.parkName = "Augustinerhof"
         park.spaceCapacity = 8
         park.spacesOccupied = [0, 1, 2, 3]
-        park.freeSpaces = 6
         park.latitude = 49.45370
         park.longitude = 11.07515
         var log = new Array
@@ -79,7 +78,6 @@ Item {
         park.parkName = "Karlstadt"
         park.spaceCapacity = 8
         park.spacesOccupied = [0, 1, 2, 3, 4, 5, 6, 7]
-        park.freeSpaces = "Full"
         park.latitude = 49.45297
         park.longitude = 11.08270
         log = new Array
