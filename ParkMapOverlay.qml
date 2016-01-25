@@ -23,7 +23,10 @@ Item {
         ParkingSpacePercentageIndicator {
             anchors.top: parkOverlayName.bottom
             anchors.topMargin: 13
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: 15
+            anchors.right: parent.right
+            anchors.rightMargin: 15
             capacity: parkModel.spaceCapacity
             occupied: parkModel.spacesOccupied.length
         }
