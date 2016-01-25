@@ -5,9 +5,9 @@
         <file>ParkMap.qml</file>
         <file>Model.qml</file>
         <file>ParkLog.qml</file>
-        <file>MainView.qml</file>
-        <file>Settings.qml</file>
-        <file>TopView.qml</file>
+        <file>MainPage.qml</file>
+        <file>SettingsPage.qml</file>
+        <file>AppPage.qml</file>
         <file>MainToolbar.qml</file>
         <file>MainToolbarButton.qml</file>
         <file>ParkDetailsPage.qml</file>

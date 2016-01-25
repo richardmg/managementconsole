@@ -3,7 +3,7 @@ import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.2
 import QtWebSockets 1.0
 
-TopView {
+AppPage {
     id: topo
 
     //=====================================
