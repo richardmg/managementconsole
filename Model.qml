@@ -17,14 +17,14 @@ Item {
     property var fakeModel: createFakeParkingLotModel()
     property alias webSocket: webSocket
 
-    Component.onCompleted: dumpFakeModel()
+//    Component.onCompleted: dumpFakeModel()
     function dumpFakeModel()
     {
-//        addFakeLogEntry(fakeModel.parks[0], 1)
-//        addFakeLogEntry(fakeModel.parks[0], 1)
-//        addFakeLogEntry(fakeModel.parks[0], 1)
-//        addFakeLogEntry(fakeModel.parks[0], 2)
-//        parkModelUpdated(0)
+        addFakeLogEntry(fakeModel.parks[0], 1)
+        addFakeLogEntry(fakeModel.parks[0], 1)
+        addFakeLogEntry(fakeModel.parks[0], 1)
+        addFakeLogEntry(fakeModel.parks[0], 2)
+        parkModelUpdated(0)
 
         addFakeLogEntry(fakeModel.parks[1], 1)
         addFakeLogEntry(fakeModel.parks[1], 1)
@@ -114,7 +114,7 @@ Item {
         } else if (model.spacesOccupied.length === 0) {
             model.spacesOccupied.push(model.spacesOccupied.length + 1)
             model.log.push({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
-        } else if (model.spacesOccupied.length >= model.spaceCapacity || type % 2) {
+        } else if (model.spacesOccupied.length >= model.spaceCapacity || (type % 2) === 0) {
             model.spacesOccupied.splice(-1, 1)
             model.log.push({message:"Vehicle has left", time:timeStamp, type:"normal"})
         } else {
@@ -128,7 +128,7 @@ Item {
     }
 
     Timer {
-//        running: dataSource === kFakeDataSource
+        running: dataSource === kFakeDataSource
         interval: 1000
         repeat: true
         onTriggered: {
