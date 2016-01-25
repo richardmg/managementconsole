@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Item {
     width: childrenRect.width
-    height: childrenRect.height
+    height: 100//childrenRect.height
 
     property Item contentView: null
     property alias text: headerText.text
@@ -12,6 +12,7 @@ Item {
         text: "Main View"
         font: app.fontBig.font
         color: "white"
+        anchors.verticalCenter: parent.verticalCenter
     }
 
     MouseArea {
