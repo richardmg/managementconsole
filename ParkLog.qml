@@ -14,7 +14,7 @@ Item {
         onParkModelUpdated: {
             if (parkId !== parkLog.parkId)
                 return
-            if (listView.dragging)
+            if (listView.moving)
                 _pendingModelUpdate = true
             else
                 updateModel()
@@ -92,8 +92,8 @@ Item {
             clip: true
             model: parkLog._model.log
 
-            onDraggingChanged: {
-                if (!dragging && _pendingModelUpdate)
+            onMovingChanged: {
+                if (!moving && _pendingModelUpdate)
                     updateModel()
             }
 
