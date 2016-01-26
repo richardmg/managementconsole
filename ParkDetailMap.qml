@@ -32,24 +32,15 @@ Rectangle {
         rows: 2
 
         Repeater {
-            model: 8
+            model: _model.spaceCapacity
             Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                property bool occupied: isOccupied(index)
+                property bool occupied: app.model.arrayContainsNumber(_model.spacesOccupied, index)
                 color: occupied ? app.colorDarkBg : app.colorLightBg
                 border.color: app.colorDarkBg
             }
         }
 
-    }
-
-    function isOccupied(index)
-    {
-        for (var i = 0; i < _model.spacesOccupied.length; ++i) {
-            if (_model.spacesOccupied[i] === index)
-                return true
-        }
-        return false
     }
 }

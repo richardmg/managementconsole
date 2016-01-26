@@ -112,19 +112,39 @@ Item {
         if (type === 10) {
             model.log.push({message:"Malfunction alert", time:timeStamp, type:"alert"})
         } else if (model.spacesOccupied.length === 0) {
-            model.spacesOccupied.push(model.spacesOccupied.length + 1)
+            model.spacesOccupied.push(getEmptyParkingSpace(model))
             model.log.push({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
         } else if (model.spacesOccupied.length >= model.spaceCapacity || (type % 2) === 0) {
             model.spacesOccupied.splice(-1, 1)
             model.log.push({message:"Vehicle has left", time:timeStamp, type:"normal"})
         } else {
-            model.spacesOccupied.push(model.spacesOccupied.length + 1)
+            model.spacesOccupied.push(getEmptyParkingSpace(model))
             model.log.push({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
         }
 
         // Trim log length:
         if (model.log.length > 30)
             model.log.splice(0, model.log.length - 30)
+    }
+
+    function getEmptyParkingSpace(model)
+    {
+        var parkingSpace = Math.round(Math.random() * (model.spaceCapacity - 1))
+        while (arrayContainsNumber(model.spacesOccupied, parkingSpace)) {
+            parkingSpace++
+            if (parkingSpace === model.spaceCapacity)
+                parkingSpace = 0
+        }
+        return parkingSpace
+    }
+
+    function arrayContainsNumber(array, number)
+    {
+        for (var i = 0; i < array.length; ++i) {
+            if (array[i] === number)
+                return true
+        }
+        return false
     }
 
     Timer {
