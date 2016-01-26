@@ -7,14 +7,24 @@ Item {
     property int parkId: -1
 
     property var _model: app.model.getParkModel(parkId)
+    property bool _pendingModelUpdate: false
 
     Connections {
         target: app.model
         onParkModelUpdated: {
             if (parkId !== parkLog.parkId)
                 return
-            _model = app.model.getParkModel(parkId)
+            if (listView.dragging)
+                _pendingModelUpdate = true
+            else
+                updateModel()
         }
+    }
+
+    function updateModel()
+    {
+        _pendingModelUpdate = false
+        _model = app.model.getParkModel(parkId)
     }
 
     Item {
@@ -81,6 +91,11 @@ Item {
             width: parent.width
             clip: true
             model: parkLog._model.log
+
+            onDraggingChanged: {
+                if (!dragging && _pendingModelUpdate)
+                    updateModel()
+            }
 
             delegate: Item {
                 width: parent.width
