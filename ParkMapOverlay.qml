@@ -6,12 +6,13 @@ Item {
 
     property var parkModel
 
-    Rectangle {
-        width: parent.width
-        height: 100
-        radius: 5
-        border.width: 3
-        border.color: app.mainView.selectedParkId === parkModel.parkId ? app.colorSelectedBg : app.colorDarkFg
+    Image {
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: (parent.height / 2) - height
+        source: app.mainView.selectedParkId === parkModel.parkId ?
+                    "qrc:/img/ParkLocation_Focus_icon.png" :
+                    "qrc:/img/ParkLocation_icon.png"
+
         Text {
             id: parkOverlayName
             y: 20
@@ -20,6 +21,7 @@ Item {
             text: parkModel.parkName
             color: app.colorDarkFg
         }
+
         ParkPercentageIndicator {
             anchors.top: parkOverlayName.bottom
             anchors.topMargin: 13
@@ -30,14 +32,6 @@ Item {
             capacity: parkModel.spaceCapacity
             occupied: parkModel.spacesOccupied.length
         }
-    }
-
-    Image {
-        width: 30
-        height: 30
-        anchors.horizontalCenter: parent.horizontalCenter
-        y: (parent.height / 2) - height
-        source: "qrc:/img/parkingsign.png"
     }
 
     MouseArea {

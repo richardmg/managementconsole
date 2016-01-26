@@ -74,8 +74,8 @@ Item {
                 Image {
                     visible: showMapIcon
                     source: app.mainView.selectedParkId === parkId ?
-                                "qrc:/img/locationindicator_on.png" :
-                                "qrc:/img/locationindicator_off.png"
+                                "qrc:/img/Locate_Focus_btn.png" :
+                                "qrc:/img/Locate_btn.png"
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
@@ -128,7 +128,7 @@ Item {
                         height: 20
                         Image {
                             anchors.centerIn: parent
-                            source: log.type === "alert" ? "qrc:/img/logalert.png" : "qrc:/img/logcar.png"
+                            source: log.type === "alert" ? "qrc:/img/Alarm_icon.png" : "qrc:/img/Vehicle_icon.png"
                         }
                     }
 
