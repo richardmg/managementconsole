@@ -12,7 +12,7 @@ AppPage {
         anchors.fill: parent
         handleDelegate: Item { width: app.spacingHor }
 
-        Rectangle {
+        ParkDetailMap {
             border.color: app.colorDarkBg
             Layout.fillWidth: true
         }

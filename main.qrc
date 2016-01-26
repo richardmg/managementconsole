@@ -11,6 +11,7 @@
         <file>ParkingSpacePercentageIndicator.qml</file>
         <file>ParkMapOverlay.qml</file>
         <file>PercentageText.qml</file>
+        <file>ParkDetailMap.qml</file>
     </qresource>
     <qresource prefix="/pages">
         <file>MainPage.qml</file>
