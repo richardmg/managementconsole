@@ -19,6 +19,7 @@ Window {
     property color colorDarkFg: "#636363"
     property color colorDarkBg: "#636363"
     property color colorLightFg: Qt.rgba(0.6, 0.6, 0.6, 1.0)
+    property color colorLightBg: "#f6f6f6"
     property color colorSelectedBg: "#e45000"
     property color colorGreenBg: "#80c342"
 

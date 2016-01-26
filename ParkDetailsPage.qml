@@ -6,7 +6,7 @@ import "qrc:/components"
 
 AppPage {
     id: root
-    property int parkId: 0
+    property int parkId: -1
 
     SplitView {
         anchors.fill: parent
@@ -15,6 +15,7 @@ AppPage {
         ParkDetailMap {
             border.color: app.colorDarkBg
             Layout.fillWidth: true
+            parkId: root.parkId
         }
 
         SplitView {
@@ -26,7 +27,8 @@ AppPage {
                 id: webcam
                 Layout.minimumHeight: (parent.height - app.spacingVer) / 2
                 Layout.maximumHeight: Layout.minimumHeight
-                color: "lightgray"
+                color: app.colorLightBg
+                border.color: app.colorDarkBg
             }
 
             ParkLog {
