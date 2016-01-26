@@ -20,12 +20,13 @@ AppPage {
 
         SplitView {
             orientation: Qt.Vertical
+
             handleDelegate: Item { height: app.spacingVer }
             width: 320
-
             ParkLog {
                 id: parkA
-                height: (parent.height - app.spacingVer) / 2
+                Layout.minimumHeight: (parent.height - app.spacingVer) / 2
+                Layout.maximumHeight: Layout.minimumHeight
                 parkId: 0
             }
 
