@@ -20,7 +20,7 @@ Item {
             text: parkModel.parkName
             color: app.colorDarkFg
         }
-        ParkingSpacePercentageIndicator {
+        ParkPercentageIndicator {
             anchors.top: parkOverlayName.bottom
             anchors.topMargin: 13
             anchors.left: parent.left

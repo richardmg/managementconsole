@@ -8,7 +8,7 @@
         <file>ParkLog.qml</file>
         <file>MainToolbar.qml</file>
         <file>MainToolbarButton.qml</file>
-        <file>ParkingSpacePercentageIndicator.qml</file>
+        <file>ParkPercentageIndicator.qml</file>
         <file>ParkMapOverlay.qml</file>
         <file>PercentageText.qml</file>
         <file>ParkDetailMap.qml</file>
