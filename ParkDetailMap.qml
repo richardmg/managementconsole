@@ -36,11 +36,20 @@ Rectangle {
             Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                property bool occupied: app.model.arrayContainsNumber(_model.spacesOccupied, index)
+                property bool occupied: arrayContainsNumber(_model.spacesOccupied, index)
                 color: occupied ? app.colorDarkBg : app.colorLightBg
                 border.color: app.colorDarkBg
             }
         }
-
     }
+
+    function arrayContainsNumber(array, number)
+    {
+        for (var i = 0; i < array.length; ++i) {
+            if (array[i] === number)
+                return true
+        }
+        return false
+    }
+
 }
