@@ -89,13 +89,6 @@ AppPage {
             exclusiveGroup: dataSourceGroup
         }
 
-        RadioButton {
-            id: noDataSource
-            text: "Use no data"
-            checked: app.model.dataSource === app.model.kNoDataSource
-            exclusiveGroup: dataSourceGroup
-        }
-
         Rectangle { width: 10; height: 10; color:"transparent"; }
 
         CheckBox {
