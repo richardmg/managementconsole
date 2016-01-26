@@ -5,6 +5,8 @@ import QtPositioning 5.5
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.2
 
+import "qrc:/components"
+
 AppPage {
     property alias parkMap: parkMap
     property int selectedParkId: -1

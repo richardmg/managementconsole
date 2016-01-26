@@ -4,7 +4,8 @@
 
 TEMPLATE = app
 QT += gui qml quick location positioning
-RESOURCES += main.qrc
+RESOURCES += \
+    main.qrc
 
 # Input
 SOURCES += main.cpp

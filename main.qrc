@@ -1,22 +1,28 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>img/parkingsign.png</file>
+    </qresource>
+    <qresource prefix="/components">
         <file>ParkMap.qml</file>
         <file>Model.qml</file>
         <file>ParkLog.qml</file>
-        <file>MainPage.qml</file>
-        <file>SettingsPage.qml</file>
-        <file>AppPage.qml</file>
         <file>MainToolbar.qml</file>
         <file>MainToolbarButton.qml</file>
-        <file>ParkDetailsPage.qml</file>
-        <file>img/locationindicator_off.png</file>
-        <file>img/locationindicator_on.png</file>
-        <file>img/logcar.png</file>
-        <file>img/logalert.png</file>
         <file>ParkingSpacePercentageIndicator.qml</file>
         <file>ParkMapOverlay.qml</file>
         <file>PercentageText.qml</file>
+    </qresource>
+    <qresource prefix="/pages">
+        <file>MainPage.qml</file>
+        <file>SettingsPage.qml</file>
+        <file>AppPage.qml</file>
+        <file>ParkDetailsPage.qml</file>
+    </qresource>
+    <qresource prefix="/img">
+        <file alias="parkingsign.png">img/parkingsign.png</file>
+        <file alias="locationindicator_off.png">img/locationindicator_off.png</file>
+        <file alias="locationindicator_on.png">img/locationindicator_on.png</file>
+        <file alias="logcar.png">img/logcar.png</file>
+        <file alias="logalert.png">img/logalert.png</file>
     </qresource>
 </RCC>

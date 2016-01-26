@@ -4,6 +4,9 @@ import QtLocation 5.5
 import QtPositioning 5.5
 import QtQuick.Controls 1.4
 
+import "qrc:/pages"
+import "qrc:/components"
+
 Window {
     id: app
     width: 1024

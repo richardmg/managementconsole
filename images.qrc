@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/img">
+        <file alias="parkingsign.png">img/parkingsign.png</file>
+        <file alias="locationindicator_off.png">img/locationindicator_off.png</file>
+        <file alias="locationindicator_on.png">img/locationindicator_on.png</file>
+        <file alias="logcar.png">img/logcar.png</file>
+        <file alias="logalert.png">img/logalert.png</file>
+    </qresource>
+</RCC>
+
