@@ -34,7 +34,7 @@ Window {
     // Global API:
 
     property Model model: Model{}
-    property AppPage currentView: mainPage
+    property AppPage currentView: park0DetailsPage
     property alias mainView: mainPage
     property alias park0DetailsView: park0DetailsPage
     property alias park1DetailsView: park1DetailsPage
@@ -49,10 +49,12 @@ Window {
 
     ParkDetailsPage {
         id: park0DetailsPage
+        parkId: 0
     }
 
     ParkDetailsPage {
         id: park1DetailsPage
+        parkId: 1
     }
 
     SettingsPage {

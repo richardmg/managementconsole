@@ -30,11 +30,19 @@ AppPage {
                 Layout.minimumHeight: (parent.height - app.spacingVer) / 2
                 Layout.maximumHeight: Layout.minimumHeight
                 parkId: 0
+                showMapIcon: true
+                showPercentage: true
+                showMaximizeÍcon: false
+                showDate: false
             }
 
             ParkLog {
                 id: parkB
                 parkId: 1
+                showMapIcon: true
+                showPercentage: true
+                showMaximizeÍcon: false
+                showDate: false
             }
         }
     }
