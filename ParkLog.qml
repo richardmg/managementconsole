@@ -5,6 +5,10 @@ Item {
     id: parkLog
 
     property int parkId: -1
+    property bool showMapIcon: true
+    property bool showPercentage: true
+    property bool showMaximizeÍcon: false
+    property bool showDate: false
 
     property var _model: app.model.getParkModel(parkId)
     property bool _pendingModelUpdate: false
@@ -52,8 +56,15 @@ Item {
                     y: 6
                 }
 
+//                Text {
+//                    font: app.fontBig.font
+//                    color: app.colorDarkFg
+//                    text: "|"
+//                }
+
                 PercentageText {
                     id: headerFreeSpaces
+                    visible: showPercentage
                     occupied: parkLog._model.spacesOccupied.length
                     capacity: parkLog._model.spaceCapacity
                     x: 10
@@ -61,9 +72,17 @@ Item {
                 }
 
                 Image {
+                    visible: showMapIcon
                     source: app.mainView.selectedParkId === parkId ?
                                 "qrc:/img/locationindicator_on.png" :
                                 "qrc:/img/locationindicator_off.png"
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            app.mainView.selectedParkId = parkLog._model.parkId
+                            app.mainView.parkMap.centerOnAllParks()
+                        }
+                    }
                 }
             }
 
@@ -75,13 +94,6 @@ Item {
                 color: app.colorDarkFg
             }
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    app.mainView.selectedParkId = parkLog._model.parkId
-                    app.mainView.parkMap.centerOnAllParks()
-                }
-            }
         }
 
         ListView {
