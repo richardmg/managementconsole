@@ -21,10 +21,21 @@
         <file>ParkDetailsPage.qml</file>
     </qresource>
     <qresource prefix="/img">
-        <file alias="parkingsign.png">img/parkingsign.png</file>
-        <file alias="locationindicator_off.png">img/locationindicator_off.png</file>
-        <file alias="locationindicator_on.png">img/locationindicator_on.png</file>
-        <file alias="logcar.png">img/logcar.png</file>
-        <file alias="logalert.png">img/logalert.png</file>
+        <file alias="Alarm_Pressed_btn.png">img/Alarm_Pressed_btn.png</file>
+        <file alias="Alarm_btn.png">img/Alarm_btn.png</file>
+        <file alias="Alarm_icon.png">img/Alarm_icon.png</file>
+        <file alias="Close_Pressed_btn.png">img/Close_Pressed_btn.png</file>
+        <file alias="Close_btn.png">img/Close_btn.png</file>
+        <file alias="Contract_Pressed_btn.png">img/Contract_Pressed_btn.png</file>
+        <file alias="Contract_btn.png">img/Contract_btn.png</file>
+        <file alias="Expand_Pressed_btn.png">img/Expand_Pressed_btn.png</file>
+        <file alias="Expand_btn.png">img/Expand_btn.png</file>
+        <file alias="Locate_Focus_btn.png">img/Locate_Focus_btn.png</file>
+        <file alias="Locate_Pressed_Focus_btn.png">img/Locate_Pressed_Focus_btn.png</file>
+        <file alias="Locate_Pressed_btn.png">img/Locate_Pressed_btn.png</file>
+        <file alias="Locate_btn.png">img/Locate_btn.png</file>
+        <file alias="ParkLocation_Focus_icon.png">img/ParkLocation_Focus_icon.png</file>
+        <file alias="ParkLocation_icon.png">img/ParkLocation_icon.png</file>
+        <file alias="Vehicle_icon.png">img/Vehicle_icon.png</file>
     </qresource>
 </RCC>
