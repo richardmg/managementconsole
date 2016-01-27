@@ -4,7 +4,7 @@ Item {
 
     property var fakeModel: createFakeParkingLotModel()
 
-//    Component.onCompleted: dumpFakeModel()
+    Component.onCompleted: dumpFakeModel()
     function dumpFakeModel()
     {
         addFakeLogEntry(fakeModel.parks[0], 1)

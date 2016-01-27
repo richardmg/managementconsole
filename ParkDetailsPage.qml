@@ -22,7 +22,7 @@ AppPage {
             id: verticalSplit
             orientation: Qt.Vertical
             handleDelegate: Item { height: app.spacingVer }
-            width: 320
+            width: 350
 
             ExpandableContainer {
                 id: imageContainer
