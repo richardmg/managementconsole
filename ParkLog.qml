@@ -9,8 +9,7 @@ Rectangle {
     property bool showPercentage: true
     property bool showExpandIcon: false
     property bool showDate: false
-
-    signal expand
+    property ExpandableContainer expandableContainer
 
     property var _model: app.model.getParkModel(parkId)
     property bool _pendingModelUpdate: false
@@ -87,8 +86,8 @@ Rectangle {
 
                 IconButton {
                     visible: showExpandIcon
-                    baseName: "Expand"
-                    onClicked: expand()
+                    baseName: visible && expandableContainer.expanded ? "Contract" : "Expand"
+                    onClicked: expandableContainer.toggle()
                 }
             }
 

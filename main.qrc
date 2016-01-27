@@ -14,6 +14,7 @@
         <file>ParkDetailMap.qml</file>
         <file>FakeModel.qml</file>
         <file>IconButton.qml</file>
+        <file>ExpandableContainer.qml</file>
     </qresource>
     <qresource prefix="/pages">
         <file>MainPage.qml</file>

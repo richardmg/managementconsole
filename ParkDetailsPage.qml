@@ -30,32 +30,23 @@ AppPage {
                 source: "qrc:/img/parkinglot.jpg"
             }
 
-            ParkLog {
-                id: parkB
-                parkId: root.parkId
-                showMapIcon: false
-                showPercentage: false
-                showExpandIcon: true
-                showDate: true
+            ExpandableContainer {
+                id: parkContainer
+                expandTo: root
                 Layout.fillHeight: true
-                Behavior on opacity { NumberAnimation{ easing.type: Easing.OutCubic } }
-                onExpand: parkBExpanded.opacity = 1
+                ParkLog {
+                    id: parkB
+                    parkId: root.parkId
+                    showMapIcon: false
+                    showPercentage: false
+                    showExpandIcon: true
+                    showDate: true
+                    width: parent.width
+                    height: parent.height
+                    expandableContainer: parkContainer
+                }
             }
         }
-    }
-
-    ParkLog {
-        id: parkBExpanded
-        parkId: root.parkId
-        showMapIcon: false
-        showPercentage: false
-        showExpandIcon: true
-        showDate: true
-        anchors.fill: parent
-        opacity: 0
-        visible: opacity > 0
-        Behavior on opacity { NumberAnimation{ easing.type: Easing.OutCubic } }
-        onExpand: opacity = 0
     }
 
 }
