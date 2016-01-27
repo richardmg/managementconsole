@@ -20,16 +20,13 @@ Item {
     onExpandedChanged: {
         if (!target)
             return
-        target.opacity = 0
-    }
 
-    Connections {
-        target: root.target
-        onOpacityChanged: {
-            if (target.opacity === 0) {
-                fadeIn.start()
-                target.parent = expanded ? expandTo : root
-            }
+        if (expanded) {
+            target.parent = expandTo
+            fadeIn.start()
+        } else {
+            target.parent = root
+            target.opacity = 1
         }
     }
 
@@ -39,6 +36,7 @@ Item {
         property: "opacity"
         easing.type: Easing.OutCubic
         duration: 500
+        from: 0
         to: 1
     }
 }
