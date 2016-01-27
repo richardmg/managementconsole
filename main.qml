@@ -35,7 +35,7 @@ Window {
     // Global API:
 
     property Model model: Model{}
-    property AppPage currentView: park0DetailsPage
+    property AppPage currentView: mainPage
     property alias mainView: mainPage
     property alias park0DetailsView: park0DetailsPage
     property alias park1DetailsView: park1DetailsPage

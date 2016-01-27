@@ -8,6 +8,8 @@ Rectangle {
     property alias center: map.center
     property bool useAnimation: false
 
+    property ExpandableContainer expandableContainer
+
     function centerOnPark(parkId)
     {
         var park = app.model.getParkModel(parkId)
@@ -117,6 +119,15 @@ Rectangle {
             print("Map error code:", error)
             // todo: show backup static map image
         }
+    }
+
+    IconButton {
+        baseName: expandableContainer.expanded ? "Contract" : "Expand"
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.rightMargin: 5
+        anchors.topMargin: 12
+        onClicked: expandableContainer.toggle()
     }
 
     // Experimental

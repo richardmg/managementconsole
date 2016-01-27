@@ -8,6 +8,7 @@ import QtQuick.Layouts 1.2
 import "qrc:/components"
 
 AppPage {
+    id: root
     property alias parkMap: parkMap
     property int selectedParkId: -1
 
@@ -15,9 +16,17 @@ AppPage {
         anchors.fill: parent
         handleDelegate: Item { width: app.spacingHor }
 
-        ParkMap {
-            id: parkMap
+        ExpandableContainer {
+            id: mapContainer
+            expandTo: root
             Layout.fillWidth: true
+            Layout.fillHeight: true
+            ParkMap {
+                id: parkMap
+                width: parent.width
+                height: parent.height
+                expandableContainer: mapContainer
+            }
         }
 
         SplitView {
