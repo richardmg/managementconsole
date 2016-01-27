@@ -15,6 +15,7 @@
         <file>FakeModel.qml</file>
         <file>IconButton.qml</file>
         <file>ExpandableContainer.qml</file>
+        <file>WebCam.qml</file>
     </qresource>
     <qresource prefix="/pages">
         <file>MainPage.qml</file>

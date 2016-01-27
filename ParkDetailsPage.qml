@@ -21,42 +21,20 @@ AppPage {
         SplitView {
             id: verticalSplit
             orientation: Qt.Vertical
-
             handleDelegate: Item { height: app.spacingVer }
             width: 320
+
             ExpandableContainer {
                 id: imageContainer
                 width: parent.width
-                height: webcam.height
+                height: webcam.implicitHeight
                 expandTo: root
 
-                Rectangle {
-                    anchors.fill: parent
-                    color: "white"
-
-                    Flickable {
-                        anchors.fill: parent
-                        contentHeight: webcam.height
-                        clip: true
-
-                        Image {
-                            id: webcam
-                            fillMode: Image.PreserveAspectFit
-                            width: parent.width
-                            verticalAlignment: Image.AlignTop
-                            horizontalAlignment: Image.AlignRight
-                            source: "qrc:/img/parkinglot.jpg"
-                        }
-                    }
-
-                    IconButton {
-                        baseName: imageContainer.expanded ? "Contract" : "Expand"
-                        anchors.top: parent.top
-                        anchors.right: parent.right
-                        anchors.rightMargin: 5
-                        anchors.topMargin: 12
-                        onClicked: imageContainer.toggle()
-                    }
+                WebCam {
+                    id: webcam
+                    width: parent.width
+                    height: parent.height
+                    expandableContainer: imageContainer
                 }
             }
 
@@ -64,6 +42,7 @@ AppPage {
                 id: parkContainer
                 expandTo: root
                 Layout.fillHeight: true
+
                 ParkLog {
                     id: parkB
                     parkId: root.parkId
