@@ -26,7 +26,10 @@ AppPage {
             width: 320
             Image {
                 id: webcam
-                height: (parent.height - app.spacingVer) / 2
+                fillMode: Image.PreserveAspectFit
+                width: parent.width
+                verticalAlignment: Image.AlignTop
+                horizontalAlignment: Image.AlignRight
                 source: "qrc:/img/parkinglot.jpg"
             }
 
