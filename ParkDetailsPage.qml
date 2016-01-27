@@ -24,13 +24,26 @@ AppPage {
 
             handleDelegate: Item { height: app.spacingVer }
             width: 320
-            Image {
-                id: webcam
-                fillMode: Image.PreserveAspectFit
+            ExpandableContainer {
+                id: imageContainer
                 width: parent.width
-                verticalAlignment: Image.AlignTop
-                horizontalAlignment: Image.AlignRight
-                source: "qrc:/img/parkinglot.jpg"
+                height: webcam.height
+                expandTo: root
+                Image {
+                    id: webcam
+                    fillMode: Image.PreserveAspectFit
+                    width: parent.width
+                    verticalAlignment: Image.AlignTop
+                    horizontalAlignment: Image.AlignRight
+                    source: "qrc:/img/parkinglot.jpg"
+                    IconButton {
+                        baseName: imageContainer.expanded ? "Contract" : "Expand"
+                        anchors.top: parent.top
+                        anchors.right: parent.right
+                        anchors.topMargin: 10
+                        onClicked: imageContainer.toggle()
+                    }
+                }
             }
 
             ExpandableContainer {
