@@ -29,18 +29,32 @@ AppPage {
                 width: parent.width
                 height: webcam.height
                 expandTo: root
-                Image {
-                    id: webcam
-                    fillMode: Image.PreserveAspectFit
-                    width: parent.width
-                    verticalAlignment: Image.AlignTop
-                    horizontalAlignment: Image.AlignRight
-                    source: "qrc:/img/parkinglot.jpg"
+
+                Rectangle {
+                    anchors.fill: parent
+                    color: "white"
+
+                    Flickable {
+                        anchors.fill: parent
+                        contentHeight: webcam.height
+                        clip: true
+
+                        Image {
+                            id: webcam
+                            fillMode: Image.PreserveAspectFit
+                            width: parent.width
+                            verticalAlignment: Image.AlignTop
+                            horizontalAlignment: Image.AlignRight
+                            source: "qrc:/img/parkinglot.jpg"
+                        }
+                    }
+
                     IconButton {
                         baseName: imageContainer.expanded ? "Contract" : "Expand"
                         anchors.top: parent.top
                         anchors.right: parent.right
-                        anchors.topMargin: 10
+                        anchors.rightMargin: 5
+                        anchors.topMargin: 12
                         onClicked: imageContainer.toggle()
                     }
                 }
