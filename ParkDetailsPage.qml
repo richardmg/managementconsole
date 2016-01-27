@@ -23,12 +23,11 @@ AppPage {
 
             handleDelegate: Item { height: app.spacingVer }
             width: 320
-            Rectangle {
+            Image {
                 id: webcam
                 Layout.minimumHeight: (parent.height - app.spacingVer) / 2
                 Layout.maximumHeight: Layout.minimumHeight
-                color: app.colorLightBg
-                border.color: app.colorDarkBg
+                source: "qrc:/img/parkinglot.jpg"
             }
 
             ParkLog {

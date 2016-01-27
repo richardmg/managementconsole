@@ -37,5 +37,6 @@
         <file alias="ParkLocation_Focus_icon.png">img/ParkLocation_Focus_icon.png</file>
         <file alias="ParkLocation_icon.png">img/ParkLocation_icon.png</file>
         <file alias="Vehicle_icon.png">img/Vehicle_icon.png</file>
+        <file alias="parkinglot.jpg">img/parkinglot.jpg</file>
     </qresource>
 </RCC>
