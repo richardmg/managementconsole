@@ -35,7 +35,7 @@ AppPage {
                 parkId: root.parkId
                 showMapIcon: false
                 showPercentage: false
-                showMaximizeÍcon: true
+                showExpandIcon: true
                 showDate: true
             }
         }

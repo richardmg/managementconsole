@@ -32,7 +32,7 @@ AppPage {
                 parkId: 0
                 showMapIcon: true
                 showPercentage: true
-                showMaximizeÍcon: false
+                showExpandIcon: false
                 showDate: false
             }
 
@@ -41,7 +41,7 @@ AppPage {
                 parkId: 1
                 showMapIcon: true
                 showPercentage: true
-                showMaximizeÍcon: false
+                showExpandIcon: false
                 showDate: false
             }
         }

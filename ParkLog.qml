@@ -7,7 +7,7 @@ Item {
     property int parkId: -1
     property bool showMapIcon: true
     property bool showPercentage: true
-    property bool showMaximizeÍcon: false
+    property bool showExpandIcon: false
     property bool showDate: false
 
     property var _model: app.model.getParkModel(parkId)
@@ -76,6 +76,20 @@ Item {
                     source: app.mainView.selectedParkId === parkId ?
                                 "qrc:/img/Locate_Focus_btn.png" :
                                 "qrc:/img/Locate_btn.png"
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            app.mainView.selectedParkId = parkLog._model.parkId
+                            app.mainView.parkMap.centerOnAllParks()
+                        }
+                    }
+                }
+
+                Image {
+                    visible: showExpandIcon
+                    source: true ?
+                                "qrc:/img/Expand_btn.png" :
+                                "qrc:/img/Contract_btn.png"
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
