@@ -71,32 +71,19 @@ Item {
                     y: 6
                 }
 
-                Image {
+                IconButton {
                     visible: showMapIcon
-                    source: app.mainView.selectedParkId === parkId ?
-                                "qrc:/img/Locate_Focus_btn.png" :
-                                "qrc:/img/Locate_btn.png"
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            app.mainView.selectedParkId = parkLog._model.parkId
-                            app.mainView.parkMap.centerOnAllParks()
-                        }
+                    baseName: "Locate"
+                    selected: app.mainView.selectedParkId === parkId
+                    onClicked: {
+                        app.mainView.selectedParkId = parkLog._model.parkId
+                        app.mainView.parkMap.centerOnAllParks()
                     }
                 }
 
-                Image {
+                IconButton {
                     visible: showExpandIcon
-                    source: true ?
-                                "qrc:/img/Expand_btn.png" :
-                                "qrc:/img/Contract_btn.png"
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            app.mainView.selectedParkId = parkLog._model.parkId
-                            app.mainView.parkMap.centerOnAllParks()
-                        }
-                    }
+                    baseName: "Expand"
                 }
             }
 

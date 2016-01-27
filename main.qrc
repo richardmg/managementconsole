@@ -13,6 +13,7 @@
         <file>PercentageText.qml</file>
         <file>ParkDetailMap.qml</file>
         <file>FakeModel.qml</file>
+        <file>IconButton.qml</file>
     </qresource>
     <qresource prefix="/pages">
         <file>MainPage.qml</file>
