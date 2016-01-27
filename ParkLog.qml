@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
 
-Item {
+Rectangle {
     id: parkLog
 
     property int parkId: -1
@@ -10,8 +10,12 @@ Item {
     property bool showExpandIcon: false
     property bool showDate: false
 
+    signal expand
+
     property var _model: app.model.getParkModel(parkId)
     property bool _pendingModelUpdate: false
+
+    color: "white"
 
     Connections {
         target: app.model
@@ -84,6 +88,7 @@ Item {
                 IconButton {
                     visible: showExpandIcon
                     baseName: "Expand"
+                    onClicked: expand()
                 }
             }
 

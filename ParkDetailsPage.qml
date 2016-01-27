@@ -19,14 +19,14 @@ AppPage {
         }
 
         SplitView {
+            id: verticalSplit
             orientation: Qt.Vertical
 
             handleDelegate: Item { height: app.spacingVer }
             width: 320
             Image {
                 id: webcam
-                Layout.minimumHeight: (parent.height - app.spacingVer) / 2
-                Layout.maximumHeight: Layout.minimumHeight
+                height: (parent.height - app.spacingVer) / 2
                 source: "qrc:/img/parkinglot.jpg"
             }
 
@@ -37,8 +37,25 @@ AppPage {
                 showPercentage: false
                 showExpandIcon: true
                 showDate: true
+                Layout.fillHeight: true
+                Behavior on opacity { NumberAnimation{ easing.type: Easing.OutCubic } }
+                onExpand: parkBExpanded.opacity = 1
             }
         }
+    }
+
+    ParkLog {
+        id: parkBExpanded
+        parkId: root.parkId
+        showMapIcon: false
+        showPercentage: false
+        showExpandIcon: true
+        showDate: true
+        anchors.fill: parent
+        opacity: 0
+        visible: opacity > 0
+        Behavior on opacity { NumberAnimation{ easing.type: Easing.OutCubic } }
+        onExpand: opacity = 0
     }
 
 }
