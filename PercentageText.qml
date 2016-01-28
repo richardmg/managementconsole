@@ -5,13 +5,13 @@ Text {
     color: app.colorDarkFg
 
     property int capacity: 8
-    property int occupied: 0
+    property int freeSpaces: capacity
 
     text: {
-        if (occupied >= capacity)
+        if (freeSpaces === 0)
             return "FULL"
         else
-            return  ((occupied / capacity).toFixed(1) * 100) + "%"
+            return ((1 - (freeSpaces / capacity)).toFixed(1) * 100) + "%"
     }
 }
 

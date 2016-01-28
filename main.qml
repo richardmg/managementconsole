@@ -50,12 +50,12 @@ Window {
 
     ParkDetailsPage {
         id: park0DetailsPage
-        parkId: 0
+        garageId: 1
     }
 
     ParkDetailsPage {
         id: park1DetailsPage
-        parkId: 1
+        garageId: 2
     }
 
     SettingsPage {

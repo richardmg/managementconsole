@@ -3,8 +3,8 @@ import QtQuick 2.0
 Item {
     height: percentageText.height
 
+    property alias freeSpaces: percentageText.freeSpaces
     property alias capacity: percentageText.capacity
-    property alias occupied: percentageText.occupied
 
     Row {
         id: ticks
@@ -16,7 +16,7 @@ Item {
             Rectangle {
                 width: (ticks.width - (ticks.spacing * capacity)) / capacity
                 height: parent.height
-                color: index < occupied ? border.color : border.width === 0 ? app.colorLightFg : "transparent"
+                color: index < (capacity - freeSpaces) ? border.color : border.width === 0 ? app.colorLightFg : "transparent"
                 border.color: app.colorGreenBg
                 border.width: width > 3 ? 1 : 0
             }

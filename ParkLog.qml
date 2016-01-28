@@ -4,34 +4,36 @@ import QtQuick.Layouts 1.2
 Rectangle {
     id: parkLog
 
-    property int parkId: -1
+    property int garageId: -1
     property bool showMapIcon: true
     property bool showPercentage: true
     property bool showExpandIcon: false
     property bool showDate: false
     property ExpandableContainer expandableContainer
 
-    property var _model: app.model.getParkModel(parkId)
-    property bool _pendingModelUpdate: false
+    property var garageDescription: app.model.current.getDescription(garageId)
+    property var garageLog: app.model.current.getLog(garageId)
+    property bool _pendingLogUpdate: false
 
     color: "white"
 
     Connections {
         target: app.model
-        onParkModelUpdated: {
-            if (parkId !== parkLog.parkId)
+        onLogUpdated: {
+            if (garageId !== parkLog.garageId)
                 return
             if (listView.moving)
-                _pendingModelUpdate = true
+                _pendingLogUpdate = true
             else
-                updateModel()
+                updateLog()
         }
     }
 
-    function updateModel()
+    function updateLog()
     {
-        _pendingModelUpdate = false
-        _model = app.model.getParkModel(parkId)
+        _pendingLogUpdate = false
+        garageDescription = app.model.current.getDescription(garageId)
+        garageLog = app.model.current.getLog(garageId)
     }
 
     Item {
@@ -50,7 +52,7 @@ Rectangle {
 
                 TextEdit {
                     id: headerParkName
-                    text: parkLog._model.parkName
+                    text: garageDescription.LocationName
                     font: app.fontBig.font
                     Layout.fillWidth: true
                     readOnly: true
@@ -68,8 +70,8 @@ Rectangle {
                 PercentageText {
                     id: headerFreeSpaces
                     visible: showPercentage
-                    occupied: parkLog._model.spacesOccupied.length
-                    capacity: parkLog._model.spaceCapacity
+                    freeSpaces: garageDescription.NumberFreeParkingSpaces
+                    capacity: garageDescription.NumberTotalParkingSpaces
                     x: 10
                     y: 6
                 }
@@ -77,9 +79,9 @@ Rectangle {
                 IconButton {
                     visible: showMapIcon
                     baseName: "Locate"
-                    selected: app.mainView.selectedParkId === parkId
+                    selected: app.mainView.selectedGarageId === garageId
                     onClicked: {
-                        app.mainView.selectedParkId = parkLog._model.parkId
+                        app.mainView.selectedGarageId = parkLog.garageLog.garageId
                         app.mainView.parkMap.centerOnAllParks()
                     }
                 }
@@ -107,17 +109,17 @@ Rectangle {
             anchors.bottom: parent.bottom
             width: parent.width
             clip: true
-            model: parkLog._model.log
+            model: parkLog.garageLog.log
 
             onMovingChanged: {
-                if (!moving && _pendingModelUpdate)
-                    updateModel()
+                if (!moving && _pendingLogUpdate)
+                    updateLog()
             }
 
             delegate: Item {
                 width: parent.width
                 height: logMessage.paintedHeight + 20
-                property var log: parkLog._model.log[parkLog._model.log.length - index - 1]
+                property var log: parkLog.garageLog.log[parkLog.garageLog.log.length - index - 1]
 
                 RowLayout {
                     id: modelContent

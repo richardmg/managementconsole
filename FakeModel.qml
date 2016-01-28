@@ -1,7 +1,7 @@
 import QtQuick 2.4
 
 Item {
-
+    id: root
     property var fakeModel: createFakeParkingLotModel()
 
 //    Component.onCompleted: dumpFakeModel()
@@ -21,13 +21,23 @@ Item {
 //        print(JSON.stringify(fakeModel, 0, " "))
 //    }
 
-    function getParkIds() {
+    function getGarageIds() {
         return [0, 1]
     }
 
-    function getParkModel(id)
+    function getGarageModel(garageId)
     {
-        return fakeModel.parks[id]
+        return fakeModel.parks[garageId]
+    }
+
+    function getParkingSpaceModel(garageId)
+    {
+        return {}
+    }
+
+    function getParkingSpaceLog(garageId)
+    {
+        return new Array
     }
 
     function createFakeParkingLotModel()
@@ -37,7 +47,7 @@ Item {
         }
 
         var park = {}
-        park.parkId = 0
+        park.garageId = 0
         park.parkName = "Augustinerhof"
         park.spaceCapacity = 8
         park.spacesOccupied = new Array
@@ -47,7 +57,7 @@ Item {
         parkModel.parks.push(park)
 
         park = {}
-        park.parkId = 1
+        park.garageId = 1
         park.parkName = "Karlstadt"
         park.spaceCapacity = 8
         park.spacesOccupied = new Array
@@ -109,13 +119,13 @@ Item {
     }
 
     Timer {
-        running: app.model.dataSource === app.model.kFakeDataSource
+        running: app.model.current === root
         interval: 1000
         repeat: true
         onTriggered: {
-            var parkId = Math.round(Math.random() * (fakeModel.parks.length - 1))
-            addFakeLogEntry(fakeModel.parks[parkId], 0)
-            app.model.parkModelUpdated(parkId)
+            var garageId = Math.round(Math.random() * (fakeModel.parks.length - 1))
+            addFakeLogEntry(fakeModel.parks[garageId], 0)
+            app.model.parkModelUpdated(garageId)
             interval = Math.round(500 + (Math.random() * 5000))
         }
     }

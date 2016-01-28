@@ -6,7 +6,7 @@ import "qrc:/components"
 
 AppPage {
     id: root
-    property int parkId: -1
+    property int garageId: -1
 
     SplitView {
         anchors.fill: parent
@@ -15,7 +15,7 @@ AppPage {
         ParkDetailMap {
             border.color: app.colorDarkBg
             Layout.fillWidth: true
-            parkId: root.parkId
+            garageId: root.garageId
         }
 
         SplitView {
@@ -45,7 +45,7 @@ AppPage {
 
                 ParkLog {
                     id: parkB
-                    parkId: root.parkId
+                    garageId: root.garageId
                     showMapIcon: false
                     showPercentage: false
                     showExpandIcon: true

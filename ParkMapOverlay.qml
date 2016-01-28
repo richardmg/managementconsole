@@ -4,12 +4,12 @@ Item {
     width: 150
     height: 280
 
-    property var parkModel
+    property var garageDescription
 
     Image {
         anchors.horizontalCenter: parent.horizontalCenter
         y: (parent.height / 2) - height
-        source: app.mainView.selectedParkId === parkModel.parkId ?
+        source: app.mainView.selectedGarageId === garageDescription.Id ?
                     "qrc:/img/ParkLocation_Focus_icon.png" :
                     "qrc:/img/ParkLocation_icon.png"
 
@@ -18,7 +18,7 @@ Item {
             y: 20
             anchors.horizontalCenter: parent.horizontalCenter
             font: app.fontBig.font
-            text: parkModel.parkName
+            text: garageDescription.LocationName
             color: app.colorDarkFg
         }
 
@@ -29,14 +29,14 @@ Item {
             anchors.leftMargin: 15
             anchors.right: parent.right
             anchors.rightMargin: 15
-            capacity: parkModel.spaceCapacity
-            occupied: parkModel.spacesOccupied.length
+            freeSpaces: garageDescription.NumberFreeParkingSpaces
+            capacity: garageDescription.NumberTotalParkingSpaces
         }
     }
 
     MouseArea {
         anchors.fill: parent
-        onClicked: app.mainView.selectedParkId = parkModel.parkId
+        onClicked: app.mainView.selectedGarageId = garageDescription.Id
     }
 }
 

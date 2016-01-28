@@ -10,10 +10,10 @@ Rectangle {
 
     property ExpandableContainer expandableContainer
 
-    function centerOnPark(parkId)
+    function centerOnPark(garageId)
     {
-        var park = app.model.getParkModel(parkId)
-        moveToLatLon(park.latitude, park.longitude)
+        var garage = app.model.current.getDescription(garageId)
+        moveToLatLon(garage.Latitude, garage.Longitude)
         zoomLevel = 18
     }
 
@@ -24,17 +24,17 @@ Rectangle {
             centerOnAllParksWhenMapReadyTimer.restart()
     }
 
-    function getOverlay(parkId)
+    function getOverlay(garageId)
     {
         for (var i = 0; i < map.mapItems.length; ++i)
-            if (map.mapItems[i].parkModel.parkId === parkId)
+            if (map.mapItems[i].parkModel.garageId === garageId)
                 return _map.mapItems[i].overlay
         return null
     }
 
     Connections {
         target: app.model
-        onParkModelUpdated: recreateOverlay()
+        onDescriptionUpdated: recreateOverlay()
     }
 
     Component.onCompleted: {
@@ -66,15 +66,15 @@ Rectangle {
         // be styled, we need to create a proxy overlay like this that just forwards
         // its own position to an item placed as a child of the map
         MapCircle {
-            center: QtPositioning.coordinate(parkModel.latitude, parkModel.longitude)
+            center: QtPositioning.coordinate(garageDescription.Latitude, garageDescription.Longitude)
             radius: 1
 
-            property var parkModel
+            property var garageDescription
             property Item overlay
 
             Component.onCompleted: {
                 var overlayComp = Qt.createComponent("ParkMapOverlay.qml")
-                overlay = overlayComp.createObject(map, { parkModel: parkModel })
+                overlay = overlayComp.createObject(map, { garageDescription: garageDescription })
                 overlay.x = Qt.binding(function() { return x + (width - overlay.width) / 2 })
                 overlay.y = Qt.binding(function() { return y + (height - overlay.height) / 2 })
             }
@@ -98,14 +98,14 @@ Rectangle {
             mapItem.destroy()
         }
 
-        var idArray = app.model.getParkIds()
+        var idArray = app.model.current.getIds()
 
         for (i = 0; i < idArray.length; ++i) {
-            var parkModel = app.model.getParkModel(idArray[i])
-            if (parkModel.isEmpty)
+            var description = app.model.current.getDescription(idArray[i])
+            if (description.isEmpty)
                 continue
 
-            var overlay = overlayProxyComp.createObject(map, { parkModel: parkModel })
+            var overlay = overlayProxyComp.createObject(map, { garageDescription: description })
             map.addMapItem(overlay)
         }
     }

@@ -4,7 +4,6 @@ import QtQuick.Layouts 1.2
 import QtWebSockets 1.0
 
 AppPage {
-    id: topo
 
     //=====================================
     // Sync data source with model
@@ -14,29 +13,21 @@ AppPage {
         id: dataSourceGroup
         onCurrentChanged: {
             if (current === remoteSource)
-                app.model.dataSource = app.model.kRemoteDataSource
+                app.model.current = app.model.xmlHttpRequestModel
             else if (current === offlineSource)
-                app.model.dataSource = app.model.kFakeDataSource
-            else
-                app.model.dataSource = app.model.kNoDataSource
+                app.model.current = app.model.fakeModel
             app.mainView.parkMap.centerOnAllParks()
         }
     }
 
     Connections {
         target: app.model
-        onDataSourceChanged: {
-            if (app.model.dataSource === app.model.kRemoteDataSource)
+        onCurrentChanged: {
+            if (app.model.current === app.model.xmlHttpRequestModel)
                 dataSourceGroup.current = remoteSource
-            else if (app.model.dataSource === app.model.kFakeDataSource)
+            else if (app.model.current === app.model.fakeModel)
                 dataSourceGroup.current = offlineSource
-            else
-                dataSourceGroup.current = noDataSource
         }
-    }
-
-    Component.onCompleted: {
-        app.model.webSocket.url = remoteConnectionUrl.text
     }
 
     //=====================================
@@ -48,15 +39,18 @@ AppPage {
             RadioButton {
                 id: remoteSource
                 text: "Remote server:"
-                checked: app.model.dataSource === app.model.kFakeRemoteSource
+                checked: app.model.current === app.model.xmlHttpRequestModel
                 exclusiveGroup: dataSourceGroup
             }
 
             TextField {
                 id: remoteConnectionUrl
                 Layout.preferredWidth: 300
-                text: "wss://echo.websocket.org"
-                onAccepted: app.model.webSocket.url = text
+                text: app.model.xmlHttpRequestModel.baseUrl
+                onAccepted: {
+                    app.model.current = app.model.xmlHttpRequestModel
+                    app.model.xmlHttpRequestModel.baseUrl = text
+                }
             }
 
             Rectangle {
@@ -67,8 +61,9 @@ AppPage {
                 color: "gray"
 
                 Connections {
-                    target: app.model.webSocket
+                    target: app.model.xmlHttpRequestModel
                     onStatusChanged: {
+                        var status = app.model.xmlHttpRequestModel.status
                         if (status === WebSocket.Connecting)
                             remoteConnectionStatusIndicator.color = "yellow"
                         else if (status === WebSocket.Open)
@@ -85,7 +80,7 @@ AppPage {
         RadioButton {
             id: offlineSource
             text: "Use offline data"
-            checked: app.model.dataSource === app.model.kFakeDataSource
+            checked: app.model.current === app.model.fakeModel
             exclusiveGroup: dataSourceGroup
         }
 
@@ -94,8 +89,6 @@ AppPage {
         CheckBox {
             text: "Use offline map"
             onCheckedChanged: {
-                app.model.dataSource = app.model.kFakeDataSource
-                app.mainView.parkMap.centerOnAllParks()
             }
         }
 
@@ -103,6 +96,9 @@ AppPage {
 
         Button {
             text: "Reset"
+            onClicked: {
+                app.model.xmlHttpRequestModel.baseUrl = app.model.xmlHttpRequestModel.originalBaseUrl
+            }
         }
     }
 

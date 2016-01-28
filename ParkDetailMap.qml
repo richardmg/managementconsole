@@ -7,16 +7,16 @@ Rectangle {
     border.color: app.colorDarkBg
     Layout.fillWidth: true
 
-    property int parkId: -1
+    property int garageId: -1
 
-    property var _model: app.model.getParkModel(parkId)
+    property var description: app.model.current.getDescription(garageId)
 
     Connections {
         target: app.model
-        onParkModelUpdated: {
-            if (parkId !== root.parkId)
+        onDescriptionUpdated: {
+            if (garageId !== root.garageId)
                 return
-            _model = app.model.getParkModel(parkId)
+            description = app.model.current.getDescription(garageId)
         }
     }
 
@@ -32,11 +32,11 @@ Rectangle {
         rows: 2
 
         Repeater {
-            model: _model.spaceCapacity
+            model: description.spaceCapacity
             Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                property bool occupied: arrayContainsNumber(_model.spacesOccupied, index)
+                property bool occupied: false//arrayContainsNumber(description.spacesOccupied, index)
                 color: occupied ? app.colorDarkBg : app.colorLightBg
                 border.color: app.colorDarkBg
             }

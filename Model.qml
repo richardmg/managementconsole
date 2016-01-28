@@ -2,62 +2,51 @@ import QtQuick 2.4
 import QtWebSockets 1.0
 
 Item {
-    readonly property int kFakeDataSource: 1
-    readonly property int kRemoteDataSource: 2
+    // Proxy model
 
-    property int dataSource: kFakeDataSource
-    property alias webSocket: webSocket
+    property var current: xmlHttpRequestModel
     property bool loggingActive: true
 
-    signal garageModelUpdated()
-    signal parkModelUpdated(int parkId)
+    signal idsUpdated()
+    signal descriptionUpdated(int garageId)
+    signal parkingSpacesUpdated(int garageId)
+    signal logUpdated(int garageId)
 
-    property var _fakeModel: FakeModel {}
-    property var _xmlHttpRequestModel: XmlHttpRequestModel {}
+    property var fakeModel: FakeModel {}
+    property var xmlHttpRequestModel: XmlHttpRequestModel {}
 
-    onDataSourceChanged: {
-        var ids = getParkIds()
-        for (var i = 0; i < ids.length; ++i)
-            parkModelUpdated(ids[i])
-    }
+    Component.onCompleted: current.update()
+    onCurrentChanged: current.update()
 
-    onGarageModelUpdated: {
+    onIdsUpdated: {
         if (!loggingActive)
             return
 
-        print("Garage model updated:", getParkIds())
+        print("Garage IDs updated:", current.getIds())
     }
 
-    function getParkIds() {
-        if (dataSource === kFakeDataSource)
-            return _fakeModel.getParkIds()
-        else if (dataSource === kRemoteDataSource)
-            return _xmlHttpRequestModel.getParkIds()
+    onDescriptionUpdated: {
+        if (!loggingActive)
+            return
+
+        print("Description updated:", garageId, JSON.stringify(current.getDescription(garageId), 0, "   "))
     }
 
-    function getParkModel(id)
+    function createEmptyDescription()
     {
-        if (dataSource === kFakeDataSource)
-            return _fakeModel.getParkModel(id)
-        else if (dataSource === kRemoteDataSource)
-            return 0
-    }
-
-    function getGarageModel(id)
-    {
-        if (dataSource === kFakeDataSource)
-            return _fakeModel.getParkModel(id)
-        else if (dataSource === kRemoteDataSource)
-            return 0
-    }
-
-    WebSocket {
-        id: webSocket
-        active: dataSource == kRemoteDataSource
-
-        onTextMessageReceived: {
-            print("Received message:", message)
+        return {
+            "EMPTY_DESCRIPTION_GENERATED_LOCALLY": true,
+            "Id": 0,
+            "LocationName": "",
+            "Latitude": 0,
+            "Longitude": 0,
+            "NumberFreeParkingSpaces": 0,
+            "NumberTotalParkingSpaces": 1
         }
     }
 
+    function createEmptyParkingSpaceObject()
+    {
+        return new Object
+    }
 }

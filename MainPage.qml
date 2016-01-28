@@ -10,7 +10,7 @@ import "qrc:/components"
 AppPage {
     id: root
     property alias parkMap: parkMap
-    property int selectedParkId: -1
+    property int selectedGarageId: -1
 
     SplitView {
         anchors.fill: parent
@@ -38,7 +38,7 @@ AppPage {
                 id: parkA
                 Layout.minimumHeight: (parent.height - app.spacingVer) / 2
                 Layout.maximumHeight: Layout.minimumHeight
-                parkId: 0
+                garageId: 0
                 showMapIcon: true
                 showPercentage: true
                 showExpandIcon: false
@@ -47,7 +47,7 @@ AppPage {
 
             ParkLog {
                 id: parkB
-                parkId: 1
+                garageId: 1
                 showMapIcon: true
                 showPercentage: true
                 showExpandIcon: false
