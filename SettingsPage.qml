@@ -99,6 +99,11 @@ AppPage {
             }
         }
 
+        Rectangle { width: 10; height: 10; color:"transparent"; }
+
+        Button {
+            text: "Reset"
+        }
     }
 
 

@@ -3,7 +3,12 @@ import QtQuick 2.0
 Item {
     property string baseUrl: "http://cloudparkingdemo.azurewebsites.net/api/tdxremote/"
 
-    Component.onCompleted: load("garage", dumpResponse)
+    property var garageArray: new Array
+    property var parkingSpaceArray: new Array
+
+    Component.onCompleted: {
+        loadGarageArray()
+    }
 
     function load(action, callback)
     {
@@ -11,7 +16,8 @@ Item {
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState === XMLHttpRequest.DONE) {
                 if (xmlhttp.status == 200) {
-                    callback(xmlhttp.responseText)
+//                    print(JSON.stringify(JSON.parse(xmlhttp.responseText), 0, "   "))
+                    callback(JSON.parse(xmlhttp.responseText))
                 } else {
                     print("WARNING! could not get data from server:", xmlhttp.statusText)
                 }
@@ -22,9 +28,27 @@ Item {
         xmlhttp.send();
     }
 
-    function dumpResponse(responseText)
+    function dumpObject(obj)
     {
-        print(JSON.stringify(JSON.parse(responseText), 0, "   "))
+        print(JSON.stringify(obj, 0, "   "))
+    }
+
+    function loadGarageArray()
+    {
+        load("garage", function(obj) {
+            garageArray = obj
+            app.model.garageModelUpdated()
+        })
+    }
+
+    function getParkIds()
+    {
+        var ids = new Array
+        for (var i = 0; i < garageArray.length; ++i) {
+            print(garageArray[i])
+            ids.push(garageArray[i].Id);
+        }
+        return ids
     }
 
 }
