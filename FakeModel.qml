@@ -25,17 +25,17 @@ Item {
         return [0, 1]
     }
 
-    function getGarageModel(garageId)
+    function getGarageModel(modelIndex)
     {
-        return fakeModel.parks[garageId]
+        return fakeModel.parks[modelIndex]
     }
 
-    function getParkingSpaceModel(garageId)
+    function getParkingSpaceModel(modelIndex)
     {
         return {}
     }
 
-    function getParkingSpaceLog(garageId)
+    function getParkingSpaceLog(modelIndex)
     {
         return new Array
     }
@@ -47,7 +47,7 @@ Item {
         }
 
         var park = {}
-        park.garageId = 0
+        park.modelIndex = 0
         park.parkName = "Augustinerhof"
         park.spaceCapacity = 8
         park.spacesOccupied = new Array
@@ -57,7 +57,7 @@ Item {
         parkModel.parks.push(park)
 
         park = {}
-        park.garageId = 1
+        park.modelIndex = 1
         park.parkName = "Karlstadt"
         park.spaceCapacity = 8
         park.spacesOccupied = new Array
@@ -123,9 +123,9 @@ Item {
         interval: 1000
         repeat: true
         onTriggered: {
-            var garageId = Math.round(Math.random() * (fakeModel.parks.length - 1))
-            addFakeLogEntry(fakeModel.parks[garageId], 0)
-            app.model.parkModelUpdated(garageId)
+            var modelIndex = Math.round(Math.random() * (fakeModel.parks.length - 1))
+            addFakeLogEntry(fakeModel.parks[modelIndex], 0)
+            app.model.parkModelUpdated(modelIndex)
             interval = Math.round(500 + (Math.random() * 5000))
         }
     }

@@ -62,7 +62,7 @@ Rectangle {
         }
 
         Repeater {
-            model: app.model.current.getIds().length
+            model: app.model.current.descriptions.length
             width: childrenRect.width
             height: toolbar.height
 
@@ -76,7 +76,7 @@ Rectangle {
                 }
 
                 MainToolbarButton {
-                    text: app.model.current.getDescription(app.model.current.getIds()[index]).LocationName
+                    text: app.model.current.descriptions[index].LocationName
                     contentView: app.detailPages.itemAt(index)
                 }
             }

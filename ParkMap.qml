@@ -10,9 +10,9 @@ Rectangle {
 
     property ExpandableContainer expandableContainer
 
-    function centerOnPark(garageId)
+    function centerOnPark(modelIndex)
     {
-        var garage = app.model.current.getDescription(garageId)
+        var garage = app.model.current.getDescription(modelIndex)
         moveToLatLon(garage.Latitude, garage.Longitude)
         zoomLevel = 18
     }
@@ -24,10 +24,10 @@ Rectangle {
             centerOnAllParksWhenMapReadyTimer.restart()
     }
 
-    function getOverlay(garageId)
+    function getOverlay(modelIndex)
     {
         for (var i = 0; i < map.mapItems.length; ++i)
-            if (map.mapItems[i].parkModel.garageId === garageId)
+            if (map.mapItems[i].parkModel.modelIndex === modelIndex)
                 return _map.mapItems[i].overlay
         return null
     }
@@ -98,10 +98,10 @@ Rectangle {
             mapItem.destroy()
         }
 
-        var idArray = app.model.current.getIds()
+        var garageCount = app.model.current.descriptions.length
 
-        for (i = 0; i < idArray.length; ++i) {
-            var description = app.model.current.getDescription(idArray[i])
+        for (i = 0; i < garageCount; ++i) {
+            var description = app.model.current.descriptions[i]
             if (description.isEmpty)
                 continue
 

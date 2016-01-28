@@ -53,10 +53,9 @@ Window {
 
     Repeater {
         id: detailPages
-        model: app.model.current.getIds().length
+        model: app.model.current.descriptions.length
         ParkDetailsPage {
-            id: park0DetailsPage
-            garageId: app.model.current.getIds()[index]
+            modelIndex: index
         }
     }
 

@@ -7,16 +7,16 @@ Rectangle {
     border.color: app.colorDarkBg
     Layout.fillWidth: true
 
-    property int garageId: -1
+    property int modelIndex: -1
 
-    property var description: app.model.current.getDescription(garageId)
+    property var description: app.model.createEmptyDescription()
 
     Connections {
         target: app.model
         onDescriptionUpdated: {
-            if (garageId !== root.garageId)
+            if (modelIndex !== root.modelIndex)
                 return
-            description = app.model.current.getDescription(garageId)
+            description = app.model.current.descriptions[modelIndex]
         }
     }
 

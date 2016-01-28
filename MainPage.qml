@@ -9,8 +9,11 @@ import "qrc:/components"
 
 AppPage {
     id: root
+
     property alias parkMap: parkMap
-    property int selectedGarageId: -1
+    property int selectedIndex: -1
+
+    property var description: app.model.createEmptyDescription()
 
     SplitView {
         anchors.fill: parent
@@ -40,10 +43,10 @@ AppPage {
                 height: childrenRect.height
                 Repeater {
                     id: garageColumnRepeater
-                    model: app.model.current.getIds().length
+                    model: app.model.current.descriptions.length
 
                     ParkLog {
-                        garageId: app.model.current.getIds()[index]
+                        modelIndex: index
                         width: parent.width
                         height: 200
                         showMapIcon: true

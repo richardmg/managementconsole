@@ -8,9 +8,9 @@ Item {
     property bool loggingActive: false
 
     signal idsUpdated()
-    signal descriptionUpdated(int garageId)
-    signal parkingSpacesUpdated(int garageId)
-    signal logUpdated(int garageId)
+    signal descriptionUpdated(int modelIndex)
+    signal parkingSpacesUpdated(int modelIndex)
+    signal logUpdated(int modelIndex)
 
     property var fakeModel: FakeModel {}
     property var xmlHttpRequestModel: XmlHttpRequestModel {}
@@ -29,7 +29,7 @@ Item {
         if (!loggingActive)
             return
 
-        print("Description updated:", garageId, JSON.stringify(current.getDescription(garageId), 0, "   "))
+        print("Description updated:", modelIndex, JSON.stringify(current.getDescription(modelIndex), 0, "   "))
     }
 
     function createEmptyDescription()
@@ -48,5 +48,10 @@ Item {
     function createEmptyParkingSpaceObject()
     {
         return new Object
+    }
+
+    function createEmptyLog()
+    {
+        return new Array
     }
 }

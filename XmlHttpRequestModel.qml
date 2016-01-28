@@ -6,7 +6,8 @@ Item {
     property string baseUrl: originalBaseUrl
     property int status: WebSocket.Closed
 
-    property var ids: new Array
+    // Note: these three arrays need to be in sync with regards
+    // to index, since we don't use lookup on garage id.
     property var descriptions: new Array
     property var parkingSpaces: new Array
     property var logs: new Array
@@ -15,48 +16,11 @@ Item {
 
     function update()
     {
-         load("garage", function(garageArray) {
-            var prevIds = ids
-            var newIds = new Array
-            for (var i = 0; i < garageArray.length; ++i)
-                newIds.push(garageArray[i].Id);
-
-            if (newIds.length !== ids.length) {
-                ids = newIds
-                app.model.idsUpdated()
-            }
-            // todo: should theoretiacally compare
-            // ids as well to catch any changes, but
-            // skipping that for now.
-
+        load("garage", function(garageArray) {
             descriptions = garageArray
-            for (i = 0; i < ids.length; ++i)
-                app.model.descriptionUpdated(ids[i])
+            for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex)
+                app.model.descriptionUpdated(modelIndex)
         })
-    }
-
-    function getIds()
-    {
-        return ids
-    }
-
-    function getDescription(garageId)
-    {
-        for (var i = 0; i < descriptions.length; ++i) {
-            if (descriptions[i].Id === garageId)
-                return descriptions[i]
-        }
-        return app.model.createEmptyDescription()
-    }
-
-    function getParkingSpaces(garageId)
-    {
-        return parkingSpaces
-    }
-
-    function getLog(garageId)
-    {
-        return logs
     }
 
     function load(action, callback)

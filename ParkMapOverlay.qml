@@ -9,7 +9,7 @@ Item {
     Image {
         anchors.horizontalCenter: parent.horizontalCenter
         y: (parent.height / 2) - height
-        source: app.mainView.selectedGarageId === garageDescription.Id ?
+        source: app.mainView.selectedIndex === garageDescription.Id ?
                     "qrc:/img/ParkLocation_Focus_icon.png" :
                     "qrc:/img/ParkLocation_icon.png"
 
@@ -36,7 +36,7 @@ Item {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: app.mainView.selectedGarageId = garageDescription.Id
+        onClicked: app.mainView.selectedIndex = garageDescription.Id
     }
 }
 
