@@ -4,22 +4,22 @@ Item {
 
     property var fakeModel: createFakeParkingLotModel()
 
-    Component.onCompleted: dumpFakeModel()
-    function dumpFakeModel()
-    {
-        addFakeLogEntry(fakeModel.parks[0], 1)
-        addFakeLogEntry(fakeModel.parks[0], 1)
-        addFakeLogEntry(fakeModel.parks[0], 1)
-        addFakeLogEntry(fakeModel.parks[0], 2)
-        parkModelUpdated(0)
+//    Component.onCompleted: dumpFakeModel()
+//    function dumpFakeModel()
+//    {
+//        addFakeLogEntry(fakeModel.parks[0], 1)
+//        addFakeLogEntry(fakeModel.parks[0], 1)
+//        addFakeLogEntry(fakeModel.parks[0], 1)
+//        addFakeLogEntry(fakeModel.parks[0], 2)
+//        parkModelUpdated(0)
 
-        addFakeLogEntry(fakeModel.parks[1], 1)
-        addFakeLogEntry(fakeModel.parks[1], 1)
-        addFakeLogEntry(fakeModel.parks[1], 10)
-        parkModelUpdated(1)
+//        addFakeLogEntry(fakeModel.parks[1], 1)
+//        addFakeLogEntry(fakeModel.parks[1], 1)
+//        addFakeLogEntry(fakeModel.parks[1], 10)
+//        parkModelUpdated(1)
 
-        print(JSON.stringify(fakeModel, 0, " "))
-    }
+//        print(JSON.stringify(fakeModel, 0, " "))
+//    }
 
     function getParkIds() {
         return [0, 1]

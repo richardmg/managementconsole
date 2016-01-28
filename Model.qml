@@ -11,6 +11,7 @@ Item {
     signal parkModelUpdated(int parkId)
 
     property var _fakeModel: FakeModel {}
+    property var _xmlHttpRequestModel: XmlHttpRequestModel {}
 
     onDataSourceChanged: {
         var ids = getParkIds()
