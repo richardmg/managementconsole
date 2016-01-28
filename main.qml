@@ -34,12 +34,15 @@ Window {
 
     // Global API:
 
-    property Model model: Model{}
+    property alias model: model
     property AppPage currentView: mainPage
     property alias mainView: mainPage
-    property alias park0DetailsView: park0DetailsPage
-    property alias park1DetailsView: park1DetailsPage
+    property alias detailPages: detailPages
     property alias settingsView: settingsPage
+
+    Model {
+        id: model
+    }
 
     MainToolbar {
     }
@@ -48,14 +51,13 @@ Window {
         id: mainPage
     }
 
-    ParkDetailsPage {
-        id: park0DetailsPage
-        garageId: 1
-    }
-
-    ParkDetailsPage {
-        id: park1DetailsPage
-        garageId: 2
+    Repeater {
+        id: detailPages
+        model: app.model.current.getIds().length
+        ParkDetailsPage {
+            id: park0DetailsPage
+            garageId: app.model.current.getIds()[index]
+        }
     }
 
     SettingsPage {

@@ -50,7 +50,7 @@ Rectangle {
     Row {
         id: buttonRow
         x: app.contentLeftMargin + toolbar.spacing
-        width: parent.width - x
+        width: childrenRect.width
         height: childrenRect.height
         anchors.verticalCenter: parent.verticalCenter
         spacing: 20
@@ -60,21 +60,26 @@ Rectangle {
             text: "Main View"
             contentView: app.mainView
         }
-        MainToolbarButton {
-            text: "|"
-        }
-        MainToolbarButton {
-            id: park0Button
-            text: "Augustinerhof Park"
-            contentView: app.park0DetailsView
-        }
-        MainToolbarButton {
-            text: "|"
-        }
-        MainToolbarButton {
-            id: park1Button
-            text: "Karlstadt Park"
-            contentView: app.park1DetailsView
+
+        Repeater {
+            model: app.model.current.getIds().length
+            width: childrenRect.width
+            height: toolbar.height
+
+            Row {
+                width: childrenRect.width
+                height: toolbar.height
+                spacing: 20
+
+                MainToolbarButton {
+                    text: "|"
+                }
+
+                MainToolbarButton {
+                    text: app.model.current.getDescription(app.model.current.getIds()[index]).LocationName
+                    contentView: app.detailPages.itemAt(index)
+                }
+            }
         }
     }
 
@@ -84,18 +89,5 @@ Rectangle {
         contentView: app.settingsView
         anchors.right: parent.right
     }
-
-//    Button {
-//        anchors.right: parent.right
-//        text: "Settings"
-//        onClicked: currentView = settingsView
-//    }
-
-//    Row {
-//        Button {
-//            text: "MainView"
-//            onClicked: currentView = mainView
-//        }
-//    }
 }
 
