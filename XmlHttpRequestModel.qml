@@ -17,16 +17,19 @@ Item {
     {
          load("garage", function(garageArray) {
             var prevIds = ids
-            ids = new Array
+            var newIds = new Array
             for (var i = 0; i < garageArray.length; ++i)
-                ids.push(garageArray[i].Id);
+                newIds.push(garageArray[i].Id);
 
-            if (ids.length !== prevIds.length)
+            if (newIds.length !== ids.length) {
+                ids = newIds
                 app.model.idsUpdated()
+            }
             // todo: should theoretiacally compare
             // ids as well to catch any changes, but
             // skipping that for now.
 
+            descriptions = garageArray
             for (i = 0; i < ids.length; ++i)
                 app.model.descriptionUpdated(ids[i])
         })
@@ -39,9 +42,10 @@ Item {
 
     function getDescription(garageId)
     {
-        for (var i = 0; i < descriptions.length; ++i)
+        for (var i = 0; i < descriptions.length; ++i) {
             if (descriptions[i].Id === garageId)
                 return descriptions[i]
+        }
         return app.model.createEmptyDescription()
     }
 

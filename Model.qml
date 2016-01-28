@@ -5,7 +5,7 @@ Item {
     // Proxy model
 
     property var current: xmlHttpRequestModel
-    property bool loggingActive: true
+    property bool loggingActive: false
 
     signal idsUpdated()
     signal descriptionUpdated(int garageId)

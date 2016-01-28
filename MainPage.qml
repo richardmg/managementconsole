@@ -29,29 +29,29 @@ AppPage {
             }
         }
 
-        SplitView {
-            orientation: Qt.Vertical
-
-            handleDelegate: Item { height: app.spacingVer }
+        Flickable {
             width: 320
-            ParkLog {
-                id: parkA
-                Layout.minimumHeight: (parent.height - app.spacingVer) / 2
-                Layout.maximumHeight: Layout.minimumHeight
-                garageId: 0
-                showMapIcon: true
-                showPercentage: true
-                showExpandIcon: false
-                showDate: false
-            }
+            height: parent.height
+            contentHeight: garageColumn.height
 
-            ParkLog {
-                id: parkB
-                garageId: 1
-                showMapIcon: true
-                showPercentage: true
-                showExpandIcon: false
-                showDate: false
+            Column {
+                id: garageColumn
+                width: parent.width
+                height: childrenRect.height
+                Repeater {
+                    id: garageColumnRepeater
+                    model: app.model.current.getIds().length
+
+                    ParkLog {
+                        garageId: app.model.current.getIds()[index]
+                        width: parent.width
+                        height: 200
+                        showMapIcon: true
+                        showPercentage: true
+                        showExpandIcon: false
+                        showDate: false
+                    }
+                }
             }
         }
     }
