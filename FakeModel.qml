@@ -86,13 +86,13 @@ Item {
             log.push({message:"Malfunction alert", time:timeStamp, type:"alert"})
         } else if (description.NumberFreeParkingSpaces === description.NumberTotalParkingSpaces) {
             description.NumberFreeParkingSpaces--
-            log.push({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
+            log.unshift({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
         } else if (description.NumberFreeParkingSpaces === 0 || (type % 2) === 0) {
             description.NumberFreeParkingSpaces++
-            log.push({message:"Vehicle has left", time:timeStamp, type:"normal"})
+            log.unshift({message:"Vehicle has left", time:timeStamp, type:"normal"})
         } else {
             description.NumberFreeParkingSpaces--
-            log.push({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
+            log.unshift({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
         }
 
         // Trim log length:
