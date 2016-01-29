@@ -9,22 +9,8 @@ Rectangle {
 
     property int spacing: 20
 
-    function updateBg()
-    {
-        for (var i = 0; i < buttonRow.children.length; ++i) {
-            var button = buttonRow.children[i]
-            if (button.contentView === app.currentView) {
-                selectedBg.x = toolbar.mapFromItem(button, 0, 0).x - toolbar.spacing
-                selectedBg.width = button.width + (toolbar.spacing * 2)
-            }
-        }
-        if (app.currentView === app.settingsView) {
-            selectedBg.x = toolbar.mapFromItem(settingsButton, 0, 0).x - toolbar.spacing
-            selectedBg.width = settingsButton.width + (toolbar.spacing * 2)
-        }
-    }
-
     Rectangle {
+        id: toolbarUnderline
         height: 7
         width: parent.width
         anchors.bottom: parent.bottom
@@ -32,23 +18,44 @@ Rectangle {
     }
 
     Rectangle {
-        id: selectedBg
+        id: moveableButtonBackground
         width: mainViewButton.width + (toolbar.spacing * 2)
         height: parent.height
         color: app.colorSelectedBg
         x: toolbar.mapFromItem(mainViewButton, 0, 0).x - toolbar.spacing
+
         Behavior on x { NumberAnimation{ easing.type: Easing.OutCubic } }
         Behavior on width { NumberAnimation{ easing.type: Easing.OutCubic } }
 
         Component.onCompleted: updateBg()
         Connections {
             target: app
-            onCurrentViewChanged: updateBg()
+            onCurrentViewChanged: moveableButtonBackground.updateBg()
+        }
+
+        function updateBg()
+        {
+            if (app.currentView === app.mainView) {
+                moveToItem(mainViewButton)
+            } else if (app.currentView === app.settingsView) {
+                moveToItem(settingsButton)
+            } else {
+                for (var modelIndex = 0; modelIndex < garageRepeater.model; ++modelIndex) {
+                    var item = garageRepeater.itemAt(modelIndex)
+                    if (item.contentView === app.currentView)
+                        moveToItem(item)
+                }
+            }
+        }
+
+        function moveToItem(item)
+        {
+            x = toolbar.mapFromItem(item, 0, 0).x - toolbar.spacing
+            width = item.width + (toolbar.spacing * 2)
         }
     }
 
     Row {
-        id: buttonRow
         x: app.contentLeftMargin + toolbar.spacing
         width: childrenRect.width
         height: childrenRect.height
@@ -62,6 +69,7 @@ Rectangle {
         }
 
         Repeater {
+            id: garageRepeater
             model: app.model.current.descriptions.length
             width: childrenRect.width
             height: toolbar.height
@@ -70,12 +78,14 @@ Rectangle {
                 width: childrenRect.width
                 height: toolbar.height
                 spacing: 20
+                property Item contentView: toolbarButton.contentView
 
                 MainToolbarButton {
                     text: "|"
                 }
 
                 MainToolbarButton {
+                    id: toobarButton
                     text: app.model.current.descriptions[index].LocationName
                     contentView: app.detailPages.itemAt(index)
                 }
