@@ -85,13 +85,13 @@ Item {
         if (type === 10) {
             log.push({message:"Malfunction alert", time:timeStamp, type:"alert"})
         } else if (description.NumberFreeParkingSpaces === description.NumberTotalParkingSpaces) {
-            description.NumberFreeParkingSpaces++
+            description.NumberFreeParkingSpaces--
             log.push({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
         } else if (description.NumberFreeParkingSpaces === 0 || (type % 2) === 0) {
-            description.NumberFreeParkingSpaces--
+            description.NumberFreeParkingSpaces++
             log.push({message:"Vehicle has left", time:timeStamp, type:"normal"})
         } else {
-            description.NumberFreeParkingSpaces++
+            description.NumberFreeParkingSpaces--
             log.push({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
         }
 
