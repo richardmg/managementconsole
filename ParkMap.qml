@@ -48,7 +48,7 @@ Rectangle {
 
     function mapNotReady()
     {
-        return map.zoomLevel === 0 && Math.round(map.center.longitude) === 0
+        return Math.round(map.center.latitude) === 0 || Math.round(map.center.longitude) === 0
     }
 
     Timer {
