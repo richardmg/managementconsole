@@ -97,7 +97,7 @@ Item {
 
         // Trim log length:
         if (log.length > 30)
-            log.splice(0, model.log.length - 30)
+            log.splice(0, log.length - 30)
     }
 
     function getEmptyParkingSpace(model)
@@ -128,7 +128,7 @@ Item {
             var modelIndex = Math.round(Math.random() * (descriptions.length - 1))
             addLogEntry(modelIndex, 0)
             app.model.logUpdated(modelIndex)
-            interval = Math.round(500 + (Math.random() * 5000))
+//            interval = Math.round(500 + (Math.random() * 5000))
         }
     }
 

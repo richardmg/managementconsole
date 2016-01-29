@@ -123,7 +123,7 @@ Rectangle {
             anchors.bottom: parent.bottom
             width: parent.width
             clip: true
-            model: parkLog.log.log
+            model: log.length
 
             onMovingChanged: {
                 if (!moving && _pendingLogUpdate)
@@ -133,7 +133,6 @@ Rectangle {
             delegate: Item {
                 width: parent.width
                 height: logMessage.paintedHeight + 20
-                property var log: parkLog.log.log[parkLog.log.log.length - index - 1]
 
                 RowLayout {
                     id: modelContent
@@ -149,13 +148,13 @@ Rectangle {
                         height: 20
                         Image {
                             anchors.centerIn: parent
-                            source: log.type === "alert" ? "qrc:/img/Alarm_icon.png" : "qrc:/img/Vehicle_icon.png"
+                            source: log[index].type === "alert" ? "qrc:/img/Alarm_icon.png" : "qrc:/img/Vehicle_icon.png"
                         }
                     }
 
                     TextEdit {
                         id: logMessage
-                        text: log.message
+                        text: log[index].message
                         font: app.fontNormal.font
                         readOnly: true
                         Layout.fillWidth: true
@@ -164,7 +163,7 @@ Rectangle {
 
                     TextEdit {
                         id: logTime
-                        text: log.time
+                        text: log[index].time
                         font: app.fontNormal.font
                         readOnly: true
                         color: app.colorDarkFg
