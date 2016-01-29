@@ -17,6 +17,7 @@ Rectangle {
             if (modelIndex !== root.modelIndex)
                 return
             description = app.model.current.descriptions[modelIndex]
+            print(JSON.stringify(description))
         }
     }
 
