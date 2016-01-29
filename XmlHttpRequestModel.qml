@@ -16,10 +16,16 @@ Item {
 
     function update()
     {
-        load("garage", function(garageArray) {
-            descriptions = garageArray
+        load("garage", function(array) {
+            descriptions = array
             for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex)
                 app.model.descriptionUpdated(modelIndex)
+        })
+
+        load("parkingspace", function(array) {
+            parkingSpaces = array
+            for (var modelIndex = 0; modelIndex < parkingSpaces.length; ++modelIndex)
+                app.model.parkingSpacesUpdated(modelIndex)
         })
     }
 
@@ -30,12 +36,12 @@ Item {
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState === XMLHttpRequest.DONE) {
                 if (xmlhttp.status == 200) {
-//                    print(JSON.stringify(JSON.parse(xmlhttp.responseText), 0, "   "))
+                    print("MODEL: got data from server (" + action + ")")
                     status = WebSocket.Open
                     callback(JSON.parse(xmlhttp.responseText))
                 } else {
+                    print("WARNING! MODEL: could not get data from server (" + action + "):", xmlhttp.statusText)
                     status = WebSocket.Error
-                    print("WARNING! could not get data from server (" + action + "):", xmlhttp.statusText)
                 }
             }
         }

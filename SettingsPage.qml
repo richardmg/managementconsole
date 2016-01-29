@@ -45,7 +45,7 @@ AppPage {
 
             TextField {
                 id: remoteConnectionUrl
-                Layout.preferredWidth: 300
+                Layout.preferredWidth: 400
                 text: app.model.xmlHttpRequestModel.baseUrl
                 onAccepted: {
                     app.model.current = app.model.xmlHttpRequestModel
@@ -94,10 +94,19 @@ AppPage {
 
         Rectangle { width: 10; height: 10; color:"transparent"; }
 
-        Button {
-            text: "Reset"
-            onClicked: {
-                app.model.xmlHttpRequestModel.baseUrl = app.model.xmlHttpRequestModel.originalBaseUrl
+        Row {
+            spacing: 10
+            Button {
+                text: "Reload model"
+                onClicked: {
+                    app.model.current.update()
+                }
+            }
+            Button {
+                text: "Reset configuration"
+                onClicked: {
+                    app.model.xmlHttpRequestModel.baseUrl = app.model.xmlHttpRequestModel.originalBaseUrl
+                }
             }
         }
     }
