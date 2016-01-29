@@ -2,74 +2,73 @@ import QtQuick 2.4
 
 Item {
     id: root
-    property var fakeModel: createFakeParkingLotModel()
 
-//    Component.onCompleted: dumpFakeModel()
-//    function dumpFakeModel()
-//    {
-//        addFakeLogEntry(fakeModel.parks[0], 1)
-//        addFakeLogEntry(fakeModel.parks[0], 1)
-//        addFakeLogEntry(fakeModel.parks[0], 1)
-//        addFakeLogEntry(fakeModel.parks[0], 2)
-//        parkModelUpdated(0)
+    // Note: these three arrays need to be in sync with regards
+    // to index, since we don't use lookup on garage id.
+    property var descriptions: new Array
+    property var parkingSpaces: new Array
+    property var logs: new Array
 
-//        addFakeLogEntry(fakeModel.parks[1], 1)
-//        addFakeLogEntry(fakeModel.parks[1], 1)
-//        addFakeLogEntry(fakeModel.parks[1], 10)
-//        parkModelUpdated(1)
-
-//        print(JSON.stringify(fakeModel, 0, " "))
-//    }
-
-    function getGarageIds() {
-        return [0, 1]
+    Component.onCompleted: {
+        createModels()
+        fakeLogHistory(0)
+        fakeLogHistory(1)
     }
 
-    function getGarageModel(modelIndex)
+    function fakeLogHistory(modelIndex)
     {
-        return fakeModel.parks[modelIndex]
+        addLogEntry(modelIndex, 1)
+        addLogEntry(modelIndex, 1)
+        addLogEntry(modelIndex, 1)
+        addLogEntry(modelIndex, 2)
+        addLogEntry(modelIndex, 1)
+        addLogEntry(modelIndex, 2)
+        addLogEntry(modelIndex, 1)
+
+        app.model.logUpdated(modelIndex)
     }
 
-    function getParkingSpaceModel(modelIndex)
+    function createModels()
     {
-        return {}
-    }
+        var newDescriptions = new Array
+        var newParkingSpaces = new Array
+        var newLogs = new Array
 
-    function getParkingSpaceLog(modelIndex)
-    {
-        return new Array
-    }
+        newDescriptions.push({
+            Id: 0,
+            LocationName: "Augustinerhof",
+            NumberFreeParkingSpaces: 8,
+            NumberTotalParkingSpaces: 8,
+            Latitude: 49.45370,
+            Longitude: 11.07515
+        })
+        newParkingSpaces.push(new Array)
+        newLogs.push(new Array)
 
-    function createFakeParkingLotModel()
-    {
-        var parkModel = {
-            parks: new Array
+        newDescriptions.push({
+            Id: 1,
+            LocationName: "Karlstadt",
+            NumberFreeParkingSpaces: 8,
+            NumberTotalParkingSpaces: 8,
+            Latitude: 49.45297,
+            Longitude: 11.08270
+        })
+        newParkingSpaces.push(new Array)
+        newLogs.push(new Array)
+
+        // Reassign properties to emit signals
+        descriptions = newDescriptions
+        parkingSpaces = newParkingSpaces
+        logs = newLogs
+
+        for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex) {
+            app.model.descriptionUpdated(modelIndex)
+            app.model.parkingSpacesUpdated(modelIndex)
+            app.model.logUpdated(modelIndex)
         }
-
-        var park = {}
-        park.modelIndex = 0
-        park.parkName = "Augustinerhof"
-        park.spaceCapacity = 8
-        park.spacesOccupied = new Array
-        park.latitude = 49.45370
-        park.longitude = 11.07515
-        park.log = new Array
-        parkModel.parks.push(park)
-
-        park = {}
-        park.modelIndex = 1
-        park.parkName = "Karlstadt"
-        park.spaceCapacity = 8
-        park.spacesOccupied = new Array
-        park.latitude = 49.45297
-        park.longitude = 11.08270
-        park.log = new Array
-        parkModel.parks.push(park)
-
-        return parkModel
     }
 
-    function addFakeLogEntry(model, type)
+    function addLogEntry(modelIndex, type)
     {
         type = type === 0 ? Math.round(Math.random() * 10) : type
 
@@ -80,22 +79,25 @@ Item {
         m = (m < 10) ? "0" + m : m
         var timeStamp = h + ":" + m
 
+        var description = descriptions[modelIndex]
+        var log = logs[modelIndex]
+
         if (type === 10) {
-            model.log.push({message:"Malfunction alert", time:timeStamp, type:"alert"})
-        } else if (model.spacesOccupied.length === 0) {
-            model.spacesOccupied.push(getEmptyParkingSpace(model))
-            model.log.push({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
-        } else if (model.spacesOccupied.length >= model.spaceCapacity || (type % 2) === 0) {
-            model.spacesOccupied.splice(-1, 1)
-            model.log.push({message:"Vehicle has left", time:timeStamp, type:"normal"})
+            log.push({message:"Malfunction alert", time:timeStamp, type:"alert"})
+        } else if (description.NumberFreeParkingSpaces === description.NumberTotalParkingSpaces) {
+            description.NumberFreeParkingSpaces++
+            log.push({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
+        } else if (description.NumberFreeParkingSpaces === 0 || (type % 2) === 0) {
+            description.NumberFreeParkingSpaces--
+            log.push({message:"Vehicle has left", time:timeStamp, type:"normal"})
         } else {
-            model.spacesOccupied.push(getEmptyParkingSpace(model))
-            model.log.push({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
+            description.NumberFreeParkingSpaces++
+            log.push({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
         }
 
         // Trim log length:
-        if (model.log.length > 30)
-            model.log.splice(0, model.log.length - 30)
+        if (log.length > 30)
+            log.splice(0, model.log.length - 30)
     }
 
     function getEmptyParkingSpace(model)
@@ -123,9 +125,9 @@ Item {
         interval: 1000
         repeat: true
         onTriggered: {
-            var modelIndex = Math.round(Math.random() * (fakeModel.parks.length - 1))
-            addFakeLogEntry(fakeModel.parks[modelIndex], 0)
-            app.model.parkModelUpdated(modelIndex)
+            var modelIndex = Math.round(Math.random() * (descriptions.length - 1))
+            addLogEntry(modelIndex, 0)
+            app.model.logUpdated(modelIndex)
             interval = Math.round(500 + (Math.random() * 5000))
         }
     }

@@ -18,6 +18,11 @@ Rectangle {
 
     color: "white"
 
+    Component.onCompleted: {
+        description = app.model.current.descriptions[modelIndex]
+        log = app.model.current.logs[modelIndex]
+    }
+
     Connections {
         target: app.model
 
@@ -42,7 +47,7 @@ Rectangle {
     function updateLog()
     {
         _pendingLogUpdate = false
-        log = app.model.current.log[modelIndex]
+        log = app.model.current.logs[modelIndex]
     }
 
     Item {

@@ -66,15 +66,16 @@ Rectangle {
         // be styled, we need to create a proxy overlay like this that just forwards
         // its own position to an item placed as a child of the map
         MapCircle {
-            center: QtPositioning.coordinate(description.Latitude, description.Longitude)
             radius: 1
 
-            property var description
+            property int modelIndex: -1
             property Item overlay
 
             Component.onCompleted: {
+                var description = app.model.current.descriptions[modelIndex]
+                center = QtPositioning.coordinate(description.Latitude, description.Longitude)
                 var overlayComp = Qt.createComponent("ParkMapOverlay.qml")
-                overlay = overlayComp.createObject(map, { description: description })
+                overlay = overlayComp.createObject(map, { modelIndex: modelIndex })
                 overlay.x = Qt.binding(function() { return x + (width - overlay.width) / 2 })
                 overlay.y = Qt.binding(function() { return y + (height - overlay.height) / 2 })
             }
@@ -105,7 +106,7 @@ Rectangle {
             if (description.isEmpty || (description.Latitude === null || description.Longitude === null))
                 continue
 
-            var overlay = overlayProxyComp.createObject(map, { description: description })
+            var overlay = overlayProxyComp.createObject(map, { modelIndex: modelIndex })
             map.addMapItem(overlay)
         }
     }

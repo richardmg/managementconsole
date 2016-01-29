@@ -9,7 +9,8 @@ Rectangle {
 
     property int modelIndex: -1
 
-    property var description: app.model.createEmptyDescription()
+    property var description
+    Component.onCompleted: description = app.model.current.descriptions[modelIndex]
 
     Connections {
         target: app.model
@@ -17,7 +18,6 @@ Rectangle {
             if (modelIndex !== root.modelIndex)
                 return
             description = app.model.current.descriptions[modelIndex]
-            print(JSON.stringify(description))
         }
     }
 

@@ -1,10 +1,21 @@
 import QtQuick 2.0
 
 Item {
+    id: root
     width: 150
     height: 280
 
+    property int modelIndex: -1
     property var description
+
+    Component.onCompleted: description = app.model.current.descriptions[modelIndex]
+    Connections {
+        target: app.model
+        onDescriptionUpdated: {
+            if (modelIndex !== root.modelIndex)
+                description = app.model.current.descriptions[modelIndex]
+        }
+    }
 
     Image {
         anchors.horizontalCenter: parent.horizontalCenter
@@ -36,7 +47,7 @@ Item {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: app.mainView.selectedIndex = description.Id
+        onClicked: app.mainView.selectedIndex = root.modelIndex
     }
 }
 
