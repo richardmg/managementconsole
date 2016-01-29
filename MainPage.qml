@@ -13,8 +13,6 @@ AppPage {
     property alias parkMap: parkMap
     property int selectedIndex: -1
 
-    property var description: app.model.createEmptyDescription()
-
     SplitView {
         anchors.fill: parent
         handleDelegate: Item { width: app.spacingHor }
@@ -48,7 +46,7 @@ AppPage {
                     ParkLog {
                         modelIndex: index
                         width: parent.width
-                        height: 200
+                        height: garageColumnRepeater.model <= 2 ? root.height / 2 : root.height / 2.5
                         showMapIcon: true
                         showPercentage: true
                         showExpandIcon: false
