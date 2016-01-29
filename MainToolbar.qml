@@ -93,11 +93,18 @@ Rectangle {
         }
     }
 
-    MainToolbarButton {
+    Image {
         id: settingsButton
-        text: "Settings"
-        contentView: app.settingsView
+        source: "qrc:/img/settings_icon.png"
         anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.rightMargin: 55
+        anchors.topMargin: 20
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: app.currentView = app.settingsView
+        }
     }
 }
 
