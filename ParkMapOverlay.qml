@@ -12,7 +12,7 @@ Item {
     Connections {
         target: app.model
         onDescriptionUpdated: {
-            if (modelIndex !== root.modelIndex)
+            if (modelIndex === root.modelIndex)
                 description = app.model.current.descriptions[modelIndex]
         }
     }
