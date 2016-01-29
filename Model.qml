@@ -33,7 +33,7 @@ Item {
             "Latitude": 0,
             "Longitude": 0,
             "NumberFreeParkingSpaces": 0,
-            "NumberTotalParkingSpaces": 1
+            "NumberTotalParkingSpaces": 8
         }
     }
 

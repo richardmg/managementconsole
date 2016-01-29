@@ -127,6 +127,7 @@ Item {
         onTriggered: {
             var modelIndex = Math.round(Math.random() * (descriptions.length - 1))
             addLogEntry(modelIndex, 0)
+            app.model.descriptionUpdated(modelIndex)
             app.model.logUpdated(modelIndex)
 //            interval = Math.round(500 + (Math.random() * 5000))
         }

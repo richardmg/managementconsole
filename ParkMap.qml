@@ -9,6 +9,7 @@ Rectangle {
     property bool useAnimation: false
 
     property ExpandableContainer expandableContainer
+    property int descriptionCount: 0
 
     function centerOnPark(modelIndex)
     {
@@ -34,7 +35,10 @@ Rectangle {
 
     Connections {
         target: app.model
-        onDescriptionUpdated: recreateOverlay()
+        onDescriptionUpdated: {
+            if (descriptionCount !== app.model.current.descriptions.length)
+                recreateOverlay()
+        }
     }
 
     Component.onCompleted: {
@@ -100,8 +104,9 @@ Rectangle {
         }
 
         var descriptions = app.model.current.descriptions
+        descriptionCount = descriptions.length
 
-        for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex) {
+        for (var modelIndex = 0; modelIndex < descriptionCount; ++modelIndex) {
             var description = app.model.current.descriptions[modelIndex]
             if (description.isEmpty || (description.Latitude === null || description.Longitude === null))
                 continue
