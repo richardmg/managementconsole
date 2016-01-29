@@ -42,8 +42,8 @@ Rectangle {
             } else {
                 for (var modelIndex = 0; modelIndex < garageRepeater.model; ++modelIndex) {
                     var item = garageRepeater.itemAt(modelIndex)
-                    if (item.contentView === app.currentView)
-                        moveToItem(item)
+                    if (item.button.contentView === app.currentView)
+                        moveToItem(item.button)
                 }
             }
         }
@@ -78,14 +78,14 @@ Rectangle {
                 width: childrenRect.width
                 height: toolbar.height
                 spacing: 20
-                property Item contentView: toolbarButton.contentView
+                property alias button: button
 
                 MainToolbarButton {
                     text: "|"
                 }
 
                 MainToolbarButton {
-                    id: toobarButton
+                    id: button
                     text: app.model.current.descriptions[index].LocationName
                     contentView: app.detailPages.itemAt(index)
                 }
