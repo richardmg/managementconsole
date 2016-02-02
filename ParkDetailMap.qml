@@ -9,37 +9,48 @@ Rectangle {
 
     property int modelIndex: -1
 
-    property var description
-    Component.onCompleted: description = app.model.current.descriptions[modelIndex]
+    property var parkingSpaces: app.model.current.descriptions[modelIndex]
 
     Connections {
         target: app.model
-        onDescriptionUpdated: {
+        onParkingSpacesUpdated: {
             if (modelIndex !== root.modelIndex)
                 return
-            description = app.model.current.descriptions[modelIndex]
+
+            var newParkingSpaces = app.model.current.parkingSpaces[modelIndex]
+            if (parkingSpaces.length !== newParkingSpaces.length)
+                parkingSpaces = []
+            parkingSpaces = newParkingSpaces
         }
     }
 
-    GridLayout {
+    Flickable {
         anchors.fill: parent
         anchors.leftMargin: 20
         anchors.rightMargin: 20
-        anchors.topMargin: 50
-        anchors.bottomMargin: 50
-        columnSpacing: 20
-        rowSpacing: 50
-        columns: 4
-        rows: 2
+        anchors.topMargin: 40
+        anchors.bottomMargin: 40
+        contentWidth: width
+        contentHeight: grid.height
+        clip: true
 
-        Repeater {
-            model: description.spaceCapacity
-            Rectangle {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                property bool occupied: false//arrayContainsNumber(description.spacesOccupied, index)
-                color: occupied ? app.colorDarkBg : app.colorLightBg
-                border.color: app.colorDarkBg
+        GridLayout {
+            id: grid
+            width: parent.width
+            height: childrenRect.height
+            columnSpacing: 20
+            rowSpacing: 40
+            columns: 4
+
+            Repeater {
+                model: parkingSpaces.length
+                Rectangle {
+                    Layout.fillWidth: true
+                    height: 150
+                    property bool occupied: parkingSpaces[index].Status !== "Free"
+                    color: occupied ? app.colorDarkBg : app.colorLightBg
+                    border.color: app.colorDarkBg
+                }
             }
         }
     }

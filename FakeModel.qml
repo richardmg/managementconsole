@@ -5,9 +5,9 @@ Item {
 
     // Note: these three arrays need to be in sync with regards
     // to index, since we don't use lookup on garage id.
-    property var descriptions: new Array
-    property var parkingSpaces: new Array
-    property var logs: new Array
+    property var descriptions: []
+    property var parkingSpaces: []
+    property var logs: []
 
     Component.onCompleted: {
         createModels()

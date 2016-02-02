@@ -5,7 +5,6 @@ Item {
     // Proxy model
 
     property var current: xmlHttpRequestModel
-    property bool loggingActive: true//false
 
     signal descriptionUpdated(int modelIndex)
     signal parkingSpacesUpdated(int modelIndex)
@@ -20,11 +19,14 @@ Item {
     Component.onCompleted: current.update()
     onCurrentChanged: current.update()
 
-    onDescriptionUpdated: {
-        if (!loggingActive)
-            return
+    // Uncomment the following signal handlers to get debug output!
 
-        print("Description updated:", modelIndex, JSON.stringify(current.descriptions[modelIndex], 0, "   "))
+//    onDescriptionUpdated: {
+//        print("Description updated:", modelIndex, JSON.stringify(current.descriptions[modelIndex], 0, "   "))
+//    }
+
+    onParkingSpacesUpdated: {
+        print("Parking spaces updated:", modelIndex, JSON.stringify(current.parkingSpaces[modelIndex], 0, "   "))
     }
 
     function createEmptyDescription()

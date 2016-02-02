@@ -10,9 +10,9 @@ Item {
 
     // Note: these three arrays need to be in sync with regards
     // to index, since we don't use lookup on garage id.
-    property var descriptions: new Array
-    property var parkingSpaces: new Array
-    property var logs: new Array
+    property var descriptions: []
+    property var parkingSpaces: []
+    property var logs: []
 
     onBaseUrlChanged: update()
 
@@ -20,15 +20,48 @@ Item {
     {
         load("garage", function(array) {
             descriptions = array
-            for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex)
+
+            if (parkingSpaces.length !== descriptions.length)
+                parkingSpaces = new Array(descriptions.length)
+
+            for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex) {
                 app.model.descriptionUpdated(modelIndex)
+                updateParkingspaces(modelIndex)
+            }
         })
 
-        load("parkingspace", function(array) {
-            parkingSpaces = array
-            for (var modelIndex = 0; modelIndex < parkingSpaces.length; ++modelIndex)
-                app.model.parkingSpacesUpdated(modelIndex)
+//        load("parkingspace", function(array) {
+//            dump("got parking spaces:", array)
+//            parkingSpaces = array
+//            for (var modelIndex = 0; modelIndex < parkingSpaces.length; ++modelIndex)
+//                app.model.parkingSpacesUpdated(modelIndex)
+//        })
+
+//        load("garage?{1}", function(array) {
+//            dump("got garage 1:", array)
+//        })
+
+//        load("garage?garageId=0&parkingSpaceOnSite=0&numberOfEntries=10", function(array) {
+//            print("got log 0:", JSON.stringify(array, 0, "   "))
+//        })
+
+//        load("garage?garageId=1&parkingSpaceOnSite=1&numberOfEntries=10", function(array) {
+//            print("got log 1:", JSON.stringify(array, 0, "   "))
+//        })
+    }
+
+    function updateParkingspaces(modelIndex)
+    {
+        var id = descriptions[modelIndex].Id
+        load("parkingspace?garageId=" + id, function(array) {
+            parkingSpaces[modelIndex] = array
+            app.model.parkingSpacesUpdated(modelIndex)
         })
+    }
+
+    function dump(str, obj)
+    {
+        print(str, JSON.stringify(obj, 0, "   "))
     }
 
     function load(action, callback)
