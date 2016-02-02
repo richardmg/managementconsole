@@ -9,10 +9,11 @@ Item {
 
     signal descriptionUpdated(int modelIndex)
     signal parkingSpacesUpdated(int modelIndex)
-    signal logUpdated(int modelIndex)
+    signal logUpdated(int modelIndex, int removed, int appended)
 
     property var fakeModel: FakeModel {}
     property var xmlHttpRequestModel: XmlHttpRequestModel {}
+    property int maxLogLength: 100
 
     Component.onCompleted: current.update()
     onCurrentChanged: current.update()

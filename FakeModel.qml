@@ -13,6 +13,12 @@ Item {
         createModels()
         fakeLogHistory(0)
         fakeLogHistory(1)
+
+        for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex) {
+            app.model.descriptionUpdated(modelIndex)
+            app.model.parkingSpacesUpdated(modelIndex)
+            app.model.logUpdated(modelIndex, 0, 0)
+        }
     }
 
     function fakeLogHistory(modelIndex)
@@ -24,8 +30,6 @@ Item {
         addLogEntry(modelIndex, 1)
         addLogEntry(modelIndex, 2)
         addLogEntry(modelIndex, 1)
-
-        app.model.logUpdated(modelIndex)
     }
 
     function createModels()
@@ -60,13 +64,9 @@ Item {
         descriptions = newDescriptions
         parkingSpaces = newParkingSpaces
         logs = newLogs
-
-        for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex) {
-            app.model.descriptionUpdated(modelIndex)
-            app.model.parkingSpacesUpdated(modelIndex)
-            app.model.logUpdated(modelIndex)
-        }
     }
+
+    property int xxx: 0
 
     function addLogEntry(modelIndex, type)
     {
@@ -86,18 +86,14 @@ Item {
             log.push({message:"Malfunction alert", time:timeStamp, type:"alert"})
         } else if (description.NumberFreeParkingSpaces === description.NumberTotalParkingSpaces) {
             description.NumberFreeParkingSpaces--
-            log.unshift({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
+            log.push({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
         } else if (description.NumberFreeParkingSpaces === 0 || (type % 2) === 0) {
             description.NumberFreeParkingSpaces++
-            log.unshift({message:"Vehicle has left", time:timeStamp, type:"normal"})
+            log.push({message:"Vehicle has left", time:timeStamp, type:"normal"})
         } else {
             description.NumberFreeParkingSpaces--
-            log.unshift({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
+            log.push({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
         }
-
-        // Trim log length:
-        if (log.length > 30)
-            log.splice(0, log.length - 30)
     }
 
     function getEmptyParkingSpace(model)
@@ -126,10 +122,21 @@ Item {
         repeat: true
         onTriggered: {
             var modelIndex = Math.round(Math.random() * (descriptions.length - 1))
+            var log = logs[modelIndex]
             addLogEntry(modelIndex, 0)
+
+            var appendCount = 1
+            var removeCount = 0
+
+            if (log.length > app.model.maxLogLength) {
+                // Trim log length:
+                removeCount = app.model.maxLogLength / 2
+                log.splice(0, removeCount)
+            }
+
             app.model.descriptionUpdated(modelIndex)
-            app.model.logUpdated(modelIndex)
-//            interval = Math.round(500 + (Math.random() * 5000))
+            app.model.logUpdated(modelIndex, removeCount, appendCount)
+            interval = Math.round(500 + (Math.random() * 5000))
         }
     }
 
