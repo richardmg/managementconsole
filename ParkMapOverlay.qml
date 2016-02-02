@@ -20,7 +20,7 @@ Item {
     Image {
         anchors.horizontalCenter: parent.horizontalCenter
         y: (parent.height / 2) - height
-        source: app.mainView.selectedIndex === description.Id ?
+        source: app.mainView.selectedIndex === root.modelIndex ?
                     "qrc:/img/ParkLocation_Focus_icon.png" :
                     "qrc:/img/ParkLocation_icon.png"
 
