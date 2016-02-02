@@ -136,6 +136,7 @@ Item {
 
             app.model.descriptionUpdated(modelIndex)
             app.model.logUpdated(modelIndex, removeCount, appendCount)
+
             interval = Math.round(500 + (Math.random() * 5000))
         }
     }
