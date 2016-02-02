@@ -17,4 +17,5 @@ target.path = /home/app/apps/$$TARGET
 INSTALLS += target
 
 DISTFILES += \
-    MapWithParkingLots.qml
+    MapWithParkingLots.qml \
+    TODO.txt

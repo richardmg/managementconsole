@@ -104,7 +104,7 @@ Rectangle {
                     selected: app.mainView.selectedIndex === modelIndex
                     onClicked: {
                         app.mainView.selectedIndex = modelIndex
-                        app.mainView.parkMap.centerOnAllParks()
+                        app.mainView.parkMap.centerOnPark(modelIndex)
                     }
                 }
 

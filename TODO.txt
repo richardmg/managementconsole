@@ -1,0 +1,2 @@
+- Split overlay so that "arrow" cannot end up on top of other overlay bubbles.
+- Implement statistics

@@ -13,7 +13,7 @@ Rectangle {
 
     function centerOnPark(modelIndex)
     {
-        var garage = app.model.current.getDescription(modelIndex)
+        var garage = app.model.current.descriptions[modelIndex]
         moveToLatLon(garage.Latitude, garage.Longitude)
         zoomLevel = 18
     }
