@@ -112,14 +112,6 @@ AppPage {
         }
     }
 
-    TextArea {
-        anchors.top: settingsGrid.bottom
-        anchors.bottom: parent.bottom
-        anchors.topMargin: 10
-        width: parent.width
-        readOnly: true
-    }
-
 
 }
 

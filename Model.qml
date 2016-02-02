@@ -5,7 +5,7 @@ Item {
     // Proxy model
 
     property var current: xmlHttpRequestModel
-    property bool loggingActive: false
+    property bool loggingActive: true//false
 
     signal descriptionUpdated(int modelIndex)
     signal parkingSpacesUpdated(int modelIndex)
