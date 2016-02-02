@@ -21,6 +21,11 @@ Item {
         }
     }
 
+    function update()
+    {
+        // no-op
+    }
+
     function fakeLogHistory(modelIndex)
     {
         addLogEntry(modelIndex, 1)

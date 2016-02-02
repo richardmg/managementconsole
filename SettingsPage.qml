@@ -98,7 +98,7 @@ AppPage {
         Row {
             spacing: 10
             Button {
-                text: "Reload model"
+                text: "Request update"
                 onClicked: {
                     app.model.current.update()
                 }
