@@ -38,7 +38,7 @@ Rectangle {
 
             log = app.model.current.logs[modelIndex]
 
-            // We get notified how many entries were removed from the
+            // We get notified how many entries that were removed from the
             // beginning of the log, and how many that were added to the end.
             // If both are zero, it means the whole log was changed.
             if (removed == 0 && appended == 0) {
@@ -46,8 +46,8 @@ Rectangle {
                 appended = log.length
             }
 
-            // We reverse the model list, since we want the
-            // newest log entries to show up on top
+            // We reverse the log, since we want the
+            // newest entries to show up on top
             if (removed > 0)
                 listModel.remove(listModel.count - removed, removed)
 
