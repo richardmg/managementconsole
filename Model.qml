@@ -4,7 +4,7 @@ import QtWebSockets 1.0
 Item {
     // Proxy model
 
-    property var current: fakeModel
+    property var current: xmlHttpRequestModel
     property bool loggingActive: false
 
     signal descriptionUpdated(int modelIndex)
