@@ -2,6 +2,8 @@ import QtQuick 2.0
 import QtWebSockets 1.0
 
 Item {
+    id: root
+
     readonly property string originalBaseUrl: "http://cloudparkingdemo.azurewebsites.net/api/tdxremote"
     property string baseUrl: originalBaseUrl
     property int status: WebSocket.Closed
@@ -50,9 +52,16 @@ Item {
         xmlhttp.send();
     }
 
-    function dumpObject(obj)
-    {
-        print(JSON.stringify(obj, 0, "   "))
+
+    Timer {
+        running: app.model.current === root
+        interval: app.model.pollIntervalMs
+        repeat: true
+        onTriggered: {
+            update()
+//            app.model.descriptionUpdated(modelIndex)
+//            app.model.logUpdated(modelIndex, removeCount, appendCount)
+        }
     }
 
 }

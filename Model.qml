@@ -13,7 +13,9 @@ Item {
 
     property var fakeModel: FakeModel {}
     property var xmlHttpRequestModel: XmlHttpRequestModel {}
+
     property int maxLogLength: 100
+    property int pollIntervalMs: 10000
 
     Component.onCompleted: current.update()
     onCurrentChanged: current.update()
