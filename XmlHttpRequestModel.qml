@@ -13,6 +13,7 @@ Item {
     property var descriptions: []
     property var parkingSpaces: []
     property var logs: []
+    property var updateStamps: []
 
     onBaseUrlChanged: update()
 
@@ -25,6 +26,8 @@ Item {
                 parkingSpaces = new Array(descriptions.length)
 
             for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex) {
+                updateStamps[modelIndex] = new Date()
+                app.model.updateTimeUpdated(modelIndex)
                 app.model.descriptionUpdated(modelIndex)
                 updateParkingspaces(modelIndex)
             }

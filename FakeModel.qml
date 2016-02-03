@@ -8,6 +8,7 @@ Item {
     property var descriptions: []
     property var parkingSpaces: []
     property var logs: []
+    property var updateStamps: []
 
     Component.onCompleted: {
         createModels()
@@ -15,6 +16,7 @@ Item {
         fakeLogHistory(1)
 
         for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex) {
+            app.model.updateTimeUpdated(modelIndex)
             app.model.descriptionUpdated(modelIndex)
             app.model.parkingSpacesUpdated(modelIndex)
             app.model.logUpdated(modelIndex, 0, 0)
@@ -39,37 +41,36 @@ Item {
 
     function createModels()
     {
-        var newDescriptions = new Array
-        var newParkingSpaces = new Array
-        var newLogs = new Array
+        var newDescriptions = []
+        var newParkingSpaces = []
+        var newLogs = []
+        var newUpdateStamps = []
 
-        newDescriptions.push({
-            Id: 0,
-            LocationName: "Augustinerhof",
-            NumberFreeParkingSpaces: 8,
-            NumberTotalParkingSpaces: 8,
-            Latitude: 49.45370,
-            Longitude: 11.07515
-        })
-        newParkingSpaces.push([])
-        newLogs.push([])
-        for (var i = 0; i < 8; ++i)
-            newParkingSpaces[0].push(app.model.createEmptyParkingSpaceObject(0, i))
+        for (var i = 0; i < 2; ++i) {
+            // Common for all garages
+            newDescriptions.push({
+                 Id: i,
+                 NumberFreeParkingSpaces: 8,
+                 NumberTotalParkingSpaces: 8,
+             })
+            newParkingSpaces.push([])
+            newLogs.push([])
+            newUpdateStamps.push(new Date())
+            for (var j = 0; j < 8; ++j)
+                newParkingSpaces[i].push(app.model.createEmptyParkingSpaceObject(i, j))
+        }
 
-        newDescriptions.push({
-            Id: 1,
-            LocationName: "Karlstadt",
-            NumberFreeParkingSpaces: 8,
-            NumberTotalParkingSpaces: 8,
-            Latitude: 49.45297,
-            Longitude: 11.08270
-        })
-        newParkingSpaces.push([])
-        newLogs.push([])
-        for (i = 0; i < 8; ++i)
-            newParkingSpaces[1].push(app.model.createEmptyParkingSpaceObject(1, i))
+        // Specific for each garage
+        newDescriptions[0].LocationName = "Augustinerhof"
+        newDescriptions[0].Latitude = 49.45370
+        newDescriptions[0].Longitude = 11.07515
 
-        // Reassign properties to emit signals
+        newDescriptions[1].LocationName = "Karlstadt"
+        newDescriptions[1].Latitude = 49.45297
+        newDescriptions[1].Longitude = 11.08270
+
+        // All is ready, reassign properties to emit implicit signals
+        updateStamps = newUpdateStamps
         descriptions = newDescriptions
         parkingSpaces = newParkingSpaces
         logs = newLogs
@@ -159,6 +160,7 @@ Item {
             var modelIndex = Math.round(Math.random() * (descriptions.length - 1))
             var log = logs[modelIndex]
             addLogEntry(modelIndex, 0)
+            updateStamps[modelIndex] = new Date()
 
             var appendCount = 1
             var removeCount = 0
@@ -169,6 +171,7 @@ Item {
                 log.splice(0, removeCount)
             }
 
+            app.model.updateTimeUpdated(modelIndex)
             app.model.descriptionUpdated(modelIndex)
             app.model.logUpdated(modelIndex, removeCount, appendCount)
             app.model.parkingSpacesUpdated(modelIndex)

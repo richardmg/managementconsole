@@ -14,6 +14,7 @@ Rectangle {
 
     property var description: app.model.createEmptyDescription()
     property var log: app.model.createEmptyLog()
+    property var updateTime: new Date()
 
     color: "white"
 
@@ -56,6 +57,12 @@ Rectangle {
                 listModel.insert(0, ({message:entry.message, time:entry.time, type:entry.type}))
             }
         }
+
+        onUpdateTimeUpdated: {
+            if (modelIndex !== parkLog.modelIndex)
+                return
+            updateTime = app.model.current.updateStamps[modelIndex]
+        }
     }
 
     Item {
@@ -72,12 +79,11 @@ Rectangle {
                 spacing: 10
                 x: spacing
 
-                TextEdit {
+                Text {
                     id: headerParkName
                     text: description.LocationName
                     font: app.fontC.font
                     Layout.fillWidth: true
-                    readOnly: true
                     color: app.colorDarkFg
                     x: 10
                     y: 6
@@ -97,6 +103,15 @@ Rectangle {
                     font: app.fontC.font
                     x: 10
                     y: 6
+                }
+
+                Text {
+                    id: date
+                    visible: showDate
+                    font: app.fontE.font
+                    x: 10
+                    anchors.bottom: headerParkName.bottom
+                    text: updateTime.getDay() + "." + updateTime.getMonth() + "." + updateTime.getFullYear()
                 }
 
                 IconButton {
