@@ -27,30 +27,13 @@ Item {
 
             for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex) {
                 updateStamps[modelIndex] = new Date()
-                app.model.updateTimeUpdated(modelIndex)
-                app.model.descriptionUpdated(modelIndex)
                 updateParkingspaces(modelIndex)
+                if (app.model.current === root) {
+                    app.model.updateTimeUpdated(modelIndex)
+                    app.model.descriptionUpdated(modelIndex)
+                }
             }
         })
-
-//        load("parkingspace", function(array) {
-//            dump("got parking spaces:", array)
-//            parkingSpaces = array
-//            for (var modelIndex = 0; modelIndex < parkingSpaces.length; ++modelIndex)
-//                app.model.parkingSpacesUpdated(modelIndex)
-//        })
-
-//        load("garage?{1}", function(array) {
-//            dump("got garage 1:", array)
-//        })
-
-//        load("garage?garageId=0&parkingSpaceOnSite=0&numberOfEntries=10", function(array) {
-//            print("got log 0:", JSON.stringify(array, 0, "   "))
-//        })
-
-//        load("garage?garageId=1&parkingSpaceOnSite=1&numberOfEntries=10", function(array) {
-//            print("got log 1:", JSON.stringify(array, 0, "   "))
-//        })
     }
 
     function updateParkingspaces(modelIndex)
@@ -58,7 +41,8 @@ Item {
         var id = descriptions[modelIndex].Id
         load("parkingspace?garageId=" + id, function(array) {
             parkingSpaces[modelIndex] = array
-            app.model.parkingSpacesUpdated(modelIndex)
+            if (app.model.current === root)
+                app.model.parkingSpacesUpdated(modelIndex)
         })
     }
 

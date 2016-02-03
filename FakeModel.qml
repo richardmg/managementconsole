@@ -14,18 +14,17 @@ Item {
         createModels()
         fakeLogHistory(0)
         fakeLogHistory(1)
+        update()
+    }
 
+    function update()
+    {
         for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex) {
             app.model.updateTimeUpdated(modelIndex)
             app.model.descriptionUpdated(modelIndex)
             app.model.parkingSpacesUpdated(modelIndex)
             app.model.logUpdated(modelIndex, 0, 0)
         }
-    }
-
-    function update()
-    {
-        // no-op
     }
 
     function fakeLogHistory(modelIndex)
