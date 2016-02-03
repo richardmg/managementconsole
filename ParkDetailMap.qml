@@ -8,16 +8,10 @@ Rectangle {
     Layout.fillWidth: true
 
     property int modelIndex: -1
-
     property var parkingSpaces: app.model.currentModel.parkingSpaces[modelIndex]
 
     Connections {
         target: app.model
-        onCurrentModelChanged: {
-            print("update")
-            parkingSpaces = []
-            parkingSpaces = app.model.currentModel.parkingSpaces[modelIndex]
-        }
 
         onParkingSpacesUpdated: {
             if (modelIndex !== root.modelIndex)
