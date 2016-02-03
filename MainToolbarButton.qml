@@ -10,7 +10,7 @@ Item {
     Text {
         id: headerText
         text: "Main View"
-        font: app.fontBig.font
+        font: app.fontA.font
         color: "white"
         anchors.verticalCenter: parent.verticalCenter
     }

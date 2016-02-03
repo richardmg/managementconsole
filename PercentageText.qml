@@ -1,7 +1,6 @@
 import QtQuick 2.0
 
 Text {
-    font: app.fontNormal.font
     color: app.colorDarkFg
 
     property int capacity: 8

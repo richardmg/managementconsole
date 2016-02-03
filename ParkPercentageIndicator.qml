@@ -27,6 +27,7 @@ Item {
         id: percentageText
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
+        font: app.fontD.font
     }
 }
 

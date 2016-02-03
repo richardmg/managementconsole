@@ -28,7 +28,7 @@ Item {
             id: parkOverlayName
             y: 20
             anchors.horizontalCenter: parent.horizontalCenter
-            font: app.fontBig.font
+            font: app.fontD.font
             text: description.LocationName
             color: app.colorDarkFg
         }

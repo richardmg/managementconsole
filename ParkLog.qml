@@ -75,7 +75,7 @@ Rectangle {
                 TextEdit {
                     id: headerParkName
                     text: description.LocationName
-                    font: app.fontBig.font
+                    font: app.fontC.font
                     Layout.fillWidth: true
                     readOnly: true
                     color: app.colorDarkFg
@@ -84,7 +84,7 @@ Rectangle {
                 }
 
 //                Text {
-//                    font: app.fontBig.font
+//                    font: app.fontA.font
 //                    color: app.colorDarkFg
 //                    text: "|"
 //                }
@@ -94,6 +94,7 @@ Rectangle {
                     visible: showPercentage
                     freeSpaces: description.NumberFreeParkingSpaces
                     capacity: description.NumberTotalParkingSpaces
+                    font: app.fontC.font
                     x: 10
                     y: 6
                 }
@@ -162,7 +163,7 @@ Rectangle {
                     TextEdit {
                         id: logMessage
                         text: message
-                        font: app.fontNormal.font
+                        font: app.fontB.font
                         readOnly: true
                         Layout.fillWidth: true
                         color: app.colorDarkFg
@@ -171,7 +172,7 @@ Rectangle {
                     TextEdit {
                         id: logTime
                         text: time
-                        font: app.fontNormal.font
+                        font: app.fontB.font
                         readOnly: true
                         color: app.colorDarkFg
                     }

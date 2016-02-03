@@ -23,9 +23,10 @@ Window {
     property color colorSelectedBg: "#e45000"
     property color colorGreenBg: "#80c342"
 
-    property FontMetrics fontBig: FontMetrics { font.family: "arial"; font.pixelSize: 20 }
-    property FontMetrics fontNormal: FontMetrics { font.family: "arial"; font.pixelSize: 15 }
-    property FontMetrics fontSmall: FontMetrics { font.family: "arial"; font.pixelSize: 14 }
+    property FontMetrics fontA: FontMetrics { font.family: "arial"; font.pixelSize: 20 }
+    property FontMetrics fontB: FontMetrics { font.family: "arial"; font.pixelSize: 16 }
+    property FontMetrics fontC: FontMetrics { font.family: "arial"; font.pixelSize: 20; font.bold: true }
+    property FontMetrics fontD: FontMetrics { font.family: "arial"; font.pixelSize: 18; font.bold: true }
 
     property real margin: 10
     property real spacingHor: 40
