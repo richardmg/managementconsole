@@ -4,7 +4,7 @@ import QtWebSockets 1.0
 Item {
     // Proxy model
 
-    property var current: fakeModel
+    property var currentModel: fakeModel
 
     signal descriptionUpdated(int modelIndex)
     signal parkingSpacesUpdated(int modelIndex)
@@ -17,17 +17,17 @@ Item {
     property int maxLogLength: 100
     property int pollIntervalMs: 10000
 
-    Component.onCompleted: current.update()
-    onCurrentChanged: current.update()
+    Component.onCompleted: currentModel.update()
+    onCurrentModelChanged: currentModel.update()
 
     // Uncomment the following signal handlers to get debug output!
 
 //    onDescriptionUpdated: {
-//        print("Description updated:", modelIndex, JSON.stringify(current.descriptions[modelIndex], 0, "   "))
+//        print("Description updated:", modelIndex, JSON.stringify(currentModel.descriptions[modelIndex], 0, "   "))
 //    }
 
 //    onParkingSpacesUpdated: {
-//        print("Parking spaces updated:", modelIndex, JSON.stringify(current.parkingSpaces[modelIndex], 0, "   "))
+//        print("Parking spaces updated:", modelIndex, JSON.stringify(currentModel.parkingSpaces[modelIndex], 0, "   "))
 //    }
 
     function createEmptyDescription()

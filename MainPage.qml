@@ -41,7 +41,7 @@ AppPage {
                 height: childrenRect.height
                 Repeater {
                     id: garageColumnRepeater
-                    model: app.model.current.descriptions.length
+                    model: app.model.currentModel.descriptions.length
 
                     ParkLog {
                         modelIndex: index

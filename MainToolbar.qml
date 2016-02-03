@@ -70,7 +70,7 @@ Rectangle {
 
         Repeater {
             id: garageRepeater
-            model: app.model.current.descriptions.length
+            model: app.model.currentModel.descriptions.length
             width: childrenRect.width
             height: toolbar.height
 
@@ -86,7 +86,7 @@ Rectangle {
 
                 MainToolbarButton {
                     id: button
-                    text: app.model.current.descriptions[index].LocationName
+                    text: app.model.currentModel.descriptions[index].LocationName
                     contentView: app.detailPages.itemAt(index)
                 }
             }

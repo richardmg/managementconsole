@@ -13,7 +13,7 @@ Rectangle {
 
     function centerOnPark(modelIndex)
     {
-        var garage = app.model.current.descriptions[modelIndex]
+        var garage = app.model.currentModel.descriptions[modelIndex]
         moveToLatLon(garage.Latitude, garage.Longitude)
         zoomLevel = 15
     }
@@ -36,7 +36,7 @@ Rectangle {
     Connections {
         target: app.model
         onDescriptionUpdated: {
-            if (descriptionCount !== app.model.current.descriptions.length)
+            if (descriptionCount !== app.model.currentModel.descriptions.length)
                 recreateOverlay()
         }
     }
@@ -76,7 +76,7 @@ Rectangle {
             property Item overlay
 
             Component.onCompleted: {
-                var description = app.model.current.descriptions[modelIndex]
+                var description = app.model.currentModel.descriptions[modelIndex]
                 center = QtPositioning.coordinate(description.Latitude, description.Longitude)
                 var overlayComp = Qt.createComponent("ParkMapOverlay.qml")
                 overlay = overlayComp.createObject(map, { modelIndex: modelIndex })
@@ -103,11 +103,11 @@ Rectangle {
             mapItem.destroy()
         }
 
-        var descriptions = app.model.current.descriptions
+        var descriptions = app.model.currentModel.descriptions
         descriptionCount = descriptions.length
 
         for (var modelIndex = 0; modelIndex < descriptionCount; ++modelIndex) {
-            var description = app.model.current.descriptions[modelIndex]
+            var description = app.model.currentModel.descriptions[modelIndex]
             if (description.isEmpty || (description.Latitude === null || description.Longitude === null))
                 continue
 

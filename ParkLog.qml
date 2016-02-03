@@ -19,8 +19,8 @@ Rectangle {
     color: "white"
 
     Component.onCompleted: {
-        description = app.model.current.descriptions[modelIndex]
-        log = app.model.current.logs[modelIndex]
+        description = app.model.currentModel.descriptions[modelIndex]
+        log = app.model.currentModel.logs[modelIndex]
     }
 
     Connections {
@@ -30,14 +30,14 @@ Rectangle {
             if (modelIndex !== parkLog.modelIndex)
                 return
 
-            description = app.model.current.descriptions[modelIndex]
+            description = app.model.currentModel.descriptions[modelIndex]
         }
 
         onLogUpdated: {
             if (modelIndex !== parkLog.modelIndex)
                 return
 
-            log = app.model.current.logs[modelIndex]
+            log = app.model.currentModel.logs[modelIndex]
 
             // We get notified how many entries that were removed from the
             // beginning of the log, and how many that were added to the end.
@@ -61,7 +61,7 @@ Rectangle {
         onUpdateTimeUpdated: {
             if (modelIndex !== parkLog.modelIndex)
                 return
-            updateTime = app.model.current.updateStamps[modelIndex]
+            updateTime = app.model.currentModel.updateStamps[modelIndex]
         }
     }
 

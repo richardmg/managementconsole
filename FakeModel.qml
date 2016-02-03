@@ -96,7 +96,7 @@ Item {
 
         var entry = {
             "UserId": "Some ID",
-            "Arrival": getCurrentTimeStamp(),
+            "Arrival": getTimeStamp(),
             "GarageId": description.Id,
             "Status": "Occupied",
             "OnSiteId": onSiteId,
@@ -106,7 +106,7 @@ Item {
 
         description.NumberFreeParkingSpaces--
         spaces[onSiteId] = entry
-        log.push({message:"Vehicle has arrived", time:getCurrentTimeStamp(), type:"normal"})
+        log.push({message:"Vehicle has arrived", time:getTimeStamp(), type:"normal"})
     }
 
     function unparkCar(modelIndex)
@@ -118,10 +118,10 @@ Item {
 
         description.NumberFreeParkingSpaces++
         spaces[onSiteId] = app.model.createEmptyParkingSpaceObject(modelIndex, onSiteId)
-        log.push({message:"Vehicle has left", time:getCurrentTimeStamp(), type:"normal"})
+        log.push({message:"Vehicle has left", time:getTimeStamp(), type:"normal"})
     }
 
-    function getCurrentTimeStamp()
+    function getTimeStamp()
     {
         var time = new Date()
         var h = time.getHours()
@@ -152,7 +152,7 @@ Item {
     }
 
     Timer {
-        running: app.model.current === root
+        running: app.model.currentModel === root
         interval: 1000
         repeat: true
         onTriggered: {

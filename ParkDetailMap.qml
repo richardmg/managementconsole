@@ -9,28 +9,29 @@ Rectangle {
 
     property int modelIndex: -1
 
-    property var parkingSpaces: app.model.current.parkingSpaces[modelIndex]
+    property var parkingSpaces: app.model.currentModel.parkingSpaces[modelIndex]
 
     Connections {
         target: app.model
-        onCurrentChanged: {
+        onCurrentModelChanged: {
+            print("update")
             parkingSpaces = []
-            parkingSpaces = app.model.current.parkingSpaces[modelIndex]
+            parkingSpaces = app.model.currentModel.parkingSpaces[modelIndex]
         }
 
         onParkingSpacesUpdated: {
             if (modelIndex !== root.modelIndex)
                 return
-            parkingSpaces = app.model.current.parkingSpaces[modelIndex]
+            parkingSpaces = app.model.currentModel.parkingSpaces[modelIndex]
         }
 
         onDescriptionUpdated: {
             if (modelIndex !== root.modelIndex)
                 return
-            var description = app.model.current.descriptions[modelIndex]
+            var description = app.model.currentModel.descriptions[modelIndex]
             if (description.NumberTotalParkingSpaces !== repeater.count) {
                 parkingSpaces = []
-                parkingSpaces = app.model.current.parkingSpaces[modelIndex]
+                parkingSpaces = app.model.currentModel.parkingSpaces[modelIndex]
             }
         }
     }

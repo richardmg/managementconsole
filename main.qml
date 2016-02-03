@@ -55,7 +55,7 @@ Window {
 
     Repeater {
         id: detailPages
-        model: app.model.current.descriptions.length
+        model: app.model.currentModel.descriptions.length
         ParkDetailsPage {
             modelIndex: index
         }

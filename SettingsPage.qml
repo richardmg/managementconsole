@@ -13,19 +13,19 @@ AppPage {
         id: dataSourceGroup
         onCurrentChanged: {
             if (current === remoteSource)
-                app.model.current = app.model.xmlHttpRequestModel
+                app.model.currentModel = app.model.xmlHttpRequestModel
             else if (current === offlineSource)
-                app.model.current = app.model.fakeModel
+                app.model.currentModel = app.model.fakeModel
             app.mainView.parkMap.centerOnAllParks()
         }
     }
 
     Connections {
         target: app.model
-        onCurrentChanged: {
-            if (app.model.current === app.model.xmlHttpRequestModel)
+        onCurrentModelChanged: {
+            if (app.model.currentModel === app.model.xmlHttpRequestModel)
                 dataSourceGroup.current = remoteSource
-            else if (app.model.current === app.model.fakeModel)
+            else if (app.model.currentModel === app.model.fakeModel)
                 dataSourceGroup.current = offlineSource
         }
     }
@@ -40,7 +40,7 @@ AppPage {
             RadioButton {
                 id: remoteSource
                 text: "Remote server:"
-                checked: app.model.current === app.model.xmlHttpRequestModel
+                checked: app.model.currentModel === app.model.xmlHttpRequestModel
                 exclusiveGroup: dataSourceGroup
             }
 
@@ -49,7 +49,7 @@ AppPage {
                 Layout.preferredWidth: 400
                 text: app.model.xmlHttpRequestModel.baseUrl
                 onAccepted: {
-                    app.model.current = app.model.xmlHttpRequestModel
+                    app.model.currentModel = app.model.xmlHttpRequestModel
                     app.model.xmlHttpRequestModel.baseUrl = text
                 }
             }
@@ -81,7 +81,7 @@ AppPage {
         RadioButton {
             id: offlineSource
             text: "Use offline data"
-            checked: app.model.current === app.model.fakeModel
+            checked: app.model.currentModel === app.model.fakeModel
             exclusiveGroup: dataSourceGroup
         }
 
@@ -100,7 +100,7 @@ AppPage {
             Button {
                 text: "Request update"
                 onClicked: {
-                    app.model.current.update()
+                    app.model.currentModel.update()
                 }
             }
             Button {

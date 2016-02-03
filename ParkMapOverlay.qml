@@ -8,12 +8,12 @@ Item {
     property int modelIndex: -1
     property var description
 
-    Component.onCompleted: description = app.model.current.descriptions[modelIndex]
+    Component.onCompleted: description = app.model.currentModel.descriptions[modelIndex]
     Connections {
         target: app.model
         onDescriptionUpdated: {
             if (modelIndex === root.modelIndex)
-                description = app.model.current.descriptions[modelIndex]
+                description = app.model.currentModel.descriptions[modelIndex]
         }
     }
 

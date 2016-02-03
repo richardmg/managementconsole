@@ -28,7 +28,7 @@ Item {
             for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex) {
                 updateStamps[modelIndex] = new Date()
                 updateParkingspaces(modelIndex)
-                if (app.model.current === root) {
+                if (app.model.currentModel === root) {
                     app.model.updateTimeUpdated(modelIndex)
                     app.model.descriptionUpdated(modelIndex)
                 }
@@ -41,7 +41,7 @@ Item {
         var id = descriptions[modelIndex].Id
         load("parkingspace?garageId=" + id, function(array) {
             parkingSpaces[modelIndex] = array
-            if (app.model.current === root)
+            if (app.model.currentModel === root)
                 app.model.parkingSpacesUpdated(modelIndex)
         })
     }
@@ -74,7 +74,7 @@ Item {
 
 
     Timer {
-        running: app.model.current === root
+        running: app.model.currentModel === root
         interval: app.model.pollIntervalMs
         repeat: true
         onTriggered: {
