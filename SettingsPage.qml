@@ -68,7 +68,7 @@ AppPage {
                         if (status === WebSocket.Connecting)
                             remoteConnectionStatusIndicator.color = "yellow"
                         else if (status === WebSocket.Open)
-                            remoteConnectionStatusIndicator.color = "green"
+                            remoteConnectionStatusIndicator.color = app.colorGreenBg
                         else if (status === WebSocket.Closed)
                             remoteConnectionStatusIndicator.color = "gray"
                         else if (status === WebSocket.Error)
