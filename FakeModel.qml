@@ -56,7 +56,7 @@ Item {
             newLogs.push([])
             newUpdateStamps.push(new Date())
             for (var j = 0; j < 8; ++j)
-                newParkingSpaces[i].push(app.model.createEmptyParkingSpaceObject(i, j))
+                newParkingSpaces[i].push(app.model.createEmptyParkingSpaceModel(i, j))
         }
 
         // Specific for each garage
@@ -117,7 +117,7 @@ Item {
         var onSiteId = getRandomParkingSpace(modelIndex, "Occupied")
 
         description.NumberFreeParkingSpaces++
-        spaces[onSiteId] = app.model.createEmptyParkingSpaceObject(modelIndex, onSiteId)
+        spaces[onSiteId] = app.model.createEmptyParkingSpaceModel(modelIndex, onSiteId)
         log.push({message:"Vehicle has left", time:getTimeStamp(), type:"normal"})
     }
 

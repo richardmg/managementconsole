@@ -18,6 +18,7 @@
         <file>WebCam.qml</file>
         <file>XmlHttpRequestModel.qml</file>
         <file>ParkingSpace.qml</file>
+        <file>ParkingSpaceDetails.qml</file>
     </qresource>
     <qresource prefix="/pages">
         <file>MainPage.qml</file>

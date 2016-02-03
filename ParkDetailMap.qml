@@ -54,9 +54,15 @@ Rectangle {
                 ParkingSpace {
                     Layout.fillWidth: true
                     parkingSpaceModel: parkingSpaces[index]
+                    onClicked: parkingSpaceDetails.showModel(parkingSpaceModel)
                 }
             }
         }
     }
 
+    ParkingSpaceDetails {
+        id: parkingSpaceDetails
+        expandTo: root
+        anchors.fill: parent
+    }
 }

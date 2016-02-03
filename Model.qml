@@ -43,7 +43,7 @@ Item {
         }
     }
 
-    function createEmptyParkingSpaceObject(garageId, parkingSpaceId)
+    function createEmptyParkingSpaceModel(garageId, parkingSpaceId)
     {
         return {
             "EMPTY_PARKING_SPACE_GENERATED_LOCALLY": true,

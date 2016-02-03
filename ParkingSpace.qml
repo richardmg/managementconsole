@@ -1,8 +1,11 @@
 import QtQuick 2.0
 
 Rectangle {
+    id: root
     height: 150
     property var parkingSpaceModel
+
+    signal clicked
 
     color: parkingSpaceModel.Status !== "Free" ? app.colorDarkBg : app.colorLightBg
     border.color: app.colorDarkBg
@@ -30,17 +33,9 @@ Rectangle {
         }
     }
 
-    Text {
+    MouseArea {
         anchors.fill: parent
-        anchors.margins: 4
-        visible: false
-        text: "Parking space ID: " + parkingSpaceModel.OnSiteId
-              + "<br>Status: " + parkingSpaceModel.Status
-
-              + (parkingSpaceModel.Status === "Free" ? "" :
-
-              "<br>Licence plate: " + parkingSpaceModel.LicensePlateNumber
-              + "<br>Arrival: " + parkingSpaceModel.Arrival
-              + "<br>Duration: " + parkingSpaceModel.ParkingDuration)
+        onClicked: root.clicked()
     }
+
 }
