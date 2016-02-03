@@ -10,7 +10,24 @@ Rectangle {
     Text {
         text: parkingSpaceModel.OnSiteId
         anchors.horizontalCenter: parent.horizontalCenter
+        font: app.fontF.font
         y: 30
+    }
+
+    Rectangle {
+        height: 40
+        visible: parkingSpaceModel.Status !== "Free"
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.margins: 5
+        color: app.colorLightBg
+        Text {
+            text: visible ? parkingSpaceModel.LicensePlateNumber : ""
+            font: app.fontA.font
+            anchors.centerIn: parent
+            height: paintedHeight
+        }
     }
 
     Text {

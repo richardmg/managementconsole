@@ -28,6 +28,7 @@ Window {
     property FontMetrics fontC: FontMetrics { font.family: "arial"; font.pixelSize: 20; font.bold: true }
     property FontMetrics fontD: FontMetrics { font.family: "arial"; font.pixelSize: 18; font.bold: true }
     property FontMetrics fontE: FontMetrics { font.family: "arial"; font.pixelSize: 12 }
+    property FontMetrics fontF: FontMetrics { font.family: "arial"; font.pixelSize: 22 }
 
     property real margin: 10
     property real spacingHor: 40

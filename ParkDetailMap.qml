@@ -32,10 +32,10 @@ Rectangle {
 
     Flickable {
         anchors.fill: parent
-        anchors.leftMargin: 20
-        anchors.rightMargin: 20
-        anchors.topMargin: 40
-        anchors.bottomMargin: 40
+        anchors.leftMargin: 10
+        anchors.rightMargin: 10
+        anchors.topMargin: 20
+        anchors.bottomMargin: 20
         contentWidth: width
         contentHeight: grid.height
         clip: true
@@ -44,8 +44,8 @@ Rectangle {
             id: grid
             width: parent.width
             height: childrenRect.height
-            columnSpacing: 20
-            rowSpacing: 40
+            columnSpacing: 10
+            rowSpacing: 20
             columns: 4
 
             Repeater {
