@@ -83,11 +83,11 @@ Rectangle {
                     y: 6
                 }
 
-//                Text {
-//                    font: app.fontA.font
-//                    color: app.colorDarkFg
-//                    text: "|"
-//                }
+                Text {
+                    font: app.fontC.font
+                    color: app.colorDarkFg
+                    text: "|"
+                }
 
                 PercentageText {
                     id: headerFreeSpaces
