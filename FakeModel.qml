@@ -51,8 +51,10 @@ Item {
             Latitude: 49.45370,
             Longitude: 11.07515
         })
-        newParkingSpaces.push(new Array)
-        newLogs.push(new Array)
+        newParkingSpaces.push([])
+        newLogs.push([])
+        for (var i = 0; i < 8; ++i)
+            newParkingSpaces[0].push(app.model.createEmptyParkingSpaceObject(0, i))
 
         newDescriptions.push({
             Id: 1,
@@ -62,8 +64,10 @@ Item {
             Latitude: 49.45297,
             Longitude: 11.08270
         })
-        newParkingSpaces.push(new Array)
-        newLogs.push(new Array)
+        newParkingSpaces.push([])
+        newLogs.push([])
+        for (i = 0; i < 8; ++i)
+            newParkingSpaces[1].push(app.model.createEmptyParkingSpaceObject(1, i))
 
         // Reassign properties to emit signals
         descriptions = newDescriptions
@@ -71,54 +75,80 @@ Item {
         logs = newLogs
     }
 
-    property int xxx: 0
-
     function addLogEntry(modelIndex, type)
     {
         type = type === 0 ? Math.round(Math.random() * 10) : type
+        var total = descriptions[modelIndex].NumberTotalParkingSpaces
+        var free = descriptions[modelIndex].NumberFreeParkingSpaces
 
+        if (free === 0 || (free !== total && (type % 2) === 0))
+            unparkCar(modelIndex)
+        else
+            parkCar(modelIndex)
+    }
+
+    function parkCar(modelIndex)
+    {
+        var description = descriptions[modelIndex]
+        var spaces = parkingSpaces[modelIndex]
+        var log = logs[modelIndex]
+        var onSiteId = getRandomParkingSpace(modelIndex, "Free")
+
+        var entry = {
+            "UserId": "Some ID",
+            "Arrival": getCurrentTimeStamp(),
+            "GarageId": description.Id,
+            "Status": "Occupied",
+            "OnSiteId": onSiteId,
+            "ParkingDuration": 0,
+            "LicensePlateNumber": "AB12345"
+        }
+
+        description.NumberFreeParkingSpaces--
+        spaces[onSiteId] = entry
+        log.push({message:"Vehicle has arrived", time:getCurrentTimeStamp(), type:"normal"})
+    }
+
+    function unparkCar(modelIndex)
+    {
+        var description = descriptions[modelIndex]
+        var spaces = parkingSpaces[modelIndex]
+        var log = logs[modelIndex]
+        var onSiteId = getRandomParkingSpace(modelIndex, "Occupied")
+
+        description.NumberFreeParkingSpaces++
+        spaces[onSiteId] = app.model.createEmptyParkingSpaceObject(modelIndex, onSiteId)
+        log.push({message:"Vehicle has left", time:getCurrentTimeStamp(), type:"normal"})
+    }
+
+    function getCurrentTimeStamp()
+    {
         var time = new Date()
         var h = time.getHours()
         var m = time.getMinutes()
         h = (h < 10) ? "0" + h : h
         m = (m < 10) ? "0" + m : m
-        var timeStamp = h + ":" + m
-
-        var description = descriptions[modelIndex]
-        var log = logs[modelIndex]
-
-        if (type === 10) {
-            log.push({message:"Malfunction alert", time:timeStamp, type:"alert"})
-        } else if (description.NumberFreeParkingSpaces === description.NumberTotalParkingSpaces) {
-            description.NumberFreeParkingSpaces--
-            log.push({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
-        } else if (description.NumberFreeParkingSpaces === 0 || (type % 2) === 0) {
-            description.NumberFreeParkingSpaces++
-            log.push({message:"Vehicle has left", time:timeStamp, type:"normal"})
-        } else {
-            description.NumberFreeParkingSpaces--
-            log.push({message:"Vehicle has arrived", time:timeStamp, type:"normal"})
-        }
+        return h + ":" + m
     }
 
-    function getEmptyParkingSpace(model)
+    function getRandomParkingSpace(modelIndex, withStatus)
     {
-        var parkingSpace = Math.round(Math.random() * (model.spaceCapacity - 1))
-        while (arrayContainsNumber(model.spacesOccupied, parkingSpace)) {
-            parkingSpace++
-            if (parkingSpace === model.spaceCapacity)
-                parkingSpace = 0
-        }
-        return parkingSpace
-    }
+        var spaces = parkingSpaces[modelIndex]
+        var index = Math.round(Math.random() * (spaces.length - 1))
 
-    function arrayContainsNumber(array, number)
-    {
-        for (var i = 0; i < array.length; ++i) {
-            if (array[i] === number)
-                return true
+        var wrapCount = 0
+        while (spaces[index].Status !== withStatus) {
+            if (++index === spaces.length) {
+                index = 0
+                if (++wrapCount == 2) {
+                    // Should never happen...
+                    console.trace()
+                    print(JSON.stringify(spaces, 0, "   "))
+                }
+            }
         }
-        return false
+
+        return index
     }
 
     Timer {
@@ -141,6 +171,7 @@ Item {
 
             app.model.descriptionUpdated(modelIndex)
             app.model.logUpdated(modelIndex, removeCount, appendCount)
+            app.model.parkingSpacesUpdated(modelIndex)
 
             interval = Math.round(500 + (Math.random() * 5000))
         }

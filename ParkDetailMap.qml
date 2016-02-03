@@ -44,24 +44,12 @@ Rectangle {
 
             Repeater {
                 model: parkingSpaces.length
-                Rectangle {
+                ParkingSpace {
                     Layout.fillWidth: true
-                    height: 150
-                    property bool occupied: parkingSpaces[index].Status !== "Free"
-                    color: occupied ? app.colorDarkBg : app.colorLightBg
-                    border.color: app.colorDarkBg
+                    parkingSpaceModel: parkingSpaces[index]
                 }
             }
         }
-    }
-
-    function arrayContainsNumber(array, number)
-    {
-        for (var i = 0; i < array.length; ++i) {
-            if (array[i] === number)
-                return true
-        }
-        return false
     }
 
 }

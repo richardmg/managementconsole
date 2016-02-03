@@ -17,6 +17,7 @@
         <file>ExpandableContainer.qml</file>
         <file>WebCam.qml</file>
         <file>XmlHttpRequestModel.qml</file>
+        <file>ParkingSpace.qml</file>
     </qresource>
     <qresource prefix="/pages">
         <file>MainPage.qml</file>
