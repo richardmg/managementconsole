@@ -6,21 +6,27 @@ ExpandableContainer {
 
     function showModel(parkingSpaceModel)
     {
+        print("show model", parkingSpaceModel.OnSiteId)
         text.psm = parkingSpaceModel
-        toggle()
+        expanded = true
     }
 
-    Rectangle{
+    Rectangle {
         id: details
         anchors.fill: parent
         border.color: app.colorDarkBg
+
+        MouseArea {
+            // Block mouseareas underneath
+            anchors.fill: parent
+        }
 
         IconButton {
             baseName: "Close"
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.margins: 10
-            onClicked: toggle()
+            onClicked: expanded = false
         }
 
         Text {
