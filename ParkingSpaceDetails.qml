@@ -15,6 +15,14 @@ ExpandableContainer {
         anchors.fill: parent
         border.color: app.colorDarkBg
 
+        IconButton {
+            baseName: "Close"
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.margins: 10
+            onClicked: toggle()
+        }
+
         Text {
             id: headerText
             font: app.fontC.font
@@ -34,11 +42,6 @@ ExpandableContainer {
                      "<br>Licence plate: " + psm.LicensePlateNumber
                      + "<br>Arrival: " + psm.Arrival
                      + "<br>Duration: " + psm.ParkingDuration)
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: toggle()
         }
     }
 }
