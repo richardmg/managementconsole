@@ -12,8 +12,6 @@ Item {
 
     Component.onCompleted: {
         createModels()
-        var toBeOccupiedEntry = parkCar(0, 1)
-        toBeOccupiedEntry.Status = "ToBeOccupied"
         fakeLogHistory(0)
         fakeLogHistory(1)
         update()
@@ -31,13 +29,8 @@ Item {
 
     function fakeLogHistory(modelIndex)
     {
-        addLogEntry(modelIndex, 1)
-        addLogEntry(modelIndex, 1)
-        addLogEntry(modelIndex, 1)
-        addLogEntry(modelIndex, 2)
-        addLogEntry(modelIndex, 1)
-        addLogEntry(modelIndex, 2)
-        addLogEntry(modelIndex, 1)
+        for (var i = 0; i < 10; ++i)
+            addLogEntry(modelIndex)
     }
 
     function createModels()
@@ -77,16 +70,22 @@ Item {
         logs = newLogs
     }
 
-    function addLogEntry(modelIndex, type)
+    function addLogEntry(modelIndex)
     {
-        type = type === 0 ? Math.round(Math.random() * 10) : type
+        var type = Math.round(Math.random() * 2)
         var total = descriptions[modelIndex].NumberTotalParkingSpaces
         var free = descriptions[modelIndex].NumberFreeParkingSpaces
 
-        if (free === 0 || (free !== total && (type % 2) === 0))
+        if (free === 0)
+            unparkCar(modelIndex)
+        else if (free === total)
+            parkCar(modelIndex)
+        else if (type === 0)
+            parkCar(modelIndex)
+        else if (type === 1)
             unparkCar(modelIndex)
         else
-            parkCar(modelIndex)
+            reserveCar(modelIndex)
     }
 
     function parkCar(modelIndex)
@@ -94,7 +93,7 @@ Item {
         var description = descriptions[modelIndex]
         var spaces = parkingSpaces[modelIndex]
         var log = logs[modelIndex]
-        var onSiteId = getRandomParkingSpace(modelIndex, "Free")
+        var onSiteId = getRandomParkingSpace(modelIndex, true)
 
         var entry = {
             "UserId": "Some ID",
@@ -113,25 +112,50 @@ Item {
         return entry
     }
 
+    function reserveCar(modelIndex)
+    {
+        var description = descriptions[modelIndex]
+        var spaces = parkingSpaces[modelIndex]
+        var log = logs[modelIndex]
+        var onSiteId = getRandomParkingSpace(modelIndex, true)
+
+        var entry = {
+            "UserId": "Some ID",
+            "Arrival": "",
+            "GarageId": description.Id,
+            "Status": "ToBeOccupied",
+            "OnSiteId": onSiteId,
+            "ParkingDuration": "",
+            "LicensePlateNumber": "AB12345"
+        }
+
+        description.NumberFreeParkingSpaces--
+        spaces[onSiteId] = entry
+        log.push({message:"Vehicle added reservation", time:new Date().toString(), type:"normal"})
+
+        return entry
+    }
+
     function unparkCar(modelIndex)
     {
         var description = descriptions[modelIndex]
         var spaces = parkingSpaces[modelIndex]
         var log = logs[modelIndex]
-        var onSiteId = getRandomParkingSpace(modelIndex, "Occupied")
+        var onSiteId = getRandomParkingSpace(modelIndex, false)
 
         description.NumberFreeParkingSpaces++
         spaces[onSiteId] = app.model.createEmptyParkingSpaceModel(modelIndex, onSiteId)
         log.push({message:"Vehicle has left", time:new Date().toString(), type:"normal"})
     }
 
-    function getRandomParkingSpace(modelIndex, withStatus)
+    function getRandomParkingSpace(modelIndex, free)
     {
         var spaces = parkingSpaces[modelIndex]
         var index = Math.round(Math.random() * (spaces.length - 1))
 
         var wrapCount = 0
-        while (spaces[index].Status !== withStatus) {
+        var status = spaces[index].Status
+        while ((free && status !== "Free") || (!free && status !== "Occupied" && status !== "ToBeOccupied")) {
             if (++index === spaces.length) {
                 index = 0
                 if (++wrapCount == 2) {
@@ -140,6 +164,7 @@ Item {
                     print(JSON.stringify(spaces, 0, "   "))
                 }
             }
+            status = spaces[index].Status
         }
 
         return index
@@ -152,7 +177,7 @@ Item {
         onTriggered: {
             var modelIndex = Math.round(Math.random() * (descriptions.length - 1))
             var log = logs[modelIndex]
-            addLogEntry(modelIndex, 0)
+            addLogEntry(modelIndex)
             updateStamps[modelIndex] = new Date()
 
             var appendCount = 1
