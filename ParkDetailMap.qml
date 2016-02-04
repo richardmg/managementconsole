@@ -22,12 +22,20 @@ Rectangle {
         onDescriptionUpdated: {
             if (modelIndex !== root.modelIndex)
                 return
-            var description = app.model.currentModel.descriptions[modelIndex]
-            var newParkingSpaces = app.model.currentModel.parkingSpaces[modelIndex]
-            if (description.NumberTotalParkingSpaces !== repeater.count && newParkingSpaces) {
-                parkingSpaces = []
-                parkingSpaces = newParkingSpaces
-            }
+            updateDescription()
+        }
+    }
+
+    Component.onCompleted: updateDescription()
+
+    function updateDescription()
+    {
+        // Ensure the model is ready before reassigning parkingSpace
+        var description = app.model.currentModel.descriptions[modelIndex]
+        var newParkingSpaces = app.model.currentModel.parkingSpaces[modelIndex]
+        if (description && newParkingSpaces && description.NumberTotalParkingSpaces !== repeater.count) {
+            parkingSpaces = []
+            parkingSpaces = newParkingSpaces
         }
     }
 
