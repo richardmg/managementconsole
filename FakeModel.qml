@@ -12,6 +12,8 @@ Item {
 
     Component.onCompleted: {
         createModels()
+        var toBeOccupiedEntry = parkCar(0, 1)
+        toBeOccupiedEntry.Status = "ToBeOccupied"
         fakeLogHistory(0)
         fakeLogHistory(1)
         update()
@@ -107,6 +109,8 @@ Item {
         description.NumberFreeParkingSpaces--
         spaces[onSiteId] = entry
         log.push({message:"Vehicle has arrived", time:new Date().toString(), type:"normal"})
+
+        return entry
     }
 
     function unparkCar(modelIndex)
