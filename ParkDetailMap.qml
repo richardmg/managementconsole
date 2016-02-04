@@ -8,7 +8,7 @@ Rectangle {
     Layout.fillWidth: true
 
     property int modelIndex: -1
-    property var parkingSpaces: app.model.currentModel.parkingSpaces[modelIndex]
+    property var parkingSpaces: []
 
     Connections {
         target: app.model
@@ -23,9 +23,10 @@ Rectangle {
             if (modelIndex !== root.modelIndex)
                 return
             var description = app.model.currentModel.descriptions[modelIndex]
-            if (description.NumberTotalParkingSpaces !== repeater.count) {
+            var newParkingSpaces = app.model.currentModel.parkingSpaces[modelIndex]
+            if (description.NumberTotalParkingSpaces !== repeater.count && newParkingSpaces) {
                 parkingSpaces = []
-                parkingSpaces = app.model.currentModel.parkingSpaces[modelIndex]
+                parkingSpaces = newParkingSpaces
             }
         }
     }
@@ -50,10 +51,10 @@ Rectangle {
 
             Repeater {
                 id: repeater
-                model: parkingSpaces.length
+                model: root.parkingSpaces.length
                 ParkingSpace {
                     Layout.fillWidth: true
-                    parkingSpaceModel: parkingSpaces[index]
+                    parkingSpaceModel: root.parkingSpaces[index]
                     onClicked: parkingSpaceDetails.showModel(parkingSpaceModel)
                 }
             }
