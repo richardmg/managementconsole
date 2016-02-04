@@ -98,11 +98,12 @@ Rectangle {
         source: "qrc:/img/settings_icon.png"
         anchors.right: parent.right
         anchors.top: parent.top
-        anchors.rightMargin: 55
-        anchors.topMargin: 20
+        anchors.rightMargin: 15
+        anchors.topMargin: 10
 
         MouseArea {
-            anchors.fill: parent
+            width: parent.width
+            height: toolbar.height
             onClicked: app.currentView = app.settingsView
         }
     }
