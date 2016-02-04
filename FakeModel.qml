@@ -102,12 +102,12 @@ Item {
             "Status": "Occupied",
             "OnSiteId": onSiteId,
             "ParkingDuration": 0,
-            "LicensePlateNumber": "AB12345"
+            "LicensePlateNumber": getRandomLicensePlate()
         }
 
         description.NumberFreeParkingSpaces--
         spaces[onSiteId] = entry
-        log.push({message:"Vehicle has arrived", time:new Date().toString(), type:"normal"})
+        log.push({message:entry.LicensePlateNumber + " has arrived", time:new Date().toString(), type:"normal"})
 
         return entry
     }
@@ -126,12 +126,12 @@ Item {
             "Status": "ToBeOccupied",
             "OnSiteId": onSiteId,
             "ParkingDuration": "",
-            "LicensePlateNumber": "AB12345"
+            "LicensePlateNumber": getRandomLicensePlate()
         }
 
         description.NumberFreeParkingSpaces--
         spaces[onSiteId] = entry
-        log.push({message:"Vehicle added reservation", time:new Date().toString(), type:"normal"})
+        log.push({message:entry.LicensePlateNumber + " added reservation", time:new Date().toString(), type:"normal"})
 
         return entry
     }
@@ -143,9 +143,9 @@ Item {
         var log = logs[modelIndex]
         var onSiteId = getRandomParkingSpace(modelIndex, false)
 
+        log.push({message:spaces[onSiteId].LicensePlateNumber + " has left", time:new Date().toString(), type:"normal"})
         description.NumberFreeParkingSpaces++
         spaces[onSiteId] = app.model.createEmptyParkingSpaceModel(modelIndex, onSiteId)
-        log.push({message:"Vehicle has left", time:new Date().toString(), type:"normal"})
     }
 
     function getRandomParkingSpace(modelIndex, free)
@@ -168,6 +168,13 @@ Item {
         }
 
         return index
+    }
+
+    function getRandomLicensePlate()
+    {
+        var letters = String.fromCharCode(65 + (Math.random() * 7), 65 + (Math.random() * 7))
+        var digits = 10000 + Math.round(Math.random() * 98000)
+        return letters + digits
     }
 
     Timer {
