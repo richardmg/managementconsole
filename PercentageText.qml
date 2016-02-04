@@ -10,7 +10,7 @@ Text {
         if (freeSpaces === 0)
             return "FULL"
         else
-            return ((1 - (freeSpaces / capacity)).toFixed(1) * 100) + "%"
+            return ((1 - (freeSpaces / capacity)).toFixed(2) * 100) + "%"
     }
 }
 
