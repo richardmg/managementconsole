@@ -54,7 +54,7 @@ Rectangle {
 
             for (var i = log.length - appended; i < log.length; ++i) {
                 var entry = log[i]
-                listModel.insert(0, ({message:entry.message, time:entry.time, type:entry.type}))
+                listModel.insert(0, ({message:entry.message, time:app.model.dateToHms(new Date(entry.time), false), type:entry.type}))
             }
         }
 

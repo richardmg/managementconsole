@@ -96,7 +96,7 @@ Item {
 
         var entry = {
             "UserId": "Some ID",
-            "Arrival": getTimeStamp(),
+            "Arrival": new Date().toString(),
             "GarageId": description.Id,
             "Status": "Occupied",
             "OnSiteId": onSiteId,
@@ -106,7 +106,7 @@ Item {
 
         description.NumberFreeParkingSpaces--
         spaces[onSiteId] = entry
-        log.push({message:"Vehicle has arrived", time:getTimeStamp(), type:"normal"})
+        log.push({message:"Vehicle has arrived", time:new Date().toString(), type:"normal"})
     }
 
     function unparkCar(modelIndex)
@@ -118,17 +118,7 @@ Item {
 
         description.NumberFreeParkingSpaces++
         spaces[onSiteId] = app.model.createEmptyParkingSpaceModel(modelIndex, onSiteId)
-        log.push({message:"Vehicle has left", time:getTimeStamp(), type:"normal"})
-    }
-
-    function getTimeStamp()
-    {
-        var time = new Date()
-        var h = time.getHours()
-        var m = time.getMinutes()
-        h = (h < 10) ? "0" + h : h
-        m = (m < 10) ? "0" + m : m
-        return h + ":" + m
+        log.push({message:"Vehicle has left", time:new Date().toString(), type:"normal"})
     }
 
     function getRandomParkingSpace(modelIndex, withStatus)
