@@ -4,14 +4,15 @@ import QtQuick.Layouts 1.2
 ExpandableContainer {
     id: root
     visible: false
+
     property var parkingSpaceModel: app.model.createEmptyParkingSpaceModel(0, 0)
     property var arrivalDate: new Date()
+    property var isFree: parkingSpaceModel.Status === "Free"
 
     function showModel(parkingSpaceModel)
     {
         root.parkingSpaceModel = parkingSpaceModel
         arrivalDate = parkingSpaceModel.Arrival ? new Date(parkingSpaceModel.Arrival) : 0
-        print(parkingSpaceModel.Arrival, arrivalDate)
         expanded = true
     }
 
@@ -94,7 +95,7 @@ ExpandableContainer {
                 }
                 Text {
                     font: app.fontF.font
-                    text: parkingSpaceModel.UserId
+                    text: isFree ? "" : parkingSpaceModel.UserId
                 }
                 // ------------------------------
                 Text {
@@ -104,7 +105,7 @@ ExpandableContainer {
                 }
                 Text {
                     font: app.fontF.font
-                    text: parkingSpaceModel.LicensePlateNumber
+                    text: isFree ? "" : parkingSpaceModel.LicensePlateNumber
                 }
                 // ------------------------------
                 Text {
@@ -114,7 +115,7 @@ ExpandableContainer {
                 }
                 Text {
                     font: app.fontF.font
-                    text: arrivalDate ? arrivalDate.toDateString() + " at " + app.model.dateToHms(arrivalDate, false): ""
+                    text: !isFree && arrivalDate ? arrivalDate.toDateString() + " at " + app.model.dateToHms(arrivalDate, false): ""
                 }
                 // ------------------------------
                 Text {
@@ -124,7 +125,7 @@ ExpandableContainer {
                 }
                 Text {
                     font: app.fontF.font
-                    text: parkingSpaceModel.ParkingDuration
+                    text: isFree ? "" : parkingSpaceModel.ParkingDuration
                 }
 
             }
