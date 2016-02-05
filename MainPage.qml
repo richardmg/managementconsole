@@ -45,7 +45,7 @@ AppPage {
 
                     ParkLog {
                         modelIndex: index
-                        width: parent.width
+                        width: garageColumn.width
                         height: garageColumnRepeater.model <= 2 ? root.height / 2 : root.height / 2.5
                         showMapIcon: true
                         showPercentage: true
