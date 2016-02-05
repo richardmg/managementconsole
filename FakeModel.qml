@@ -107,7 +107,7 @@ Item {
 
         description.NumberFreeParkingSpaces--
         spaces[onSiteId] = entry
-        log.push({message:entry.LicensePlateNumber + " has arrived", time:new Date().toString(), type:"normal"})
+        log.push({message:entry.LicensePlateNumber + " arrived", time:new Date().toString(), type:"normal"})
 
         return entry
     }
@@ -131,7 +131,7 @@ Item {
 
         description.NumberFreeParkingSpaces--
         spaces[onSiteId] = entry
-        log.push({message:entry.LicensePlateNumber + " added reservation", time:new Date().toString(), type:"normal"})
+        log.push({message:entry.LicensePlateNumber + " reserved", time:new Date().toString(), type:"normal"})
 
         return entry
     }
@@ -143,7 +143,7 @@ Item {
         var log = logs[modelIndex]
         var onSiteId = getRandomParkingSpace(modelIndex, false)
 
-        log.push({message:spaces[onSiteId].LicensePlateNumber + " has left", time:new Date().toString(), type:"normal"})
+        log.push({message:spaces[onSiteId].LicensePlateNumber + " left", time:new Date().toString(), type:"normal"})
         description.NumberFreeParkingSpaces++
         spaces[onSiteId] = app.model.createEmptyParkingSpaceModel(modelIndex, onSiteId)
     }
