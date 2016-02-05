@@ -52,11 +52,14 @@ AppPage {
                     showDate: true
                     width: parent.width
                     height: parent.height
-                    expandableContainer: parkContainer
+                    expandTo: parkDetails
                 }
             }
         }
     }
 
+    ParkLogDetails {
+        id: parkDetails
+    }
 }
 

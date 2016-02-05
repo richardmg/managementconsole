@@ -1,24 +1,23 @@
 import QtQuick 2.0
+import QtCharts 2.0
+
+import QtQuick 2.0
 import QtQuick.Layouts 1.2
 
-Rectangle {
+InnerPage {
     id: parkLog
 
     property int modelIndex: -1
 
-    property bool showMapIcon: true
-    property bool showPercentage: true
-    property bool showExpandIcon: false
-    property bool showDate: false
-    property InnerPage expandTo
-
     property var description: app.model.createEmptyDescription()
     property var log: app.model.createEmptyLog()
-    property var updateTime: new Date()
-
-    color: "white"
 
     Component.onCompleted: {
+        description = app.model.currentModel.descriptions[modelIndex]
+        updateLog(0, 0)
+    }
+
+    onModelIndexChanged: {
         description = app.model.currentModel.descriptions[modelIndex]
         updateLog(0, 0)
     }
@@ -36,12 +35,6 @@ Rectangle {
             if (modelIndex !== parkLog.modelIndex)
                 return
             updateLog(removed, appended)
-        }
-
-        onUpdateTimeUpdated: {
-            if (modelIndex !== parkLog.modelIndex)
-                return
-            updateTime = app.model.currentModel.updateStamps[modelIndex]
         }
     }
 
@@ -72,12 +65,11 @@ Rectangle {
 
     Item {
         anchors.fill: parent
-        anchors.margins: 5
 
         Item {
             id: listHeader
             width: parent.width - (x * 2)
-            height: headerParkName.paintedHeight + 40
+            height: headerDate.paintedHeight + 40
 
             RowLayout {
                 anchors.fill: parent
@@ -85,8 +77,8 @@ Rectangle {
                 x: spacing
 
                 Text {
-                    id: headerParkName
-                    text: description.LocationName
+                    id: headerDate
+                    text: "< 26.02.2016 >"
                     font: app.fontC.font
                     Layout.fillWidth: true
                     elide: Text.ElideRight
@@ -95,56 +87,36 @@ Rectangle {
                     y: 6
                 }
 
-                Text {
-                    font: app.fontC.font
-                    color: app.colorDarkFg
-                    text: "|"
-                }
-
-                PercentageText {
-                    id: headerFreeSpaces
-                    visible: showPercentage
-                    freeSpaces: description.NumberFreeParkingSpaces
-                    capacity: description.NumberTotalParkingSpaces
-                    font: app.fontC.font
-                    x: 10
-                    y: 6
-                }
-
-                Text {
-                    id: date
-                    visible: showDate
-                    font: app.fontE.font
-                    x: 10
-                    anchors.bottom: headerParkName.bottom
-                    text: updateTime.getDay() + "." + updateTime.getMonth() + "." + updateTime.getFullYear()
-                }
-
                 IconButton {
-                    visible: showMapIcon
-                    baseName: "Locate"
-                    selected: app.mainView.selectedIndex === modelIndex
-                    onClicked: {
-                        app.mainView.selectedIndex = modelIndex
-                        app.mainView.parkMap.centerOnPark(modelIndex)
-                    }
-                }
-
-                IconButton {
-                    visible: showExpandIcon
-                    baseName: "Expand"
-                    onClicked: expandTo.expanded = true
+                    baseName: "Contract"
+                    onClicked: expanded = false
                 }
             }
+        }
 
-            Rectangle {
-                id: headerLine
-                anchors.bottom: parent.bottom
-                width: parent.width
-                height: 1
-                color: app.colorDarkFg
+        Rectangle {
+            id: chart
+            anchors.top: listHeader.bottom
+            width: parent.width
+            height: 200
+            border.color: app.colorDarkBg
+
+            ChartView {
+                anchors.fill: parent
+                antialiasing: true
+                legend.visible: false
+
+                LineSeries {
+                    name: "SplineSeries"
+                    XYPoint { x: 0; y: 0.0 }
+                    XYPoint { x: 1.1; y: 3.2 }
+                    XYPoint { x: 1.9; y: 2.4 }
+                    XYPoint { x: 2.1; y: 2.1 }
+                    XYPoint { x: 2.9; y: 2.6 }
+                    XYPoint { x: 3.4; y: 2.3 }
+                    XYPoint { x: 4.1; y: 3.1 }
+                }
             }
-
         }
 
         ListModel {
@@ -153,7 +125,7 @@ Rectangle {
 
         ListView {
             id: listView
-            anchors.top: listHeader.bottom
+            anchors.top: chart.bottom
             anchors.bottom: parent.bottom
             width: parent.width
             clip: true

@@ -20,6 +20,8 @@
         <file>ParkingSpace.qml</file>
         <file>ParkingSpaceDetails.qml</file>
         <file>ParkingSpaceDetailsField.qml</file>
+        <file>ParkLogDetails.qml</file>
+        <file>InnerPage.qml</file>
     </qresource>
     <qresource prefix="/pages">
         <file>MainPage.qml</file>
