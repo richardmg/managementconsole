@@ -166,8 +166,7 @@ Item {
         var index = Math.round(Math.random() * (spaces.length - 1))
 
         var wrapCount = 0
-        var status = spaces[index].Status
-        while (free !== (status === "Free")) {
+        while (free !== (spaces[index].Status === "Free")) {
             if (++index === spaces.length) {
                 index = 0
                 if (++wrapCount == 2) {
@@ -176,7 +175,6 @@ Item {
                     print(JSON.stringify(spaces, 0, "   "))
                 }
             }
-            status = spaces[index].Status
         }
 
         return index
