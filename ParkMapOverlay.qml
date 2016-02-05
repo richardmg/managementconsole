@@ -28,7 +28,7 @@ Item {
     Rectangle {
         width: parent.width
         anchors.top: parent.top
-        anchors.bottom: percentageIndicator.bottom
+        anchors.bottom: bar.bottom
         anchors.bottomMargin: -20
         radius: 10
         border.color: app.mainView.selectedIndex === root.modelIndex ? app.colorSelectedBg : app.colorDarkBg
@@ -46,13 +46,26 @@ Item {
         color: app.colorDarkFg
     }
 
-    ParkPercentageIndicator {
-        id: percentageIndicator
+    PercentageBar {
+        id: bar
         anchors.top: parkOverlayName.bottom
         anchors.topMargin: 13
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.margins: 20
+        anchors.leftMargin: 20
+        anchors.rightMargin: 55
+        height: 12
+        freeSpaces: description.NumberFreeParkingSpaces
+        capacity: description.NumberTotalParkingSpaces
+    }
+
+    PercentageText {
+        id: percentageText
+        anchors.left: bar.right
+        anchors.leftMargin: 5
+        anchors.top: parkOverlayName.bottom
+        anchors.topMargin: 10
+        font: app.fontD.font
         freeSpaces: description.NumberFreeParkingSpaces
         capacity: description.NumberTotalParkingSpaces
     }
