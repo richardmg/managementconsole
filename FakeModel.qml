@@ -56,7 +56,7 @@ Item {
 
         // Specific for each garage
         newDescriptions[0].LocationName = "Augustinerhof"
-        newDescriptions[0].Latitude = 49.45370
+        newDescriptions[0].Latitude = 49.4530
         newDescriptions[0].Longitude = 11.07515
 
         newDescriptions[1].LocationName = "Karlstadt"

@@ -89,6 +89,7 @@ Rectangle {
                     text: description.LocationName
                     font: app.fontC.font
                     Layout.fillWidth: true
+                    elide: Text.ElideRight
                     color: app.colorDarkFg
                     x: 10
                     y: 6

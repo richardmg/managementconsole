@@ -9,13 +9,18 @@ Item {
     Row {
         id: ticks
         spacing: 2
-        anchors.fill: parent
-        anchors.rightMargin: 40
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.rightMargin: 45
+        anchors.verticalCenter: parent.verticalCenter
+        property real tickWidth: (width - (spacing * capacity)) / capacity
+        height: tickWidth * 2
+
         Repeater {
             model: capacity
             Rectangle {
-                width: (ticks.width - (ticks.spacing * capacity)) / capacity
-                height: parent.height
+                width: ticks.tickWidth
+                height: ticks.height
                 color: index < (capacity - freeSpaces) ? border.color : border.width === 0 ? app.colorLightFg : "transparent"
                 border.color: app.colorGreenBg
                 border.width: width > 3 ? 1 : 0
