@@ -72,23 +72,25 @@ Item {
 
     function addLogEntry(modelIndex)
     {
-        var type = Math.round(Math.random() * 2)
+        var type = Math.round(Math.random() * 3)
         var total = descriptions[modelIndex].NumberTotalParkingSpaces
         var free = descriptions[modelIndex].NumberFreeParkingSpaces
 
         if (free === 0)
-            unparkCar(modelIndex)
+            addLogEntryFree(modelIndex)
         else if (free === total)
-            parkCar(modelIndex)
+            addLogEntryOccupied(modelIndex)
         else if (type === 0)
-            parkCar(modelIndex)
+            addLogEntryOccupied(modelIndex)
         else if (type === 1)
-            unparkCar(modelIndex)
+            addLogEntryFree(modelIndex)
+        else if (type === 2)
+            addLogEntryToBeOccupied(modelIndex)
         else
-            reserveCar(modelIndex)
+            addLogEntryToBeFree(modelIndex)
     }
 
-    function parkCar(modelIndex)
+    function addLogEntryOccupied(modelIndex)
     {
         var description = descriptions[modelIndex]
         var spaces = parkingSpaces[modelIndex]
@@ -112,7 +114,7 @@ Item {
         return entry
     }
 
-    function reserveCar(modelIndex)
+    function addLogEntryToBeOccupied(modelIndex)
     {
         var description = descriptions[modelIndex]
         var spaces = parkingSpaces[modelIndex]
@@ -131,12 +133,12 @@ Item {
 
         description.NumberFreeParkingSpaces--
         spaces[onSiteId] = entry
-        log.push({message:entry.LicensePlateNumber + " reserved", time:new Date().toString(), type:"normal"})
+        log.push({message:entry.LicensePlateNumber + " reserved space", time:new Date().toString(), type:"normal"})
 
         return entry
     }
 
-    function unparkCar(modelIndex)
+    function addLogEntryFree(modelIndex)
     {
         var description = descriptions[modelIndex]
         var spaces = parkingSpaces[modelIndex]
@@ -148,6 +150,16 @@ Item {
         spaces[onSiteId] = app.model.createEmptyParkingSpaceModel(modelIndex, onSiteId)
     }
 
+    function addLogEntryToBeFree(modelIndex)
+    {
+        var spaces = parkingSpaces[modelIndex]
+        var log = logs[modelIndex]
+        var onSiteId = getRandomParkingSpace(modelIndex, false)
+
+        log.push({message:spaces[onSiteId].LicensePlateNumber + " about to leave", time:new Date().toString(), type:"normal"})
+        spaces[onSiteId].Status = "ToBeFree"
+    }
+
     function getRandomParkingSpace(modelIndex, free)
     {
         var spaces = parkingSpaces[modelIndex]
@@ -155,7 +167,7 @@ Item {
 
         var wrapCount = 0
         var status = spaces[index].Status
-        while ((free && status !== "Free") || (!free && status !== "Occupied" && status !== "ToBeOccupied")) {
+        while (free !== (status === "Free")) {
             if (++index === spaces.length) {
                 index = 0
                 if (++wrapCount == 2) {
