@@ -102,7 +102,7 @@ Item {
             "Status": "Occupied",
             "OnSiteId": onSiteId,
             "ParkingDuration": 0,
-            "LicensePlateNumber": getRandomLicensePlate()
+            "LicensePlateNumber": createRandomLicensePlate()
         }
 
         description.NumberFreeParkingSpaces--
@@ -126,7 +126,7 @@ Item {
             "Status": "ToBeOccupied",
             "OnSiteId": onSiteId,
             "ParkingDuration": "",
-            "LicensePlateNumber": getRandomLicensePlate()
+            "LicensePlateNumber": createRandomLicensePlate()
         }
 
         description.NumberFreeParkingSpaces--
@@ -170,7 +170,7 @@ Item {
         return index
     }
 
-    function getRandomLicensePlate()
+    function createRandomLicensePlate()
     {
         var letters = String.fromCharCode(65 + (Math.random() * 7), 65 + (Math.random() * 7))
         var digits = 10000 + Math.round(Math.random() * 98000)
