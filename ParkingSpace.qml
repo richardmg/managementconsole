@@ -12,6 +12,8 @@ Rectangle {
 
     property bool isFree: parkingSpaceModel.Status === "Free"
     property bool isOccupied: parkingSpaceModel.Status === "Occupied"
+    property bool isReserved: parkingSpaceModel.Status === "ToBeOccupied"
+    property bool isLeaving: parkingSpaceModel.Status === "ToBeFree"
 
     Text {
         text: parkingSpaceModel.OnSiteId
@@ -29,9 +31,9 @@ Rectangle {
         anchors.margins: 5
         color: app.colorLightBg
         Text {
-            text: isOccupied ? parkingSpaceModel.LicensePlateNumber : isFree ? "" : "Reserved"
+            text: isOccupied ? parkingSpaceModel.LicensePlateNumber : isReserved ? "Reserved" : isLeaving ? "Leaving" : ""
             font: app.fontA.font
-            color: text === "Reserved" ? app.colorSelectedBg : "black"
+            color: isOccupied ? "black" : app.colorSelectedBg
             anchors.centerIn: parent
             height: paintedHeight
         }
