@@ -39,18 +39,19 @@ Item {
         var newParkingSpaces = []
         var newLogs = []
         var newUpdateStamps = []
+        var parkingSpaceCount = 8
 
         for (var i = 0; i < 2; ++i) {
             // Common for all garages
             newDescriptions.push({
                  Id: i,
-                 NumberFreeParkingSpaces: 8,
-                 NumberTotalParkingSpaces: 8,
+                 NumberFreeParkingSpaces: parkingSpaceCount,
+                 NumberTotalParkingSpaces: parkingSpaceCount,
              })
             newParkingSpaces.push([])
             newLogs.push([])
             newUpdateStamps.push(new Date())
-            for (var j = 0; j < 8; ++j)
+            for (var j = 0; j < parkingSpaceCount; ++j)
                 newParkingSpaces[i].push(app.model.createEmptyParkingSpaceModel(i, j))
         }
 
