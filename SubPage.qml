@@ -4,6 +4,10 @@ Rectangle {
     anchors.fill: parent
     default property alias data: placeHolder.data
 
+    MouseArea {
+        anchors.fill: parent
+    }
+
     Rectangle {
         anchors.fill: parent
         anchors.leftMargin: 137
