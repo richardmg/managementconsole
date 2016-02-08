@@ -59,9 +59,11 @@ AppPage {
         expandTo: root
 
         SubPage {
+            onClose: parkDetailsContainer.expanded = false
+            iconBaseName: "Contract"
+
             ParkLogDetails {
                 anchors.fill: parent
-                expandableContainer: parkDetailsContainer
             }
         }
     }

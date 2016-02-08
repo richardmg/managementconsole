@@ -8,9 +8,6 @@ Rectangle {
     id: parkLog
 
     property int modelIndex: -1
-
-    property ExpandableContainer expandableContainer
-
     property var description: app.model.createEmptyDescription()
     property var log: app.model.createEmptyLog()
 
@@ -90,11 +87,6 @@ Rectangle {
                     color: app.colorDarkFg
                     x: 10
                     y: 6
-                }
-
-                IconButton {
-                    baseName: "Contract"
-                    onClicked: expandableContainer.expanded = false
                 }
             }
         }

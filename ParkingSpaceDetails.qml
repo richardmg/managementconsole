@@ -5,21 +5,12 @@ Rectangle {
     id: root
 
     property var parkingSpaceModel: app.model.createEmptyParkingSpaceModel(0, 0)
-    property ExpandableContainer expandableContainer
     property var arrivalDate: new Date()
     property bool isFree: parkingSpaceModel.Status === "Free"
 
     MouseArea {
         // Block mouseareas underneath
         anchors.fill: parent
-    }
-
-    IconButton {
-        baseName: "Close"
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.margins: 10
-        onClicked: expandableContainer.expanded = false
     }
 
     Text {

@@ -78,10 +78,11 @@ Rectangle {
         expandTo: root.parent
 
         SubPage {
+            onClose: parkingSpaceDetailsContainer.expanded = false
+
             ParkingSpaceDetails {
                 id: parkingSpaceDetails
                 anchors.fill: parent
-                expandableContainer: parkingSpaceDetailsContainer
             }
         }
     }
