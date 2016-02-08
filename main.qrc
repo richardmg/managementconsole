@@ -23,6 +23,7 @@
         <file>ParkLogDetails.qml</file>
         <file>InnerPage.qml</file>
         <file>SubPage.qml</file>
+        <file>ParkingSpaceLogListModel.qml</file>
     </qresource>
     <qresource prefix="/pages">
         <file>MainPage.qml</file>

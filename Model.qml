@@ -72,19 +72,4 @@ Item {
         return h + ":" + m
     }
 
-    function createLogMessage(parkingSpaceObj)
-    {
-        if (parkingSpaceObj.Status === "Free")
-            return "Space " + parkingSpaceObj.OnSiteId + " is now free"
-        else if (parkingSpaceObj.Status === "Occupied")
-            return parkingSpaceObj.LicensePlateNumber + " arrived at space " + parkingSpaceObj.OnSiteId
-        else if (parkingSpaceObj.Status === "ToBeOccupied")
-            return parkingSpaceObj.LicensePlateNumber + " reserved space " + parkingSpaceObj.OnSiteId
-        else if (parkingSpaceObj.Status === "ToBeFree")
-            return parkingSpaceObj.LicensePlateNumber + " is leaving space " + parkingSpaceObj.OnSiteId
-        else if (parkingSpaceObj.Status === "Malfunction")
-            return "Malfunction on space " + parkingSpaceObj.OnSiteId
-        else return ""
-    }
-
 }
