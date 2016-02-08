@@ -62,9 +62,9 @@ AppPage {
             onClose: parkDetailsContainer.expanded = false
             iconBaseName: "Contract"
 
-            ParkLogDetails {
-                anchors.fill: parent
-            }
+//            ParkLogDetails {
+//                anchors.fill: parent
+//            }
         }
     }
 

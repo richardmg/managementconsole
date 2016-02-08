@@ -67,8 +67,24 @@ Rectangle {
 
         for (var i = log.length - appended; i < log.length; ++i) {
             var entry = log[i]
-            listModel.insert(0, ({message:entry.message, time:app.model.dateToHms(new Date(entry.time), false), type:entry.type}))
+            entry.Message = createMessage(entry)
+            listModel.insert(0, entry)
         }
+    }
+
+    function createMessage(entry)
+    {
+        if (entry.Status === "Free")
+            return "#" + entry.OnSiteId + " is now free"
+        else if (entry.Status === "Occupied")
+            return entry.LicensePlateNumber + " arrived"
+        else if (entry.Status === "ToBeOccupied")
+            return entry.LicensePlateNumber + " reserved #" + entry.OnSiteId
+        else if (entry.Status === "ToBeFree")
+            return entry.LicensePlateNumber + " is leaving #" + entry.OnSiteId
+        else if (entry.Status === "Malfunction")
+            return "Malfunction on #" + entry.OnSiteId
+        else return ""
     }
 
     Item {
@@ -178,13 +194,13 @@ Rectangle {
                         height: 20
                         Image {
                             anchors.centerIn: parent
-                            source: type === "alert" ? "qrc:/img/Alarm_icon.png" : "qrc:/img/Vehicle_icon.png"
+                            source: Status === "Malfunction" ? "qrc:/img/Alarm_icon.png" : "qrc:/img/Vehicle_icon.png"
                         }
                     }
 
                     TextEdit {
                         id: logMessage
-                        text: message
+                        text: Message
                         font: app.fontB.font
                         readOnly: true
                         Layout.fillWidth: true
@@ -193,7 +209,7 @@ Rectangle {
 
                     TextEdit {
                         id: logTime
-                        text: time
+                        text: app.model.dateToHms(new Date(Timestamp), false)
                         font: app.fontB.font
                         readOnly: true
                         color: app.colorDarkFg

@@ -104,13 +104,14 @@ Item {
             "GarageId": description.Id,
             "Status": "Occupied",
             "OnSiteId": onSiteId,
-            "ParkingDuration": 0,
-            "LicensePlateNumber": createRandomLicensePlate()
+            "ParkingDuration": "0",
+            "LicensePlateNumber": createRandomLicensePlate(),
+            "Timestamp": new Date().toString(),
         }
 
         description.NumberFreeParkingSpaces--
         spaces[onSiteId] = entry
-        log.push({message:entry.LicensePlateNumber + " arrived", time:new Date().toString(), type:"normal"})
+        log.push(entry)
 
         return entry
     }
@@ -129,12 +130,13 @@ Item {
             "Status": "ToBeOccupied",
             "OnSiteId": onSiteId,
             "ParkingDuration": "",
-            "LicensePlateNumber": createRandomLicensePlate()
+            "LicensePlateNumber": createRandomLicensePlate(),
+            "Timestamp": new Date().toString(),
         }
 
         description.NumberFreeParkingSpaces--
         spaces[onSiteId] = entry
-        log.push({message:entry.LicensePlateNumber + " reserved space", time:new Date().toString(), type:"normal"})
+        log.push(entry)
 
         return entry
     }
@@ -146,9 +148,10 @@ Item {
         var log = logs[modelIndex]
         var onSiteId = getRandomParkingSpace(modelIndex, false)
 
-        log.push({message:spaces[onSiteId].LicensePlateNumber + " left", time:new Date().toString(), type:"normal"})
+        var entry = app.model.createEmptyParkingSpaceModel(modelIndex, onSiteId)
         description.NumberFreeParkingSpaces++
-        spaces[onSiteId] = app.model.createEmptyParkingSpaceModel(modelIndex, onSiteId)
+        spaces[onSiteId] = entry
+        log.push(entry)
     }
 
     function addLogEntryToBeFree(modelIndex)
@@ -157,8 +160,10 @@ Item {
         var log = logs[modelIndex]
         var onSiteId = getRandomParkingSpace(modelIndex, false)
 
-        log.push({message:spaces[onSiteId].LicensePlateNumber + " about to leave", time:new Date().toString(), type:"normal"})
-        spaces[onSiteId].Status = "ToBeFree"
+        var entry = spaces[onSiteId]
+        entry.Status = "ToBeFree"
+        entry.Timestamp = new Date().toString()
+        log.push(entry)
     }
 
     function getRandomParkingSpace(modelIndex, free)

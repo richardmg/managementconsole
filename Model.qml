@@ -4,7 +4,7 @@ import QtWebSockets 1.0
 Item {
     // Proxy model
 
-    property var currentModel: xmlHttpRequestModel
+    property var currentModel: fakeModel
 
     signal descriptionUpdated(int modelIndex)
     signal parkingSpacesUpdated(int modelIndex)
@@ -34,12 +34,12 @@ Item {
     {
         return {
             "EMPTY_DESCRIPTION_GENERATED_LOCALLY": true,
-            "Id": 0,
+            "Id": "0",
             "LocationName": "",
-            "Latitude": 0,
-            "Longitude": 0,
-            "NumberFreeParkingSpaces": 0,
-            "NumberTotalParkingSpaces": 8
+            "Latitude": "0",
+            "Longitude": "0",
+            "NumberFreeParkingSpaces": "0",
+            "NumberTotalParkingSpaces": "8"
         }
     }
 
@@ -47,13 +47,14 @@ Item {
     {
         return {
             "EMPTY_PARKING_SPACE_GENERATED_LOCALLY": true,
-            "UserId": 0,
-            "Arrival": 0,
+            "UserId": "0",
+            "Arrival": "0",
             "GarageId": garageId,
             "Status": "Free",
             "OnSiteId": parkingSpaceId,
-            "ParkingDuration": 0,
-            "LicensePlateNumber": ""
+            "ParkingDuration": "0",
+            "LicensePlateNumber": "",
+            "Timestamp": new Date().toString(),
         }
     }
 
