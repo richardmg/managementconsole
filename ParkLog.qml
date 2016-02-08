@@ -75,15 +75,15 @@ Rectangle {
     function createMessage(entry)
     {
         if (entry.Status === "Free")
-            return "#" + entry.OnSiteId + " is now free"
+            return "Space" + entry.OnSiteId + " is now free"
         else if (entry.Status === "Occupied")
-            return entry.LicensePlateNumber + " arrived"
+            return entry.LicensePlateNumber + " arrived at space " + entry.OnSiteId
         else if (entry.Status === "ToBeOccupied")
-            return entry.LicensePlateNumber + " reserved #" + entry.OnSiteId
+            return entry.LicensePlateNumber + " reserved space " + entry.OnSiteId
         else if (entry.Status === "ToBeFree")
-            return entry.LicensePlateNumber + " is leaving #" + entry.OnSiteId
+            return entry.LicensePlateNumber + " is leaving space " + entry.OnSiteId
         else if (entry.Status === "Malfunction")
-            return "Malfunction on #" + entry.OnSiteId
+            return "Malfunction on space " + entry.OnSiteId
         else return ""
     }
 
