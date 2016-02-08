@@ -31,7 +31,7 @@ AppPage {
         }
 
         Flickable {
-            width: 320
+            width: 340
             height: parent.height
             contentHeight: garageColumn.height
 
