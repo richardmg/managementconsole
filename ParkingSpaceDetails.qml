@@ -3,12 +3,9 @@ import QtQuick.Layouts 1.2
 
 Rectangle {
     id: root
-    border.color: app.colorDarkBg
 
     property var parkingSpaceModel: app.model.createEmptyParkingSpaceModel(0, 0)
-
     property ExpandableContainer expandableContainer
-
     property var arrivalDate: new Date()
     property bool isFree: parkingSpaceModel.Status === "Free"
 

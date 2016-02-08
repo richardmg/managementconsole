@@ -65,131 +65,125 @@ Rectangle {
         }
     }
 
-    Rectangle {
+
+    Item {
         anchors.fill: parent
-        anchors.leftMargin: 137
-        anchors.rightMargin: 137
-        border.color: app.colorDarkBg
+        anchors.leftMargin: 10
+        anchors.rightMargin: 10
 
         Item {
-            anchors.fill: parent
-            anchors.leftMargin: 10
-            anchors.rightMargin: 10
+            id: listHeader
+            width: parent.width - (x * 2)
+            height: headerDate.paintedHeight + 40
 
-            Item {
-                id: listHeader
-                width: parent.width - (x * 2)
-                height: headerDate.paintedHeight + 40
+            RowLayout {
+                anchors.fill: parent
+                spacing: 10
+                x: spacing
+
+                Text {
+                    id: headerDate
+                    text: "< 26.02.2016 >"
+                    font: app.fontC.font
+                    Layout.fillWidth: true
+                    elide: Text.ElideRight
+                    color: app.colorDarkFg
+                    x: 10
+                    y: 6
+                }
+
+                IconButton {
+                    baseName: "Contract"
+                    onClicked: expandableContainer.expanded = false
+                }
+            }
+        }
+
+        Rectangle {
+            id: chart
+            anchors.top: listHeader.bottom
+            width: parent.width
+            height: 200
+            border.color: app.colorDarkBg
+
+            ChartView {
+                anchors.fill: parent
+                antialiasing: true
+                legend.visible: false
+
+                LineSeries {
+                    name: "SplineSeries"
+                    XYPoint { x: 0; y: 0.0 }
+                    XYPoint { x: 1.1; y: 3.2 }
+                    XYPoint { x: 1.9; y: 2.4 }
+                    XYPoint { x: 2.1; y: 2.1 }
+                    XYPoint { x: 2.9; y: 2.6 }
+                    XYPoint { x: 3.4; y: 2.3 }
+                    XYPoint { x: 4.1; y: 3.1 }
+                }
+            }
+        }
+
+        ListModel {
+            id: listModel
+        }
+
+        ListView {
+            id: listView
+            anchors.top: chart.bottom
+            anchors.bottom: parent.bottom
+            width: parent.width
+            clip: true
+            model: listModel
+
+            delegate: Item {
+                width: parent.width
+                height: logMessage.paintedHeight + 20
 
                 RowLayout {
-                    anchors.fill: parent
+                    id: modelContent
+                    anchors.verticalCenter: parent.verticalCenter
                     spacing: 10
                     x: spacing
+                    width: parent.width - (x * 2)
+                    height: parent.height
 
-                    Text {
-                        id: headerDate
-                        text: "< 26.02.2016 >"
-                        font: app.fontC.font
+                    Item {
+                        id: logIcon
+                        width: 40
+                        height: 20
+                        Image {
+                            anchors.centerIn: parent
+                            source: type === "alert" ? "qrc:/img/Alarm_icon.png" : "qrc:/img/Vehicle_icon.png"
+                        }
+                    }
+
+                    TextEdit {
+                        id: logMessage
+                        text: message
+                        font: app.fontB.font
+                        readOnly: true
                         Layout.fillWidth: true
-                        elide: Text.ElideRight
                         color: app.colorDarkFg
-                        x: 10
-                        y: 6
                     }
 
-                    IconButton {
-                        baseName: "Contract"
-                        onClicked: expandableContainer.expanded = false
-                    }
-                }
-            }
-
-            Rectangle {
-                id: chart
-                anchors.top: listHeader.bottom
-                width: parent.width
-                height: 200
-                border.color: app.colorDarkBg
-
-                ChartView {
-                    anchors.fill: parent
-                    antialiasing: true
-                    legend.visible: false
-
-                    LineSeries {
-                        name: "SplineSeries"
-                        XYPoint { x: 0; y: 0.0 }
-                        XYPoint { x: 1.1; y: 3.2 }
-                        XYPoint { x: 1.9; y: 2.4 }
-                        XYPoint { x: 2.1; y: 2.1 }
-                        XYPoint { x: 2.9; y: 2.6 }
-                        XYPoint { x: 3.4; y: 2.3 }
-                        XYPoint { x: 4.1; y: 3.1 }
+                    TextEdit {
+                        id: logTime
+                        text: time
+                        font: app.fontB.font
+                        readOnly: true
+                        color: app.colorDarkFg
                     }
                 }
-            }
 
-            ListModel {
-                id: listModel
-            }
-
-            ListView {
-                id: listView
-                anchors.top: chart.bottom
-                anchors.bottom: parent.bottom
-                width: parent.width
-                clip: true
-                model: listModel
-
-                delegate: Item {
+                Rectangle {
+                    id: underline
                     width: parent.width
-                    height: logMessage.paintedHeight + 20
-
-                    RowLayout {
-                        id: modelContent
-                        anchors.verticalCenter: parent.verticalCenter
-                        spacing: 10
-                        x: spacing
-                        width: parent.width - (x * 2)
-                        height: parent.height
-
-                        Item {
-                            id: logIcon
-                            width: 40
-                            height: 20
-                            Image {
-                                anchors.centerIn: parent
-                                source: type === "alert" ? "qrc:/img/Alarm_icon.png" : "qrc:/img/Vehicle_icon.png"
-                            }
-                        }
-
-                        TextEdit {
-                            id: logMessage
-                            text: message
-                            font: app.fontB.font
-                            readOnly: true
-                            Layout.fillWidth: true
-                            color: app.colorDarkFg
-                        }
-
-                        TextEdit {
-                            id: logTime
-                            text: time
-                            font: app.fontB.font
-                            readOnly: true
-                            color: app.colorDarkFg
-                        }
-                    }
-
-                    Rectangle {
-                        id: underline
-                        width: parent.width
-                        height: 1
-                        anchors.bottom: parent.bottom
-                        color: app.colorLightFg
-                    }
-
+                    height: 1
+                    anchors.bottom: parent.bottom
+                    color: app.colorLightFg
                 }
+
             }
         }
     }

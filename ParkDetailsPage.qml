@@ -58,11 +58,14 @@ AppPage {
         visible: false
         expandTo: root
 
-        ParkLogDetails {
-            id: parkDetails
-            anchors.fill: parent
-            expandableContainer: parkDetailsContainer
+        SubPage {
+            ParkLogDetails {
+                anchors.fill: parent
+                expandableContainer: parkDetailsContainer
+            }
         }
     }
+
+
 }
 

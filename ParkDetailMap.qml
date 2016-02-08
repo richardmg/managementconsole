@@ -75,12 +75,14 @@ Rectangle {
     ExpandableContainer {
         id: parkingSpaceDetailsContainer
         visible: false
-        expandTo: root
+        expandTo: root.parent
 
-        ParkingSpaceDetails {
-            id: parkingSpaceDetails
-            anchors.fill: parent
-            expandableContainer: parkingSpaceDetailsContainer
+        SubPage {
+            ParkingSpaceDetails {
+                id: parkingSpaceDetails
+                anchors.fill: parent
+                expandableContainer: parkingSpaceDetailsContainer
+            }
         }
     }
 }
