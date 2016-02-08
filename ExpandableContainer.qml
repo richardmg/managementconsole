@@ -20,6 +20,10 @@ Item {
     onExpandedChanged: {
         if (!target)
             return
+        if (!expandTo) {
+            print("Warning: expandTo not set for ExpandableContainer!")
+            return
+        }
 
         if (expanded) {
             target.parent = expandTo

@@ -4,10 +4,12 @@ import QtCharts 2.0
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
 
-InnerPage {
+Rectangle {
     id: parkLog
 
     property int modelIndex: -1
+
+    property ExpandableContainer expandableContainer
 
     property var description: app.model.createEmptyDescription()
     property var log: app.model.createEmptyLog()
@@ -89,7 +91,7 @@ InnerPage {
 
                 IconButton {
                     baseName: "Contract"
-                    onClicked: expanded = false
+                    onClicked: expandableContainer.expanded = false
                 }
             }
         }

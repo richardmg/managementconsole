@@ -10,7 +10,8 @@ Rectangle {
     property bool showPercentage: true
     property bool showExpandIcon: false
     property bool showDate: false
-    property InnerPage expandTo
+
+    property ExpandableContainer expandableContainer
 
     property var description: app.model.createEmptyDescription()
     property var log: app.model.createEmptyLog()
@@ -133,7 +134,7 @@ Rectangle {
                 IconButton {
                     visible: showExpandIcon
                     baseName: "Expand"
-                    onClicked: expandTo.expanded = true
+                    onClicked: expandableContainer.toggle()
                 }
             }
 

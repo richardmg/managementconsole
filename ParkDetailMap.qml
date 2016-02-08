@@ -63,15 +63,24 @@ Rectangle {
                 ParkingSpace {
                     Layout.fillWidth: true
                     parkingSpaceModel: root.parkingSpaces[index]
-                    onClicked: parkingSpaceDetails.showModel(parkingSpaceModel)
+                    onClicked: {
+                        parkingSpaceDetails.parkingSpaceModel = parkingSpaceModel
+                        parkingSpaceDetailsContainer.expanded = true
+                    }
                 }
             }
         }
     }
 
-    ParkingSpaceDetails {
-        id: parkingSpaceDetails
+    ExpandableContainer {
+        id: parkingSpaceDetailsContainer
+        visible: false
         expandTo: root
-        anchors.fill: parent
+
+        ParkingSpaceDetails {
+            id: parkingSpaceDetails
+            anchors.fill: parent
+            expandableContainer: parkingSpaceDetailsContainer
+        }
     }
 }

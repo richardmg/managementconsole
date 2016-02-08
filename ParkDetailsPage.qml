@@ -38,28 +38,31 @@ AppPage {
                 }
             }
 
-            ExpandableContainer {
-                id: parkContainer
-                expandTo: root
+            ParkLog {
+                id: parkB
                 Layout.fillHeight: true
-
-                ParkLog {
-                    id: parkB
-                    modelIndex: root.modelIndex
-                    showMapIcon: false
-                    showPercentage: false
-                    showExpandIcon: true
-                    showDate: true
-                    width: parent.width
-                    height: parent.height
-                    expandTo: parkDetails
-                }
+                modelIndex: root.modelIndex
+                showMapIcon: false
+                showPercentage: false
+                showExpandIcon: true
+                showDate: true
+                width: parent.width
+                height: parent.height
+                expandableContainer: parkDetailsContainer
             }
         }
     }
 
-    ParkLogDetails {
-        id: parkDetails
+    ExpandableContainer {
+        id: parkDetailsContainer
+        visible: false
+        expandTo: root
+
+        ParkLogDetails {
+            id: parkDetails
+            anchors.fill: parent
+            expandableContainer: parkDetailsContainer
+        }
     }
 }
 
