@@ -67,24 +67,9 @@ Rectangle {
 
         for (var i = log.length - appended; i < log.length; ++i) {
             var entry = log[i]
-            entry.Message = createMessage(entry)
+            entry.Message = app.model.createLogMessage(entry)
             listModel.insert(0, entry)
         }
-    }
-
-    function createMessage(entry)
-    {
-        if (entry.Status === "Free")
-            return "Space" + entry.OnSiteId + " is now free"
-        else if (entry.Status === "Occupied")
-            return entry.LicensePlateNumber + " arrived at space " + entry.OnSiteId
-        else if (entry.Status === "ToBeOccupied")
-            return entry.LicensePlateNumber + " reserved space " + entry.OnSiteId
-        else if (entry.Status === "ToBeFree")
-            return entry.LicensePlateNumber + " is leaving space " + entry.OnSiteId
-        else if (entry.Status === "Malfunction")
-            return "Malfunction on space " + entry.OnSiteId
-        else return ""
     }
 
     Item {

@@ -16,11 +16,6 @@ Rectangle {
         updateLog(0, 0)
     }
 
-    onModelIndexChanged: {
-        description = app.model.currentModel.descriptions[modelIndex]
-        updateLog(0, 0)
-    }
-
     Connections {
         target: app.model
 
@@ -58,7 +53,8 @@ Rectangle {
 
         for (var i = log.length - appended; i < log.length; ++i) {
             var entry = log[i]
-//            listModel.insert(0, ({message:entry.message, time:app.model.dateToHms(new Date(entry.time), false), type:entry.type}))
+            entry.Message = app.model.createLogMessage(entry)
+            listModel.insert(0, entry)
         }
     }
 
@@ -145,13 +141,13 @@ Rectangle {
                         height: 20
                         Image {
                             anchors.centerIn: parent
-                            source: type === "alert" ? "qrc:/img/Alarm_icon.png" : "qrc:/img/Vehicle_icon.png"
+                            source: Status === "Malfunction" ? "qrc:/img/Alarm_icon.png" : "qrc:/img/Vehicle_icon.png"
                         }
                     }
 
                     TextEdit {
                         id: logMessage
-                        text: message
+                        text: Message
                         font: app.fontB.font
                         readOnly: true
                         Layout.fillWidth: true
@@ -160,7 +156,7 @@ Rectangle {
 
                     TextEdit {
                         id: logTime
-                        text: time
+                        text: app.model.dateToHms(new Date(Timestamp), false)
                         font: app.fontB.font
                         readOnly: true
                         color: app.colorDarkFg
