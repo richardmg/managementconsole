@@ -5,14 +5,14 @@ ListModel {
 
     property int modelIndex: -1
 
-    Component.onCompleted: updateModel(0, 0)
+    Component.onCompleted: updateModel(modelIndex, 0, 0)
 
     property var connections: Connections {
         target: app.model
-        onLogUpdated: updateModel(removed, appended)
+        onLogUpdated: updateModel(modelIndex, removed, appended)
     }
 
-    function updateModel(removed, appended)
+    function updateModel(modelIndex, removed, appended)
     {
         if (modelIndex !== parkLog.modelIndex)
             return

@@ -11,7 +11,7 @@ Item {
     property var updateStamps: []
 
     Component.onCompleted: {
-        createModels()
+        createParkingLots()
         fakeLogHistory(0)
         fakeLogHistory(1)
         update()
@@ -33,7 +33,7 @@ Item {
             addLogEntry(modelIndex)
     }
 
-    function createModels()
+    function createParkingLots()
     {
         var newDescriptions = []
         var newParkingSpaces = []
@@ -42,7 +42,7 @@ Item {
         var parkingSpaceCount = 8
 
         for (var i = 0; i < 2; ++i) {
-            // Common for all garages
+            // Common for all parking lots
             newDescriptions.push({
                  Id: i,
                  NumberFreeParkingSpaces: parkingSpaceCount,
@@ -55,7 +55,7 @@ Item {
                 newParkingSpaces[i].push(app.model.createEmptyParkingSpaceModel(i, j))
         }
 
-        // Specific for each garage
+        // Specific for each parking lot
         newDescriptions[0].LocationName = "Augustinerhof"
         newDescriptions[0].Latitude = 49.45370
         newDescriptions[0].Longitude = 11.07515
@@ -64,7 +64,8 @@ Item {
         newDescriptions[1].Latitude = 49.45297
         newDescriptions[1].Longitude = 11.08270
 
-        // All is ready, reassign properties to emit implicit signals
+        // We are now ready to assign "public" properties
+        // (and emit implicit signals)
         updateStamps = newUpdateStamps
         descriptions = newDescriptions
         parkingSpaces = newParkingSpaces
@@ -74,123 +75,116 @@ Item {
     function addLogEntry(modelIndex)
     {
         var type = Math.round(Math.random() * 3)
-        var total = descriptions[modelIndex].NumberTotalParkingSpaces
-        var free = descriptions[modelIndex].NumberFreeParkingSpaces
-
-        if (free === 0)
-            addLogEntryFree(modelIndex)
-        else if (free === total)
-            addLogEntryOccupied(modelIndex)
-        else if (type === 0)
-            addLogEntryOccupied(modelIndex)
-        else if (type === 1)
-            addLogEntryFree(modelIndex)
-        else if (type === 2)
-            addLogEntryToBeOccupied(modelIndex)
-        else
-            addLogEntryToBeFree(modelIndex)
-    }
-
-    function addLogEntryOccupied(modelIndex)
-    {
-        var description = descriptions[modelIndex]
-        var spaces = parkingSpaces[modelIndex]
-        var log = logs[modelIndex]
-        var onSiteId = getRandomParkingSpace(modelIndex, true)
-
-        var entry = {
-            "UserId": "Some ID",
-            "Arrival": new Date().toString(),
-            "GarageId": description.Id,
-            "Status": "Occupied",
-            "OnSiteId": onSiteId,
-            "ParkingDuration": "0",
-            "LicensePlateNumber": createRandomLicensePlate(),
-            "Timestamp": new Date().toString(),
-        }
-
-        description.NumberFreeParkingSpaces--
-        spaces[onSiteId] = entry
-        log.push(entry)
-
-        return entry
-    }
-
-    function addLogEntryToBeOccupied(modelIndex)
-    {
-        var description = descriptions[modelIndex]
-        var spaces = parkingSpaces[modelIndex]
-        var log = logs[modelIndex]
-        var onSiteId = getRandomParkingSpace(modelIndex, true)
-
-        var entry = {
-            "UserId": "Some ID",
-            "Arrival": "",
-            "GarageId": description.Id,
-            "Status": "ToBeOccupied",
-            "OnSiteId": onSiteId,
-            "ParkingDuration": "",
-            "LicensePlateNumber": createRandomLicensePlate(),
-            "Timestamp": new Date().toString(),
-        }
-
-        description.NumberFreeParkingSpaces--
-        spaces[onSiteId] = entry
-        log.push(entry)
-
-        return entry
-    }
-
-    function addLogEntryFree(modelIndex)
-    {
-        var description = descriptions[modelIndex]
-        var spaces = parkingSpaces[modelIndex]
-        var log = logs[modelIndex]
-        var onSiteId = getRandomParkingSpace(modelIndex, false)
-
-        var entry = app.model.createEmptyParkingSpaceModel(modelIndex, onSiteId)
-        description.NumberFreeParkingSpaces++
-        spaces[onSiteId] = entry
-        log.push(entry)
-    }
-
-    function addLogEntryToBeFree(modelIndex)
-    {
-        var spaces = parkingSpaces[modelIndex]
-        var log = logs[modelIndex]
-        var onSiteId = getRandomParkingSpace(modelIndex, false)
-
-        var entry = spaces[onSiteId]
-        entry.Status = "ToBeFree"
-        entry.Timestamp = new Date().toString()
-        log.push(entry)
-    }
-
-    function getRandomParkingSpace(modelIndex, free)
-    {
-        var spaces = parkingSpaces[modelIndex]
-        var index = Math.round(Math.random() * (spaces.length - 1))
-
-        var wrapCount = 0
-        while (free !== (spaces[index].Status === "Free")) {
-            if (++index === spaces.length) {
-                index = 0
-                if (++wrapCount == 2) {
-                    // Should never happen...
-                    console.trace()
-                    print(JSON.stringify(spaces, 0, "   "))
+        for (;;) {
+            if (type === 0) {
+                var parkingSpaceIndex = getRandomParkingSpaceWithStatus(modelIndex, "Free")
+                if (parkingSpaceIndex !== -1) {
+                    addLogEntryToBeOccupied(modelIndex, parkingSpaceIndex)
+                    break
+                }
+            } else if (type === 1) {
+                parkingSpaceIndex = getRandomParkingSpaceWithStatus(modelIndex, "ToBeOccupied")
+                if (parkingSpaceIndex !== -1) {
+                    addLogEntryOccupied(modelIndex, parkingSpaceIndex)
+                    break
+                }
+            } else if (type === 2) {
+                parkingSpaceIndex = getRandomParkingSpaceWithStatus(modelIndex, "Occupied")
+                if (parkingSpaceIndex !== -1) {
+                    addLogEntryToBeFree(modelIndex, parkingSpaceIndex)
+                    break
+                }
+            } else {
+                parkingSpaceIndex = getRandomParkingSpaceWithStatus(modelIndex, "ToBeFree")
+                if (parkingSpaceIndex !== -1) {
+                    addLogEntryFree(modelIndex, parkingSpaceIndex)
+                    break
                 }
             }
-        }
 
-        return index
+            if (++type == 4)
+                type = 0
+        }
     }
 
-    function createRandomLicensePlate()
+    function addLogEntryToBeOccupied(modelIndex, parkingSpaceIndex)
+    {
+        var description = descriptions[modelIndex]
+        var spaces = parkingSpaces[modelIndex]
+        var log = logs[modelIndex]
+
+        var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
+        entryCopy.Status = "ToBeOccupied"
+        entryCopy.LicensePlateNumber = createRandomLicensePlateNumber()
+        entryCopy.Timestamp = new Date().toString()
+
+        spaces[parkingSpaceIndex] = entryCopy
+        description.NumberFreeParkingSpaces--
+        log.push(entryCopy)
+    }
+
+    function addLogEntryOccupied(modelIndex, parkingSpaceIndex)
+    {
+        var description = descriptions[modelIndex]
+        var spaces = parkingSpaces[modelIndex]
+        var log = logs[modelIndex]
+
+        var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
+        entryCopy.Arrival = new Date().toString()
+        entryCopy.Status = "Occupied"
+        entryCopy.Timestamp = new Date().toString()
+
+        spaces[parkingSpaceIndex] = entryCopy
+        log.push(entryCopy)
+    }
+
+    function addLogEntryToBeFree(modelIndex, parkingSpaceIndex)
+    {
+        var description = descriptions[modelIndex]
+        var spaces = parkingSpaces[modelIndex]
+        var log = logs[modelIndex]
+
+        var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
+        entryCopy.Status = "ToBeFree"
+        entryCopy.Timestamp = new Date().toString()
+
+        spaces[parkingSpaceIndex] = entryCopy
+        log.push(entryCopy)
+    }
+
+    function addLogEntryFree(modelIndex, parkingSpaceIndex)
+    {
+        var description = descriptions[modelIndex]
+        var spaces = parkingSpaces[modelIndex]
+        var log = logs[modelIndex]
+
+        var newEntry = app.model.createEmptyParkingSpaceModel(modelIndex, parkingSpaceIndex)
+        description.NumberFreeParkingSpaces++
+        spaces[parkingSpaceIndex] = newEntry
+        log.push(newEntry)
+    }
+
+    function createRandomLicensePlateNumber()
     {
         var letters = String.fromCharCode(65 + (Math.random() * 7), 65 + (Math.random() * 7))
         var digits = 10000 + Math.round(Math.random() * 98000)
         return letters + digits
+    }
+
+    function getRandomParkingSpaceWithStatus(modelIndex, status)
+    {
+        var spaces = parkingSpaces[modelIndex]
+        var index = Math.round(Math.random() * (spaces.length - 1))
+        var startIndex = index
+
+        while (status !== spaces[index].Status) {
+            if (++index === spaces.length)
+                index = 0
+            if (index === startIndex)
+                return -1
+        }
+
+        return index
     }
 
     Timer {
