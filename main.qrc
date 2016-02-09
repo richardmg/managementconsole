@@ -21,7 +21,6 @@
         <file>ParkingSpaceDetails.qml</file>
         <file>ParkingSpaceDetailsField.qml</file>
         <file>ParkLogDetails.qml</file>
-        <file>InnerPage.qml</file>
         <file>AbstractPage.qml</file>
         <file>SubPage.qml</file>
         <file>ParkingSpaceLogListModel.qml</file>
