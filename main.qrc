@@ -2,9 +2,13 @@
     <qresource prefix="/">
         <file>main.qml</file>
     </qresource>
+    <qresource prefix="/model">
+        <file>Model.qml</file>
+        <file>FakeModel.qml</file>
+        <file>XmlHttpRequestModel.qml</file>
+    </qresource>
     <qresource prefix="/components">
         <file>GeoMap.qml</file>
-        <file>Model.qml</file>
         <file>ParkingLotLog.qml</file>
         <file>MainToolbar.qml</file>
         <file>MainToolbarButton.qml</file>
@@ -12,11 +16,9 @@
         <file>GeoMapOverlay.qml</file>
         <file>PercentageText.qml</file>
         <file>ParkingLotMap.qml</file>
-        <file>FakeModel.qml</file>
         <file>IconButton.qml</file>
         <file>ExpandableContainer.qml</file>
         <file>WebCam.qml</file>
-        <file>XmlHttpRequestModel.qml</file>
         <file>ParkingSpace.qml</file>
         <file>ParkingSpaceDetails.qml</file>
         <file>ParkingSpaceDetailsField.qml</file>
