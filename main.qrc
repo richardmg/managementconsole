@@ -22,13 +22,13 @@
         <file>ParkingSpaceDetailsField.qml</file>
         <file>ParkLogDetails.qml</file>
         <file>InnerPage.qml</file>
+        <file>AbstractPage.qml</file>
         <file>SubPage.qml</file>
         <file>ParkingSpaceLogListModel.qml</file>
     </qresource>
     <qresource prefix="/pages">
         <file>MainPage.qml</file>
         <file>SettingsPage.qml</file>
-        <file>AppPage.qml</file>
         <file>ParkingLotPage.qml</file>
     </qresource>
     <qresource prefix="/img">

@@ -7,7 +7,7 @@ import QtQuick.Layouts 1.2
 
 import "qrc:/components"
 
-AppPage {
+AbstractPage {
     id: root
 
     property alias parkMap: parkMap
