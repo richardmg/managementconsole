@@ -54,7 +54,7 @@ Item {
             "onSiteId": parkingSpaceId,
             "parkingDuration": "0",
             "licensePlateNumber": "",
-            "Timestamp": new Date().toString(),
+            "timestamp": new Date().toString(),
         }
     }
 

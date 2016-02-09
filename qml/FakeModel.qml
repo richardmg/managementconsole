@@ -121,7 +121,7 @@ Item {
         var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
         entryCopy.status = "ToBeOccupied"
         entryCopy.licensePlateNumber = createRandomlicensePlateNumber()
-        entryCopy.Timestamp = new Date().toString()
+        entryCopy.timestamp = new Date().toString()
 
         spaces[parkingSpaceIndex] = entryCopy
         description.numberFreeParkingSpaces--
@@ -137,8 +137,7 @@ Item {
         var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
         entryCopy.arrival = new Date().toString()
         entryCopy.status = "Occupied"
-        entryCopy.Timestamp = new Date().toString()
-
+        entryCopy.timestamp = new Date().toString()
         spaces[parkingSpaceIndex] = entryCopy
         log.push(entryCopy)
     }
@@ -151,7 +150,7 @@ Item {
 
         var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
         entryCopy.status = "ToBeFree"
-        entryCopy.Timestamp = new Date().toString()
+        entryCopy.timestamp = new Date().toString()
 
         spaces[parkingSpaceIndex] = entryCopy
         log.push(entryCopy)
@@ -164,6 +163,7 @@ Item {
         var log = logs[modelIndex]
 
         var newEntry = app.model.createEmptyParkingSpaceModel(modelIndex, parkingSpaceIndex)
+
         description.numberFreeParkingSpaces++
         spaces[parkingSpaceIndex] = newEntry
         log.push(newEntry)

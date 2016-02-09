@@ -9,6 +9,40 @@ Rectangle {
 
     property int modelIndex: -1
 
+    onVisibleChanged: {
+        if (visible)
+            updateGraph()
+    }
+
+    function updateGraph()
+    {
+        var free = app.model.currentModel.descriptions[modelIndex].numberFreeParkingSpaces
+        var total = app.model.currentModel.descriptions[modelIndex].numberTotalParkingSpaces
+        var occupied = total - free
+
+        graphPoints.clear()
+
+        // We only know what the current occupation rate is right now on the
+        // parking lot, so to draw a graph, we need to traverse the log backwards
+        // and calculate what the rate must have been at the time of each entry.
+        var log = app.model.currentModel.logs[modelIndex]
+        for (var i = log.length - 1; i >= 0; --i) {
+            var entryTime = log.length - i - 1
+            var occupationRate = occupied * 100 / total
+
+            graphPoints.append(entryTime, occupationRate)
+
+            var entry = log[i]
+            if (entry.status === "Free") {
+                // If this entry freed up a space, it means that the
+                // occupation rate must have been bigger before.
+                occupied++
+            } else if (entry.status === "ToBeOccupied") {
+                occupied--
+            }
+        }
+    }
+
     Item {
         anchors.fill: parent
         anchors.leftMargin: 10
@@ -49,17 +83,34 @@ Rectangle {
                 antialiasing: true
                 legend.visible: false
 
+                ValueAxis {
+                    id: axisX
+                    min: 0
+                    max: 60
+                    tickCount: 8
+                    labelFormat: "%i"
+                }
+
+                ValueAxis {
+                    id: axisY
+                    min: 0
+                    max: 100
+                    tickCount: 5
+                    labelFormat: "%i\%"
+                }
+
                 LineSeries {
-                    name: "SplineSeries"
-                    XYPoint { x: 0; y: 0.0 }
-                    XYPoint { x: 1.1; y: 3.2 }
-                    XYPoint { x: 1.9; y: 2.4 }
-                    XYPoint { x: 2.1; y: 2.1 }
-                    XYPoint { x: 2.9; y: 2.6 }
-                    XYPoint { x: 3.4; y: 2.3 }
-                    XYPoint { x: 4.1; y: 3.1 }
+                    id: graphPoints
+                    axisX: axisX
+                    axisY: axisY
                 }
             }
+        }
+
+        ParkingSpaceLogListModel {
+            id: logModel
+            modelIndex: parkLog.modelIndex
+            onCountChanged: updateGraph()
         }
 
         ListView {
@@ -68,7 +119,7 @@ Rectangle {
             anchors.bottom: parent.bottom
             width: parent.width
             clip: true
-            model: ParkingSpaceLogListModel { modelIndex: parkLog.modelIndex }
+            model: logModel
 
             delegate: Item {
                 width: parent.width
@@ -103,7 +154,7 @@ Rectangle {
 
                     TextEdit {
                         id: logTime
-                        text: app.model.dateToHms(new Date(Timestamp), false)
+                        text: app.model.dateToHms(new Date(timestamp), false)
                         font: app.fontB.font
                         readOnly: true
                         color: app.colorDarkFg
