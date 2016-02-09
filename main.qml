@@ -4,6 +4,7 @@ import QtLocation 5.5
 import QtPositioning 5.5
 import QtQuick.Controls 1.4
 
+import "qrc:/model"
 import "qrc:/pages"
 import "qrc:/components"
 
