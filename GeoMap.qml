@@ -78,7 +78,7 @@ Rectangle {
             Component.onCompleted: {
                 var description = app.model.currentModel.descriptions[modelIndex]
                 center = QtPositioning.coordinate(description.Latitude, description.Longitude)
-                var overlayComp = Qt.createComponent("ParkMapOverlay.qml")
+                var overlayComp = Qt.createComponent("GeoMapOverlay.qml")
                 overlay = overlayComp.createObject(map, { modelIndex: modelIndex })
                 overlay.x = Qt.binding(function() { return x + (width - overlay.width) / 2 })
                 overlay.y = Qt.binding(function() { return y + (height - overlay.height) / 2 })

@@ -7,7 +7,7 @@ import QtQuick.Layouts 1.2
 
 import "qrc:/components"
 
-AbstractPage {
+TopLevelPage {
     id: root
 
     property alias parkMap: parkMap
@@ -22,7 +22,7 @@ AbstractPage {
             expandTo: root
             Layout.fillWidth: true
             Layout.fillHeight: true
-            ParkMap {
+            GeoMap {
                 id: parkMap
                 width: parent.width
                 height: parent.height

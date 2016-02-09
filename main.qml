@@ -39,7 +39,7 @@ Window {
     // Global API:
 
     property alias model: model
-    property AbstractPage currentView: mainPage
+    property TopLevelPage currentView: mainPage
     property alias mainView: mainPage
     property alias detailPages: detailPages
     property alias settingsView: settingsPage

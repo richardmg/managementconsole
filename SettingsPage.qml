@@ -5,7 +5,7 @@ import QtWebSockets 1.0
 
 import "qrc:/components"
 
-AbstractPage {
+TopLevelPage {
 
     //=====================================
     // Sync data source with model

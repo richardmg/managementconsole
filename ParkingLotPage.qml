@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.2
 
 import "qrc:/components"
 
-AbstractPage {
+TopLevelPage {
     id: root
     property int modelIndex: -1
 
