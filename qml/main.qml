@@ -37,10 +37,11 @@ Window {
     property real spacingVer: 20
     property real contentLeftMargin: 50
 
-    // Global API:
+    // Global accessors:
+
+    property TopLevelPage currentPage: mainViewPage
 
     property alias model: model
-    property TopLevelPage currentPage: mainViewPage
     property alias mainViewPage: mainViewPage
     property alias detailPages: detailPages
     property alias settingsView: settingsPage
