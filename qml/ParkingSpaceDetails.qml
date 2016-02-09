@@ -6,7 +6,11 @@ Rectangle {
 
     property var parkingSpaceModel: app.model.createEmptyParkingSpaceModel(0, 0)
     property var arrivalDate: new Date()
+
     property bool isFree: parkingSpaceModel.status === "Free"
+    property bool isOccupied: parkingSpaceModel.status === "Occupied"
+    property bool isReserved: parkingSpaceModel.status === "ToBeOccupied"
+    property bool isLeaving: parkingSpaceModel.status === "ToBeFree"
 
     MouseArea {
         // Block mouseareas underneath
@@ -41,7 +45,6 @@ Rectangle {
             anchors.right: parent.right
             anchors.leftMargin: 10
             anchors.rightMargin: 10
-            height: childrenRect.height
             columnSpacing: 20
             columns: 2
 
@@ -71,42 +74,56 @@ Rectangle {
                 font: app.fontF.font
                 color: app.colorDarkBg
                 text: "User ID:"
+                visible: !isFree
             }
             Text {
                 font: app.fontF.font
-                text: isFree ? "" : parkingSpaceModel.userId
+                text: visible ? parkingSpaceModel.userId : ""
+                visible: !isFree
             }
             // ------------------------------
             Text {
                 font: app.fontF.font
                 color: app.colorDarkBg
                 text: "License plate:"
+                visible: !isFree
             }
             Text {
                 font: app.fontF.font
-                text: isFree ? "" : parkingSpaceModel.licensePlateNumber
+                text: visible ? parkingSpaceModel.licensePlateNumber : ""
+                visible: !isFree
             }
             // ------------------------------
             Text {
                 font: app.fontF.font
                 color: app.colorDarkBg
                 text: "arrival:"
+                visible: isOccupied || isLeaving
             }
             Text {
                 font: app.fontF.font
-                text: !isFree && arrivalDate ? arrivalDate.toDateString() + " at " + app.model.dateToHms(arrivalDate, false): ""
+                text: visible ? formatDateString(parkingSpaceModel.arrival) : ""
+                visible: isOccupied || isLeaving
             }
             // ------------------------------
             Text {
                 font: app.fontF.font
                 color: app.colorDarkBg
                 text: "Parking duration:"
+                visible: isOccupied || isLeaving
             }
             Text {
                 font: app.fontF.font
-                text: isFree ? "" : parkingSpaceModel.parkingDuration
+                text: parkingSpaceModel.parkingDuration
+                visible: isOccupied || isLeaving
             }
 
         }
+    }
+
+    function formatDateString(dateStr)
+    {
+        var date = new Date(dateStr)
+        return date.toDateString() + " at " + app.model.dateToHms(date, false)
     }
 }
