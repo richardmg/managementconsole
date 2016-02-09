@@ -88,7 +88,7 @@ Rectangle {
                         height: 20
                         Image {
                             anchors.centerIn: parent
-                            source: Status === "Malfunction" ? "qrc:/img/Alarm_icon.png" : "qrc:/img/Vehicle_icon.png"
+                            source: status === "Malfunction" ? "qrc:/img/Alarm_icon.png" : "qrc:/img/Vehicle_icon.png"
                         }
                     }
 

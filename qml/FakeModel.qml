@@ -45,8 +45,8 @@ Item {
             // Common for all parking lots
             newDescriptions.push({
                  Id: i,
-                 NumberFreeParkingSpaces: parkingSpaceCount,
-                 NumberTotalParkingSpaces: parkingSpaceCount,
+                 numberFreeParkingSpaces: parkingSpaceCount,
+                 numberTotalParkingSpaces: parkingSpaceCount,
              })
             newParkingSpaces.push([])
             newLogs.push([])
@@ -56,13 +56,13 @@ Item {
         }
 
         // Specific for each parking lot
-        newDescriptions[0].LocationName = "Augustinerhof"
-        newDescriptions[0].Latitude = 49.45370
-        newDescriptions[0].Longitude = 11.07515
+        newDescriptions[0].locationName = "Augustinerhof"
+        newDescriptions[0].latitude = 49.45370
+        newDescriptions[0].longitude = 11.07515
 
-        newDescriptions[1].LocationName = "Karlstadt"
-        newDescriptions[1].Latitude = 49.45297
-        newDescriptions[1].Longitude = 11.08270
+        newDescriptions[1].locationName = "Karlstadt"
+        newDescriptions[1].latitude = 49.45297
+        newDescriptions[1].longitude = 11.08270
 
         // We are now ready to assign "public" properties
         // (and emit implicit signals)
@@ -114,12 +114,12 @@ Item {
         var log = logs[modelIndex]
 
         var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
-        entryCopy.Status = "ToBeOccupied"
-        entryCopy.LicensePlateNumber = createRandomLicensePlateNumber()
+        entryCopy.status = "ToBeOccupied"
+        entryCopy.licensePlateNumber = createRandomlicensePlateNumber()
         entryCopy.Timestamp = new Date().toString()
 
         spaces[parkingSpaceIndex] = entryCopy
-        description.NumberFreeParkingSpaces--
+        description.numberFreeParkingSpaces--
         log.push(entryCopy)
     }
 
@@ -130,8 +130,8 @@ Item {
         var log = logs[modelIndex]
 
         var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
-        entryCopy.Arrival = new Date().toString()
-        entryCopy.Status = "Occupied"
+        entryCopy.arrival = new Date().toString()
+        entryCopy.status = "Occupied"
         entryCopy.Timestamp = new Date().toString()
 
         spaces[parkingSpaceIndex] = entryCopy
@@ -145,7 +145,7 @@ Item {
         var log = logs[modelIndex]
 
         var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
-        entryCopy.Status = "ToBeFree"
+        entryCopy.status = "ToBeFree"
         entryCopy.Timestamp = new Date().toString()
 
         spaces[parkingSpaceIndex] = entryCopy
@@ -159,12 +159,12 @@ Item {
         var log = logs[modelIndex]
 
         var newEntry = app.model.createEmptyParkingSpaceModel(modelIndex, parkingSpaceIndex)
-        description.NumberFreeParkingSpaces++
+        description.numberFreeParkingSpaces++
         spaces[parkingSpaceIndex] = newEntry
         log.push(newEntry)
     }
 
-    function createRandomLicensePlateNumber()
+    function createRandomlicensePlateNumber()
     {
         var letters = String.fromCharCode(65 + (Math.random() * 7), 65 + (Math.random() * 7))
         var digits = 10000 + Math.round(Math.random() * 98000)
@@ -177,7 +177,7 @@ Item {
         var index = Math.round(Math.random() * (spaces.length - 1))
         var startIndex = index
 
-        while (status !== spaces[index].Status) {
+        while (status !== spaces[index].status) {
             if (++index === spaces.length)
                 index = 0
             if (index === startIndex)

@@ -14,7 +14,7 @@ Rectangle {
     function centerOnPark(modelIndex)
     {
         var garage = app.model.currentModel.descriptions[modelIndex]
-        moveToLatLon(garage.Latitude, garage.Longitude)
+        moveToLatLon(garage.latitude, garage.longitude)
         zoomLevel = 15
     }
 
@@ -77,7 +77,7 @@ Rectangle {
 
             Component.onCompleted: {
                 var description = app.model.currentModel.descriptions[modelIndex]
-                center = QtPositioning.coordinate(description.Latitude, description.Longitude)
+                center = QtPositioning.coordinate(description.latitude, description.longitude)
                 var overlayComp = Qt.createComponent("GeoMapOverlay.qml")
                 overlay = overlayComp.createObject(map, { modelIndex: modelIndex })
                 overlay.x = Qt.binding(function() { return x + (width - overlay.width) / 2 })
@@ -108,7 +108,7 @@ Rectangle {
 
         for (var modelIndex = 0; modelIndex < descriptionCount; ++modelIndex) {
             var description = app.model.currentModel.descriptions[modelIndex]
-            if (description.isEmpty || (description.Latitude === null || description.Longitude === null))
+            if (description.isEmpty || (description.latitude === null || description.longitude === null))
                 continue
 
             var overlay = overlayProxyComp.createObject(map, { modelIndex: modelIndex })

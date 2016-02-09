@@ -86,7 +86,7 @@ Rectangle {
 
                 MainToolbarButton {
                     id: button
-                    text: app.model.currentModel.descriptions[index].LocationName
+                    text: app.model.currentModel.descriptions[index].locationName
                     contentView: app.detailPages.itemAt(index)
                 }
             }

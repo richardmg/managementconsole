@@ -6,7 +6,7 @@ Rectangle {
 
     property var parkingSpaceModel: app.model.createEmptyParkingSpaceModel(0, 0)
     property var arrivalDate: new Date()
-    property bool isFree: parkingSpaceModel.Status === "Free"
+    property bool isFree: parkingSpaceModel.status === "Free"
 
     MouseArea {
         // Block mouseareas underneath
@@ -52,7 +52,7 @@ Rectangle {
             }
             Text {
                 font: app.fontF.font
-                text: parkingSpaceModel.OnSiteId
+                text: parkingSpaceModel.onSiteId
                 Layout.fillWidth: true
 
             }
@@ -64,7 +64,7 @@ Rectangle {
             }
             Text {
                 font: app.fontF.font
-                text: parkingSpaceModel.Status
+                text: parkingSpaceModel.status
             }
             // ------------------------------
             Text {
@@ -74,7 +74,7 @@ Rectangle {
             }
             Text {
                 font: app.fontF.font
-                text: isFree ? "" : parkingSpaceModel.UserId
+                text: isFree ? "" : parkingSpaceModel.userId
             }
             // ------------------------------
             Text {
@@ -84,13 +84,13 @@ Rectangle {
             }
             Text {
                 font: app.fontF.font
-                text: isFree ? "" : parkingSpaceModel.LicensePlateNumber
+                text: isFree ? "" : parkingSpaceModel.licensePlateNumber
             }
             // ------------------------------
             Text {
                 font: app.fontF.font
                 color: app.colorDarkBg
-                text: "Arrival:"
+                text: "arrival:"
             }
             Text {
                 font: app.fontF.font
@@ -104,7 +104,7 @@ Rectangle {
             }
             Text {
                 font: app.fontF.font
-                text: isFree ? "" : parkingSpaceModel.ParkingDuration
+                text: isFree ? "" : parkingSpaceModel.parkingDuration
             }
 
         }

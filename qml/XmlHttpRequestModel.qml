@@ -4,7 +4,7 @@ import QtWebSockets 1.0
 Item {
     id: root
 
-    readonly property string originalBaseUrl: "http://cloudparkingdemo.azurewebsites.net/api/tdxremote"
+    readonly property string originalBaseUrl: "http://iotparking-prod.azurewebsites.net/api/tdxremote/"
     property string baseUrl: originalBaseUrl
     property int status: WebSocket.Closed
 
@@ -38,7 +38,7 @@ Item {
 
     function updateParkingspaces(modelIndex)
     {
-        var id = descriptions[modelIndex].Id
+        var id = descriptions[modelIndex].id
         load("parkingspace?garageId=" + id, function(array) {
             parkingSpaces[modelIndex] = array
             if (app.model.currentModel === root)
@@ -58,7 +58,6 @@ Item {
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState === XMLHttpRequest.DONE) {
                 if (xmlhttp.status == 200) {
-                    print("MODEL: got data from server (" + action + ")")
                     status = WebSocket.Open
                     callback(JSON.parse(xmlhttp.responseText))
                 } else {

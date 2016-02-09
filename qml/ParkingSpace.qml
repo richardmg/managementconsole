@@ -7,16 +7,16 @@ Rectangle {
 
     signal clicked
 
-    color: parkingSpaceModel.Status !== "Free" ? app.colorDarkBg : app.colorLightBg
+    color: parkingSpaceModel.status !== "Free" ? app.colorDarkBg : app.colorLightBg
     border.color: app.colorDarkBg
 
-    property bool isFree: parkingSpaceModel.Status === "Free"
-    property bool isOccupied: parkingSpaceModel.Status === "Occupied"
-    property bool isReserved: parkingSpaceModel.Status === "ToBeOccupied"
-    property bool isLeaving: parkingSpaceModel.Status === "ToBeFree"
+    property bool isFree: parkingSpaceModel.status === "Free"
+    property bool isOccupied: parkingSpaceModel.status === "Occupied"
+    property bool isReserved: parkingSpaceModel.status === "ToBeOccupied"
+    property bool isLeaving: parkingSpaceModel.status === "ToBeFree"
 
     Text {
-        text: parkingSpaceModel.OnSiteId
+        text: parkingSpaceModel.onSiteId
         anchors.horizontalCenter: parent.horizontalCenter
         font: app.fontF.font
         y: 30
@@ -24,14 +24,14 @@ Rectangle {
 
     Rectangle {
         height: 40
-        visible: parkingSpaceModel.Status !== "Free"
+        visible: parkingSpaceModel.status !== "Free"
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.margins: 5
         color: app.colorLightBg
         Text {
-            text: isOccupied ? parkingSpaceModel.LicensePlateNumber : isReserved ? "Reserved" : isLeaving ? "Leaving" : ""
+            text: isOccupied ? parkingSpaceModel.licensePlateNumber : isReserved ? "Reserved" : isLeaving ? "Leaving" : ""
             font: app.fontA.font
             color: isOccupied ? "black" : app.colorSelectedBg
             anchors.centerIn: parent

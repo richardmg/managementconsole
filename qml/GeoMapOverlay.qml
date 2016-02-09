@@ -41,7 +41,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         width: Math.min(parent.width - 10, implicitWidth)
         font: app.fontD.font
-        text: description.LocationName
+        text: description.locationName
         elide: Text.ElideRight
         color: app.colorDarkFg
     }
@@ -55,8 +55,8 @@ Item {
         anchors.leftMargin: 20
         anchors.rightMargin: 55
         height: 12
-        freeSpaces: description.NumberFreeParkingSpaces
-        capacity: description.NumberTotalParkingSpaces
+        freeSpaces: description.numberFreeParkingSpaces
+        capacity: description.numberTotalParkingSpaces
     }
 
     PercentageText {
@@ -66,8 +66,8 @@ Item {
         anchors.top: parkOverlayName.bottom
         anchors.topMargin: 10
         font: app.fontD.font
-        freeSpaces: description.NumberFreeParkingSpaces
-        capacity: description.NumberTotalParkingSpaces
+        freeSpaces: description.numberFreeParkingSpaces
+        capacity: description.numberTotalParkingSpaces
     }
 
     MouseArea {

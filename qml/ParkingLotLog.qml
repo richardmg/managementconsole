@@ -54,7 +54,7 @@ Rectangle {
 
                 Text {
                     id: headerParkName
-                    text: description.LocationName
+                    text: description.locationName
                     font: app.fontC.font
                     Layout.fillWidth: true
                     elide: Text.ElideRight
@@ -72,8 +72,8 @@ Rectangle {
                 PercentageText {
                     id: headerFreeSpaces
                     visible: showPercentage
-                    freeSpaces: description.NumberFreeParkingSpaces
-                    capacity: description.NumberTotalParkingSpaces
+                    freeSpaces: description.numberFreeParkingSpaces
+                    capacity: description.numberTotalParkingSpaces
                     font: app.fontC.font
                     x: 10
                     y: 6
@@ -141,7 +141,7 @@ Rectangle {
                         height: 20
                         Image {
                             anchors.centerIn: parent
-                            source: Status === "Malfunction" ? "qrc:/img/Alarm_icon.png" : "qrc:/img/Vehicle_icon.png"
+                            source: status === "Malfunction" ? "qrc:/img/Alarm_icon.png" : "qrc:/img/Vehicle_icon.png"
                         }
                     }
 

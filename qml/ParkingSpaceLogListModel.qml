@@ -37,16 +37,16 @@ ListModel {
         for (var i = log.length - appended; i < log.length; ++i) {
             var entry = log[i]
 
-            if (entry.Status === "Free")
-                entry.Message = "Space " + entry.OnSiteId + " is now free"
-            else if (entry.Status === "Occupied")
-                entry.Message = entry.LicensePlateNumber + " arrived at space " + entry.OnSiteId
-            else if (entry.Status === "ToBeOccupied")
-                entry.Message = entry.LicensePlateNumber + " reserved space " + entry.OnSiteId
-            else if (entry.Status === "ToBeFree")
-                entry.Message = entry.LicensePlateNumber + " is leaving space " + entry.OnSiteId
-            else if (entry.Status === "Malfunction")
-                entry.Message = "Malfunction on space " + entry.OnSiteId
+            if (entry.status === "Free")
+                entry.Message = "Space " + entry.onSiteId + " is now free"
+            else if (entry.status === "Occupied")
+                entry.Message = entry.licensePlateNumber + " arrived at space " + entry.onSiteId
+            else if (entry.status === "ToBeOccupied")
+                entry.Message = entry.licensePlateNumber + " reserved space " + entry.onSiteId
+            else if (entry.status === "ToBeFree")
+                entry.Message = entry.licensePlateNumber + " is leaving space " + entry.onSiteId
+            else if (entry.status === "Malfunction")
+                entry.Message = "Malfunction on space " + entry.onSiteId
             else entry.Message = ""
 
             listModel.insert(0, entry)

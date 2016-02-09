@@ -33,7 +33,7 @@ Rectangle {
         // Ensure the model is ready before reassigning parkingSpace
         var description = app.model.currentModel.descriptions[modelIndex]
         var newParkingSpaces = app.model.currentModel.parkingSpaces[modelIndex]
-        if (description && newParkingSpaces && description.NumberTotalParkingSpaces !== repeater.count) {
+        if (description && newParkingSpaces && description.numberTotalParkingSpaces !== repeater.count) {
             parkingSpaces = []
             parkingSpaces = newParkingSpaces
         }
