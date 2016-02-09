@@ -17,7 +17,7 @@ Item {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: app.currentView = contentView
+        onClicked: app.currentPage = contentView
         enabled: contentView !== null
     }
 }

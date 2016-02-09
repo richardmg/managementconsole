@@ -30,19 +30,19 @@ Rectangle {
         Component.onCompleted: updateBg()
         Connections {
             target: app
-            onCurrentViewChanged: moveableButtonBackground.updateBg()
+            onCurrentPageChanged: moveableButtonBackground.updateBg()
         }
 
         function updateBg()
         {
-            if (app.currentView === app.mainViewPage) {
+            if (app.currentPage === app.mainViewPage) {
                 moveToItem(mainViewPageButton)
-            } else if (app.currentView === app.settingsView) {
+            } else if (app.currentPage === app.settingsView) {
                 moveToItem(settingsButton)
             } else {
                 for (var modelIndex = 0; modelIndex < garageRepeater.model; ++modelIndex) {
                     var item = garageRepeater.itemAt(modelIndex)
-                    if (item.button.contentView === app.currentView)
+                    if (item.button.contentView === app.currentPage)
                         moveToItem(item.button)
                 }
             }
@@ -104,7 +104,7 @@ Rectangle {
         MouseArea {
             width: parent.width
             height: toolbar.height
-            onClicked: app.currentView = app.settingsView
+            onClicked: app.currentPage = app.settingsView
         }
     }
 }
