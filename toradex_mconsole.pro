@@ -4,18 +4,9 @@
 
 TEMPLATE = app
 QT += gui qml quick location positioning widgets
-RESOURCES += \
-    main.qrc
 
-# Input
-SOURCES += main.cpp
-
-OTHER_FILES += \
-    main.qml
+RESOURCES +=  main.qrc
+SOURCES += src/main.cpp
 
 target.path = /home/app/apps/$$TARGET
 INSTALLS += target
-
-DISTFILES += \
-    MapWithParkingLots.qml \
-    TODO.txt

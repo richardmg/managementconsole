@@ -1,36 +1,36 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
+        <file>qml/main.qml</file>
     </qresource>
     <qresource prefix="/model">
-        <file>Model.qml</file>
-        <file>FakeModel.qml</file>
-        <file>XmlHttpRequestModel.qml</file>
+        <file>qml/Model.qml</file>
+        <file>qml/FakeModel.qml</file>
+        <file>qml/XmlHttpRequestModel.qml</file>
     </qresource>
     <qresource prefix="/components">
-        <file>GeoMap.qml</file>
-        <file>ParkingLotLog.qml</file>
-        <file>MainToolbar.qml</file>
-        <file>MainToolbarButton.qml</file>
-        <file>PercentageBar.qml</file>
-        <file>GeoMapOverlay.qml</file>
-        <file>PercentageText.qml</file>
-        <file>ParkingLotMap.qml</file>
-        <file>IconButton.qml</file>
-        <file>ExpandableContainer.qml</file>
-        <file>WebCam.qml</file>
-        <file>ParkingSpace.qml</file>
-        <file>ParkingSpaceDetails.qml</file>
-        <file>ParkingSpaceDetailsField.qml</file>
-        <file>ParkingLotLogDetails.qml</file>
-        <file>TopLevelPage.qml</file>
-        <file>SubPage.qml</file>
-        <file>ParkingSpaceLogListModel.qml</file>
+        <file>qml/GeoMap.qml</file>
+        <file>qml/ParkingLotLog.qml</file>
+        <file>qml/MainToolbar.qml</file>
+        <file>qml/MainToolbarButton.qml</file>
+        <file>qml/PercentageBar.qml</file>
+        <file>qml/GeoMapOverlay.qml</file>
+        <file>qml/PercentageText.qml</file>
+        <file>qml/ParkingLotMap.qml</file>
+        <file>qml/IconButton.qml</file>
+        <file>qml/ExpandableContainer.qml</file>
+        <file>qml/WebCam.qml</file>
+        <file>qml/ParkingSpace.qml</file>
+        <file>qml/ParkingSpaceDetails.qml</file>
+        <file>qml/ParkingSpaceDetailsField.qml</file>
+        <file>qml/ParkingLotLogDetails.qml</file>
+        <file>qml/TopLevelPage.qml</file>
+        <file>qml/SubPage.qml</file>
+        <file>qml/ParkingSpaceLogListModel.qml</file>
     </qresource>
     <qresource prefix="/pages">
-        <file>MainPage.qml</file>
-        <file>SettingsPage.qml</file>
-        <file>ParkingLotPage.qml</file>
+        <file>qml/MainPage.qml</file>
+        <file>qml/SettingsPage.qml</file>
+        <file>qml/ParkingLotPage.qml</file>
     </qresource>
     <qresource prefix="/img">
         <file alias="Alarm_Pressed_btn.png">img/Alarm_Pressed_btn.png</file>
