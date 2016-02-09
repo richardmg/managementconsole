@@ -17,6 +17,16 @@ Item {
 
     onBaseUrlChanged: update()
 
+    function reload()
+    {
+        parkingSpaces = []
+        logs = []
+        updateStamps = []
+        descriptions = []
+
+        update()
+    }
+
     function update()
     {
         load("garage", function(array) {

@@ -17,6 +17,11 @@ Item {
         update()
     }
 
+    function reload()
+    {
+        update()
+    }
+
     function update()
     {
         for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex) {

@@ -17,8 +17,8 @@ Item {
     property int maxLogLength: 100
     property int pollIntervalMs: 10000
 
-    Component.onCompleted: currentModel.update()
-    onCurrentModelChanged: currentModel.update()
+    Component.onCompleted: currentModel.reload()
+    onCurrentModelChanged: currentModel.reload()
 
     // Uncomment the following signal handlers to get debug output!
 

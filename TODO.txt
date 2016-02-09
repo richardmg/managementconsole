@@ -1,4 +1,3 @@
 - Split overlay so that "arrow" cannot end up on top of other overlay bubbles.
 - Implement statistics
-- Clear log when changing model (See main page)
 - Fix split collapse bug when hidden
