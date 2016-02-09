@@ -11,7 +11,7 @@
         <file>PercentageBar.qml</file>
         <file>ParkMapOverlay.qml</file>
         <file>PercentageText.qml</file>
-        <file>ParkDetailMap.qml</file>
+        <file>ParkingLotMap.qml</file>
         <file>FakeModel.qml</file>
         <file>IconButton.qml</file>
         <file>ExpandableContainer.qml</file>

@@ -12,7 +12,7 @@ AbstractPage {
         anchors.fill: parent
         handleDelegate: Item { width: app.spacingHor }
 
-        ParkDetailMap {
+        ParkingLotMap {
             border.color: app.colorDarkBg
             Layout.fillWidth: true
             modelIndex: root.modelIndex
