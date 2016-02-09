@@ -91,10 +91,10 @@ Rectangle {
                 IconButton {
                     visible: showMapIcon
                     baseName: "Locate"
-                    selected: app.mainView.selectedIndex === modelIndex
+                    selected: app.mainViewPage.selectedIndex === modelIndex
                     onClicked: {
-                        app.mainView.selectedIndex = modelIndex
-                        app.mainView.parkMap.centerOnPark(modelIndex)
+                        app.mainViewPage.selectedIndex = modelIndex
+                        app.mainViewPage.parkMap.centerOnPark(modelIndex)
                     }
                 }
 

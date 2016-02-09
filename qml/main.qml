@@ -40,8 +40,8 @@ Window {
     // Global API:
 
     property alias model: model
-    property TopLevelPage currentView: mainPage
-    property alias mainView: mainPage
+    property TopLevelPage currentView: mainViewPage
+    property alias mainViewPage: mainViewPage
     property alias detailPages: detailPages
     property alias settingsView: settingsPage
 
@@ -53,7 +53,7 @@ Window {
     }
 
     MainPage {
-        id: mainPage
+        id: mainViewPage
     }
 
     Repeater {

@@ -18,7 +18,7 @@ TopLevelPage {
                 app.model.currentModel = app.model.xmlHttpRequestModel
             else if (current === offlineSource)
                 app.model.currentModel = app.model.fakeModel
-            app.mainView.parkMap.centerOnAllParks()
+            app.mainViewPage.parkMap.centerOnAllParks()
         }
     }
 

@@ -19,10 +19,10 @@ Rectangle {
 
     Rectangle {
         id: moveableButtonBackground
-        width: mainViewButton.width + (toolbar.spacing * 2)
+        width: mainViewPageButton.width + (toolbar.spacing * 2)
         height: parent.height
         color: app.colorSelectedBg
-        x: toolbar.mapFromItem(mainViewButton, 0, 0).x - toolbar.spacing
+        x: toolbar.mapFromItem(mainViewPageButton, 0, 0).x - toolbar.spacing
 
         Behavior on x { NumberAnimation{ easing.type: Easing.OutCubic } }
         Behavior on width { NumberAnimation{ easing.type: Easing.OutCubic } }
@@ -35,8 +35,8 @@ Rectangle {
 
         function updateBg()
         {
-            if (app.currentView === app.mainView) {
-                moveToItem(mainViewButton)
+            if (app.currentView === app.mainViewPage) {
+                moveToItem(mainViewPageButton)
             } else if (app.currentView === app.settingsView) {
                 moveToItem(settingsButton)
             } else {
@@ -63,9 +63,9 @@ Rectangle {
         spacing: 20
 
         MainToolbarButton {
-            id: mainViewButton
+            id: mainViewPageButton
             text: "Main View"
-            contentView: app.mainView
+            contentView: app.mainViewPage
         }
 
         Repeater {

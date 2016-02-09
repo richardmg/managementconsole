@@ -20,7 +20,7 @@ Item {
     Image {
         anchors.horizontalCenter: parent.horizontalCenter
         y: (parent.height / 2) - height
-        source: app.mainView.selectedIndex === root.modelIndex ?
+        source: app.mainViewPage.selectedIndex === root.modelIndex ?
                     "qrc:/img/ParkLocation_Focus_icon.png" :
                     "qrc:/img/ParkLocation_icon.png"
     }
@@ -31,8 +31,8 @@ Item {
         anchors.bottom: bar.bottom
         anchors.bottomMargin: -20
         radius: 10
-        border.color: app.mainView.selectedIndex === root.modelIndex ? app.colorSelectedBg : app.colorDarkBg
-        border.width: app.mainView.selectedIndex === root.modelIndex ? 3 : 2
+        border.color: app.mainViewPage.selectedIndex === root.modelIndex ? app.colorSelectedBg : app.colorDarkBg
+        border.width: app.mainViewPage.selectedIndex === root.modelIndex ? 3 : 2
     }
 
     Text {
@@ -72,7 +72,7 @@ Item {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: app.mainView.selectedIndex = root.modelIndex
+        onClicked: app.mainViewPage.selectedIndex = root.modelIndex
     }
 }
 
