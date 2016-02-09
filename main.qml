@@ -58,7 +58,7 @@ Window {
     Repeater {
         id: detailPages
         model: app.model.currentModel.descriptions.length
-        ParkDetailsPage {
+        ParkingLotPage {
             modelIndex: index
         }
     }

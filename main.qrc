@@ -29,7 +29,7 @@
         <file>MainPage.qml</file>
         <file>SettingsPage.qml</file>
         <file>AppPage.qml</file>
-        <file>ParkDetailsPage.qml</file>
+        <file>ParkingLotPage.qml</file>
     </qresource>
     <qresource prefix="/img">
         <file alias="Alarm_Pressed_btn.png">img/Alarm_Pressed_btn.png</file>
