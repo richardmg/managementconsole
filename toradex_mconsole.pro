@@ -10,3 +10,5 @@ SOURCES += src/main.cpp
 
 target.path = /home/app/apps/$$TARGET
 INSTALLS += target
+
+OTHER_FILES += TODO.txt
