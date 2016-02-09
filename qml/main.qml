@@ -53,7 +53,7 @@ Window {
     MainToolbar {
     }
 
-    MainPage {
+    MainViewPage {
         id: mainViewPage
     }
 

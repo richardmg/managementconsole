@@ -28,7 +28,7 @@
         <file>qml/ParkingSpaceLogListModel.qml</file>
     </qresource>
     <qresource prefix="/pages">
-        <file>qml/MainPage.qml</file>
+        <file>qml/MainViewPage.qml</file>
         <file>qml/SettingsPage.qml</file>
         <file>qml/ParkingLotPage.qml</file>
     </qresource>
