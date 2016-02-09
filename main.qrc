@@ -5,7 +5,7 @@
     <qresource prefix="/components">
         <file>ParkMap.qml</file>
         <file>Model.qml</file>
-        <file>ParkLog.qml</file>
+        <file>ParkingLotLog.qml</file>
         <file>MainToolbar.qml</file>
         <file>MainToolbarButton.qml</file>
         <file>PercentageBar.qml</file>
@@ -20,7 +20,7 @@
         <file>ParkingSpace.qml</file>
         <file>ParkingSpaceDetails.qml</file>
         <file>ParkingSpaceDetailsField.qml</file>
-        <file>ParkLogDetails.qml</file>
+        <file>ParkingLotLogDetails.qml</file>
         <file>AbstractPage.qml</file>
         <file>SubPage.qml</file>
         <file>ParkingSpaceLogListModel.qml</file>

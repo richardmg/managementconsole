@@ -43,7 +43,7 @@ AbstractPage {
                     id: garageColumnRepeater
                     model: app.model.currentModel.descriptions.length
 
-                    ParkLog {
+                    ParkingLotLog {
                         modelIndex: index
                         width: garageColumn.width
                         height: garageColumnRepeater.model <= 2 ? root.height / 2 : root.height / 2.5

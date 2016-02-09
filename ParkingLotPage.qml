@@ -38,7 +38,7 @@ AbstractPage {
                 }
             }
 
-            ParkLog {
+            ParkingLotLog {
                 id: parkB
                 Layout.fillHeight: true
                 modelIndex: root.modelIndex
@@ -62,7 +62,7 @@ AbstractPage {
             onClose: parkDetailsContainer.expanded = false
             iconBaseName: "Contract"
 
-            ParkLogDetails {
+            ParkingLotLogDetails {
                 anchors.fill: parent
                 modelIndex: root.modelIndex
             }
