@@ -8,6 +8,7 @@ Rectangle {
     id: parkLog
 
     property int modelIndex: -1
+    property var now: new Date().getTime()
 
     onVisibleChanged: {
         if (visible)
@@ -19,20 +20,22 @@ Rectangle {
         var free = app.model.currentModel.descriptions[modelIndex].numberFreeParkingSpaces
         var total = app.model.currentModel.descriptions[modelIndex].numberTotalParkingSpaces
         var occupied = total - free
+        now = new Date().getTime()
 
         graphPoints.clear()
+        graphPoints.append(0, occupied * 100 / total)
 
         // We only know what the current occupation rate is right now on the
         // parking lot, so to draw a graph, we need to traverse the log backwards
         // and calculate what the rate must have been at the time of each entry.
         var log = app.model.currentModel.logs[modelIndex]
-        for (var i = log.length - 1; i >= 0; --i) {
-            var entryTime = log.length - i - 1
+        for (var i = log.length - 1; i > 0; --i) {
+            var entry = log[i]
+            var entryTime = now - new Date(entry.modificationDate).getTime()
             var occupationRate = occupied * 100 / total
 
             graphPoints.append(entryTime, occupationRate)
 
-            var entry = log[i]
             if (entry.status === "Free") {
                 // If this entry freed up a space, it means that the
                 // occupation rate must have been bigger before.
@@ -79,6 +82,7 @@ Rectangle {
             border.color: app.colorDarkBg
 
             ChartView {
+                id: chartView
                 anchors.fill: parent
                 antialiasing: true
                 legend.visible: false
@@ -86,9 +90,9 @@ Rectangle {
                 ValueAxis {
                     id: axisX
                     min: 0
-                    max: 60
+                    max: 60 * 60 * 1000
                     tickCount: 8
-                    labelFormat: "%i"
+                    labelFormat: "."
                 }
 
                 ValueAxis {
@@ -104,6 +108,16 @@ Rectangle {
                     axisX: axisX
                     axisY: axisY
                 }
+            }
+        }
+
+        Repeater {
+            id: xLables
+            model: 10
+            Text {
+                x: chartView.plotArea.x + ((chartView.plotArea.width / xLables.count) * index)
+                y: 215
+                text: app.model.dateToHms(new Date(now + (index * axisX.max / xLables.count)))
             }
         }
 
