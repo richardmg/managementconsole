@@ -145,7 +145,7 @@ Rectangle {
 
                     TextEdit {
                         id: logMessage
-                        text: Message ? Message : ""
+                        text: message ? message : ""
                         font: app.fontB.font
                         readOnly: true
                         Layout.fillWidth: true
