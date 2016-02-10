@@ -121,7 +121,7 @@ Item {
         var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
         entryCopy.status = "ToBeOccupied"
         entryCopy.licensePlateNumber = createRandomlicensePlateNumber()
-        entryCopy.timestamp = new Date().toString()
+        entryCopy.modificationDate = new Date().toString()
 
         spaces[parkingSpaceIndex] = entryCopy
         description.numberFreeParkingSpaces--
@@ -137,7 +137,7 @@ Item {
         var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
         entryCopy.arrival = new Date().toString()
         entryCopy.status = "Occupied"
-        entryCopy.timestamp = new Date().toString()
+        entryCopy.modificationDate = new Date().toString()
         spaces[parkingSpaceIndex] = entryCopy
         log.push(entryCopy)
     }
@@ -150,7 +150,7 @@ Item {
 
         var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
         entryCopy.status = "ToBeFree"
-        entryCopy.timestamp = new Date().toString()
+        entryCopy.modificationDate = new Date().toString()
 
         spaces[parkingSpaceIndex] = entryCopy
         log.push(entryCopy)

@@ -122,7 +122,7 @@ Rectangle {
             model: logModel
 
             delegate: Item {
-                width: parent.width
+                width: listView.width
                 height: logMessage.paintedHeight + 20
 
                 RowLayout {
@@ -145,7 +145,7 @@ Rectangle {
 
                     TextEdit {
                         id: logMessage
-                        text: Message
+                        text: Message ? Message : ""
                         font: app.fontB.font
                         readOnly: true
                         Layout.fillWidth: true
@@ -154,7 +154,7 @@ Rectangle {
 
                     TextEdit {
                         id: logTime
-                        text: app.model.dateToHms(new Date(timestamp), false)
+                        text: app.model.dateToHms(new Date(modificationDate), false)
                         font: app.fontB.font
                         readOnly: true
                         color: app.colorDarkFg

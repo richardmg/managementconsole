@@ -29,6 +29,11 @@ Item {
 
     function update()
     {
+        updateGarages()
+    }
+
+    function updateGarages()
+    {
         load("garage", function(array) {
             descriptions = array
 
@@ -38,6 +43,7 @@ Item {
             for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex) {
                 updateStamps[modelIndex] = new Date()
                 updateParkingspaces(modelIndex)
+                updateGarageStatistics(modelIndex)
                 if (app.model.currentModel === root) {
                     app.model.updateTimeUpdated(modelIndex)
                     app.model.descriptionUpdated(modelIndex)
@@ -56,9 +62,14 @@ Item {
         })
     }
 
-    function dump(str, obj)
+    function updateGarageStatistics(modelIndex)
     {
-        print(str, JSON.stringify(obj, 0, "   "))
+        var id = descriptions[modelIndex].id
+        load("statistics/garage?garageId=" + id + "&numberOfEntries=5", function(array) {
+            logs[modelIndex] = array
+            if (app.model.currentModel === root)
+                app.model.logUpdated(modelIndex, 0, 0)
+        })
     }
 
     function load(action, callback)
@@ -88,8 +99,6 @@ Item {
         repeat: true
         onTriggered: {
             update()
-//            app.model.descriptionUpdated(modelIndex)
-//            app.model.logUpdated(modelIndex, removeCount, appendCount)
         }
     }
 

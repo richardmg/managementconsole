@@ -38,16 +38,17 @@ ListModel {
             var entry = log[i]
 
             if (entry.status === "Free")
-                entry.Message = "Space " + entry.onSiteId + " is now free"
+                entry.Message = "Space " + entry.parkingSpaceOnSiteId + " is now free"
             else if (entry.status === "Occupied")
-                entry.Message = entry.licensePlateNumber + " arrived at space " + entry.onSiteId
+                entry.Message = entry.licensePlateNumber + " arrived at space " + entry.parkingSpaceOnSiteId
             else if (entry.status === "ToBeOccupied")
-                entry.Message = entry.licensePlateNumber + " reserved space " + entry.onSiteId
+                entry.Message = entry.licensePlateNumber + " reserved space " + entry.parkingSpaceOnSiteId
             else if (entry.status === "ToBeFree")
-                entry.Message = entry.licensePlateNumber + " is leaving space " + entry.onSiteId
+                entry.Message = entry.licensePlateNumber + " is leaving space " + entry.parkingSpaceOnSiteId
             else if (entry.status === "Malfunction")
-                entry.Message = "Malfunction on space " + entry.onSiteId
-            else entry.Message = ""
+                entry.Message = "Malfunction on space " + entry.parkingSpaceOnSiteId
+            else
+                entry.Message = "Unknown event at " + entry.parkingSpaceOnSiteId
 
             listModel.insert(0, entry)
         }

@@ -52,9 +52,26 @@ Item {
             "garageId": garageId,
             "status": "Free",
             "onSiteId": parkingSpaceId,
-            "parkingDuration": "0",
+            "parkingSpaceOnSiteId": parkingSpaceId,
+            "parkingDuration": 0,
             "licensePlateNumber": "",
-            "timestamp": new Date().toString(),
+            "modificationDate": new Date().toString(),
+        }
+    }
+
+    function createEmptyLogEntry()
+    {
+        return {
+            "id": 0,
+            "parkingSpaceOnSiteId": 0,
+            "status": "Free",
+            "garageId": 0,
+            "modificationDate": new Date().toString(),
+            "arrival": null,
+            "licensePlateNumber": null,
+            "statusInformation": null,
+            "userId": null,
+            "parkingDuration": 0
         }
     }
 

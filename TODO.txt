@@ -1,3 +1,5 @@
 - Split overlay so that "arrow" cannot end up on top of other overlay bubbles.
 - Implement statistics
 - Fix split collapse bug when hidden
+- Check what causes the "no Message" bug in ParkingLotLogDetails (currentlu worked
+    around with text: Message ? Message : "")
