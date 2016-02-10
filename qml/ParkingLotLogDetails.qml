@@ -63,7 +63,7 @@ Rectangle {
 
                 Text {
                     id: headerDate
-                    text: "< 26.02.2016 >"
+                    text: "Occupation rate"
                     font: app.fontC.font
                     Layout.fillWidth: true
                     elide: Text.ElideRight
@@ -117,7 +117,7 @@ Rectangle {
             Text {
                 x: chartView.plotArea.x + ((chartView.plotArea.width / xLables.count) * index)
                 y: 215
-                text: app.model.dateToHms(new Date(now + (index * axisX.max / xLables.count)))
+                text: app.model.dateToHms(new Date(now - (index * axisX.max / xLables.count)))
             }
         }
 
