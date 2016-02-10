@@ -34,12 +34,12 @@ Item {
     {
         return {
             "EMPTY_DESCRIPTION_GENERATED_LOCALLY": true,
-            "Id": "0",
+            "Id": 0,
             "locationName": "",
-            "latitude": "0",
-            "longitude": "0",
-            "numberFreeParkingSpaces": "0",
-            "numberTotalParkingSpaces": "8"
+            "latitude": 0,
+            "longitude": 0,
+            "numberFreeParkingSpaces": 0,
+            "numberTotalParkingSpaces": 8
         }
     }
 
@@ -47,8 +47,8 @@ Item {
     {
         return {
             "EMPTY_PARKING_SPACE_GENERATED_LOCALLY": true,
-            "userId": "0",
-            "arrival": "0",
+            "userId": 0,
+            "arrival": null,
             "garageId": garageId,
             "status": "Free",
             "onSiteId": parkingSpaceId,
