@@ -38,8 +38,8 @@ Item {
         var count = 30
         var twoMin = 1000 * 60 * 2
         for (var i = 0; i < count; ++i) {
-            var modificationTime = new Date(now.getTime() - ((count - i) * twoMin))
-            addLogEntry(modelIndex, modificationTime)
+            var modificationDate = new Date(now.getTime() - ((count - i) * twoMin))
+            addLogEntry(modelIndex, modificationDate)
         }
     }
 
@@ -83,32 +83,32 @@ Item {
         logs = newLogs
     }
 
-    function addLogEntry(modelIndex, modificationTime)
+    function addLogEntry(modelIndex, modificationDate)
     {
         var type = Math.round(Math.random() * 3)
         for (;;) {
             if (type === 0) {
                 var parkingSpaceIndex = getRandomParkingSpaceWithStatus(modelIndex, "Free")
                 if (parkingSpaceIndex !== -1) {
-                    addLogEntryToBeOccupied(modelIndex, parkingSpaceIndex, modificationTime)
+                    addLogEntryToBeOccupied(modelIndex, parkingSpaceIndex, modificationDate)
                     break
                 }
             } else if (type === 1) {
                 parkingSpaceIndex = getRandomParkingSpaceWithStatus(modelIndex, "ToBeOccupied")
                 if (parkingSpaceIndex !== -1) {
-                    addLogEntryOccupied(modelIndex, parkingSpaceIndex, modificationTime)
+                    addLogEntryOccupied(modelIndex, parkingSpaceIndex, modificationDate)
                     break
                 }
             } else if (type === 2) {
                 parkingSpaceIndex = getRandomParkingSpaceWithStatus(modelIndex, "Occupied")
                 if (parkingSpaceIndex !== -1) {
-                    addLogEntryToBeFree(modelIndex, parkingSpaceIndex, modificationTime)
+                    addLogEntryToBeFree(modelIndex, parkingSpaceIndex, modificationDate)
                     break
                 }
             } else {
                 parkingSpaceIndex = getRandomParkingSpaceWithStatus(modelIndex, "ToBeFree")
                 if (parkingSpaceIndex !== -1) {
-                    addLogEntryFree(modelIndex, parkingSpaceIndex, modificationTime)
+                    addLogEntryFree(modelIndex, parkingSpaceIndex, modificationDate)
                     break
                 }
             }
@@ -118,7 +118,7 @@ Item {
         }
     }
 
-    function addLogEntryToBeOccupied(modelIndex, parkingSpaceIndex, modificationTime)
+    function addLogEntryToBeOccupied(modelIndex, parkingSpaceIndex, modificationDate)
     {
         var description = descriptions[modelIndex]
         var spaces = parkingSpaces[modelIndex]
@@ -127,14 +127,14 @@ Item {
         var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
         entryCopy.status = "ToBeOccupied"
         entryCopy.licensePlateNumber = createRandomlicensePlateNumber()
-        entryCopy.modificationDate = modificationTime.toString()
+        entryCopy.modificationDate = modificationDate.toString()
 
         spaces[parkingSpaceIndex] = entryCopy
         description.numberFreeParkingSpaces--
         log.push(entryCopy)
     }
 
-    function addLogEntryOccupied(modelIndex, parkingSpaceIndex, modificationTime)
+    function addLogEntryOccupied(modelIndex, parkingSpaceIndex, modificationDate)
     {
         var description = descriptions[modelIndex]
         var spaces = parkingSpaces[modelIndex]
@@ -143,12 +143,14 @@ Item {
         var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
         entryCopy.arrival = new Date().toString()
         entryCopy.status = "Occupied"
-        entryCopy.modificationDate = modificationTime.toString()
+        entryCopy.modificationDate = modificationDate.toString()
+        entryCopy.FAKE_parkingDuration_start = entryCopy.modificationDate
+
         spaces[parkingSpaceIndex] = entryCopy
         log.push(entryCopy)
     }
 
-    function addLogEntryToBeFree(modelIndex, parkingSpaceIndex, modificationTime)
+    function addLogEntryToBeFree(modelIndex, parkingSpaceIndex, modificationDate)
     {
         var description = descriptions[modelIndex]
         var spaces = parkingSpaces[modelIndex]
@@ -156,19 +158,23 @@ Item {
 
         var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
         entryCopy.status = "ToBeFree"
-        entryCopy.modificationDate = modificationTime.toString()
+        entryCopy.modificationDate = modificationDate.toString()
+
+        var startms = new Date(entryCopy.FAKE_parkingDuration_start).getTime()
+        var endms = modificationDate.getTime()
+        entryCopy.parkingDuration = Math.floor((endms - startms) / (1000 * 60))
 
         spaces[parkingSpaceIndex] = entryCopy
         log.push(entryCopy)
     }
 
-    function addLogEntryFree(modelIndex, parkingSpaceIndex, modificationTime)
+    function addLogEntryFree(modelIndex, parkingSpaceIndex, modificationDate)
     {
         var description = descriptions[modelIndex]
         var spaces = parkingSpaces[modelIndex]
         var log = logs[modelIndex]
 
-        var newEntry = app.model.createEmptyParkingSpaceModel(modelIndex, parkingSpaceIndex, modificationTime)
+        var newEntry = app.model.createEmptyParkingSpaceModel(modelIndex, parkingSpaceIndex, modificationDate)
 
         description.numberFreeParkingSpaces++
         spaces[parkingSpaceIndex] = newEntry

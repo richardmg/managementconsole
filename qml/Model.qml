@@ -33,7 +33,7 @@ Item {
     function createEmptyDescription()
     {
         return {
-            "EMPTY_DESCRIPTION_GENERATED_LOCALLY": true,
+            "FAKE": true,
             "Id": 0,
             "locationName": "",
             "latitude": 0,
@@ -43,10 +43,10 @@ Item {
         }
     }
 
-    function createEmptyParkingSpaceModel(garageId, parkingSpaceId, modificationTime)
+    function createEmptyParkingSpaceModel(garageId, parkingSpaceId, modificationDate)
     {
         return {
-            "EMPTY_PARKING_SPACE_GENERATED_LOCALLY": true,
+            "FAKE": true,
             "userId": 0,
             "arrival": null,
             "garageId": garageId,
@@ -55,18 +55,20 @@ Item {
             "parkingSpaceOnSiteId": parkingSpaceId,
             "parkingDuration": 0,
             "licensePlateNumber": "",
-            "modificationDate": modificationTime.toString(),
+            "modificationDate": modificationDate.toString(),
+            "FAKE_parkingDuration_start": modificationDate.toString()
         }
     }
 
-    function createEmptyLogEntry(garageId, parkingSpaceId, modificationTime)
+    function createEmptyLogEntry(garageId, parkingSpaceId, modificationDate)
     {
         return {
+            "FAKE": true,
             "id": 0,
             "parkingSpaceOnSiteId": 0,
             "status": "Free",
             "garageId": 0,
-            "modificationDate": modificationTime.toString(),
+            "modificationDate": modificationDate.toString(),
             "arrival": null,
             "licensePlateNumber": null,
             "statusInformation": null,

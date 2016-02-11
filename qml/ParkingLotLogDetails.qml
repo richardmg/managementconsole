@@ -46,6 +46,13 @@ Rectangle {
         }
     }
 
+    function createParkingDurationLabel(parkingDuration)
+    {
+        var h = (parkingDuration / 60).toFixed(0)
+        var m = ((parkingDuration - h) % 60).toFixed(0)
+        return h + "h" + m + "m"
+    }
+
     Item {
         anchors.fill: parent
         anchors.leftMargin: 10
@@ -164,6 +171,16 @@ Rectangle {
                         font: app.fontB.font
                         readOnly: true
                         Layout.fillWidth: true
+                        color: app.colorDarkFg
+                    }
+
+                    TextEdit {
+                        id: duration
+                        visible: status === "ToBeFree"
+                        text: createParkingDurationLabel(parkingDuration)
+                        Layout.preferredWidth: 100
+                        font: app.fontB.font
+                        readOnly: true
                         color: app.colorDarkFg
                     }
 
