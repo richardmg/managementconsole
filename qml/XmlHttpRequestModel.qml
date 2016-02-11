@@ -65,7 +65,7 @@ Item {
     function updateGarageStatistics(modelIndex)
     {
         var id = descriptions[modelIndex].id
-        load("statistics/garage?garageId=" + id + "&numberOfEntries=5", function(array) {
+        load("statistics/garage?garageId=" + id + "&numberOfEntries=60", function(array) {
             logs[modelIndex] = array
             if (app.model.currentModel === root)
                 app.model.logUpdated(modelIndex, 0, 0)
