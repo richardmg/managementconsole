@@ -118,6 +118,7 @@ Rectangle {
                 x: chartView.plotArea.x + ((chartView.plotArea.width / xLables.count) * index)
                 y: 215
                 text: app.model.dateToHms(new Date(now - (index * axisX.max / xLables.count)))
+                color: app.colorDarkFg
             }
         }
 
