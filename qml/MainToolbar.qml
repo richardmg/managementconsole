@@ -17,93 +17,106 @@ Rectangle {
         color: app.colorSelectedBg
     }
 
-    Rectangle {
-        id: moveableButtonBackground
-        width: mainViewPageButton.width + (toolbar.spacing * 2)
-        height: parent.height
-        color: app.colorSelectedBg
-        x: toolbar.mapFromItem(mainViewPageButton, 0, 0).x - toolbar.spacing
+    Flickable {
+        id: flickable
+        anchors.fill: parent
+        contentWidth: row.width + settingsButton.width + 100
 
-        Behavior on x { NumberAnimation{ easing.type: Easing.OutCubic } }
-        Behavior on width { NumberAnimation{ easing.type: Easing.OutCubic } }
+        Rectangle {
+            id: moveableButtonBackground
+            width: mainViewButton.width + (toolbar.spacing * 2)
+            height: parent.height
+            color: app.colorSelectedBg
+            x: toolbar.mapFromItem(mainViewButton, 0, 0).x - toolbar.spacing
 
-        Component.onCompleted: updateBg()
-        Connections {
-            target: app
-            onCurrentPageChanged: moveableButtonBackground.updateBg()
-        }
+            Behavior on x { NumberAnimation{ easing.type: Easing.OutCubic } }
+            Behavior on width { NumberAnimation{ easing.type: Easing.OutCubic } }
 
-        function updateBg()
-        {
-            if (app.currentPage === app.mainViewPage) {
-                moveToItem(mainViewPageButton)
-            } else if (app.currentPage === app.settingsView) {
-                moveToItem(settingsButton)
-            } else {
-                for (var modelIndex = 0; modelIndex < garageRepeater.model; ++modelIndex) {
-                    var item = garageRepeater.itemAt(modelIndex)
-                    if (item.button.contentView === app.currentPage)
-                        moveToItem(item.button)
+            Component.onCompleted: updateBg()
+
+            Connections {
+                target: app
+                onCurrentPageChanged: moveableButtonBackground.updateBg()
+            }
+
+            function updateBg()
+            {
+                if (app.currentPage === app.mainViewPage) {
+                    moveToItem(mainViewButton)
+                } else if (app.currentPage === app.settingsView) {
+                    moveToItem(settingsButton)
+                } else {
+                    for (var modelIndex = 0; modelIndex < garageRepeater.model; ++modelIndex) {
+                        var item = garageRepeater.itemAt(modelIndex)
+                        if (item.button.contentView === app.currentPage)
+                            moveToItem(item.button)
+                    }
                 }
+            }
+
+            function moveToItem(item)
+            {
+                x = parent.mapFromItem(item, 0, 0).x - toolbar.spacing
+                width = item.width + (toolbar.spacing * 2)
             }
         }
 
-        function moveToItem(item)
-        {
-            x = toolbar.mapFromItem(item, 0, 0).x - toolbar.spacing
-            width = item.width + (toolbar.spacing * 2)
-        }
-    }
-
-    Row {
-        x: app.contentLeftMargin + toolbar.spacing
-        width: childrenRect.width
-        height: childrenRect.height
-        anchors.verticalCenter: parent.verticalCenter
-        spacing: 20
-
-        MainToolbarButton {
-            id: mainViewPageButton
-            text: "Main View"
-            contentView: app.mainViewPage
-        }
-
-        Repeater {
-            id: garageRepeater
-            model: app.model.currentModel.descriptions.length
+        Row {
+            id: row
             width: childrenRect.width
-            height: toolbar.height
+            height: childrenRect.height
+            spacing: 20
 
-            Row {
+            Item {
+                width: app.contentLeftMargin
+                height: parent.height
+            }
+
+            MainToolbarButton {
+                id: mainViewButton
+                text: "Main View"
+                contentView: app.mainViewPage
+            }
+
+            Repeater {
+                id: garageRepeater
+                model: app.model.currentModel.descriptions.length
                 width: childrenRect.width
                 height: toolbar.height
-                spacing: 20
-                property alias button: button
 
-                MainToolbarButton {
-                    text: "|"
-                }
+                Row {
+                    width: childrenRect.width
+                    height: toolbar.height
+                    spacing: 20
+                    property alias button: button
 
-                MainToolbarButton {
-                    id: button
-                    text: app.model.currentModel.descriptions[index].locationName
-                    contentView: app.detailPages.itemAt(index)
+                    MainToolbarButton {
+                        text: "|"
+                    }
+
+                    MainToolbarButton {
+                        id: button
+                        text: app.model.currentModel.descriptions[index].locationName
+                        contentView: app.detailPages.itemAt(index)
+                    }
                 }
             }
         }
-    }
 
-    Image {
-        id: settingsButton
-        source: "qrc:/img/settings_icon.png"
-        anchors.right: parent.right
-        anchors.rightMargin: 15
-        anchors.verticalCenter: parent.verticalCenter
-
-        MouseArea {
-            width: parent.width
+        Image {
+            id: settingsButton
+            source: "qrc:/img/settings_icon.png"
+            anchors.verticalCenter: parent.verticalCenter
             height: toolbar.height
-            onClicked: app.currentPage = app.settingsView
+            fillMode: Image.PreserveAspectFit
+            x: Math.max(flickable.width, flickable.contentWidth) - width - 20
+            onXChanged: moveableButtonBackground.updateBg()
+
+            MouseArea {
+                width: parent.width
+                height: toolbar.height
+                onClicked: app.currentPage = app.settingsView
+            }
         }
     }
 }
