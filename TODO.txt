@@ -4,3 +4,4 @@
     around with text: Message ? Message : "")
 - Batch load log data from server (instead of loading evertything all the time)
 - Fix chart to handle spots going directly from free to occupied
+- Add location filter based on city name
