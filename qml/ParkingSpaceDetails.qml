@@ -114,7 +114,7 @@ Rectangle {
             }
             Text {
                 font: app.fontF.font
-                text: parkingSpaceModel.parkingDuration
+                text: createParkingDurationLabel(parkingSpaceModel.parkingDuration)
                 visible: isOccupied || isLeaving
             }
 
@@ -126,4 +126,12 @@ Rectangle {
         var date = new Date(dateStr)
         return date.toDateString() + " at " + app.model.dateToHms(date, false)
     }
+
+    function createParkingDurationLabel(parkingDuration)
+    {
+        var h = (parkingDuration / 60).toFixed(0)
+        var m = ((parkingDuration - h) % 60).toFixed(0)
+        return h + "h" + m + "m"
+    }
+
 }
