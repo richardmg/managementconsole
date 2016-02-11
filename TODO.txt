@@ -1,9 +1,6 @@
 - Split overlay so that "arrow" cannot end up on top of other overlay bubbles.
-- Implement statistics
 - Fix split collapse bug when hidden
 - Check what causes the "no Message" bug in ParkingLotLogDetails (currentlu worked
     around with text: Message ? Message : "")
 - Batch load log data from server (instead of loading evertything all the time)
 - Fix chart to handle spots going directly from free to occupied
-- Center settings icon
-- Change back occupation bar

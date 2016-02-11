@@ -1,23 +1,21 @@
 import QtQuick 2.0
 
 Item {
+    id: root
     property int freeSpaces: 8
     property int capacity: 8
 
-    Rectangle {
-        id: bar
-        anchors.left: parent.left
-        anchors.right: parent.right
-        border.color: colorDarkBg
-        height: 14
-
-        Rectangle {
-            color: app.colorGreenBg
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.margins: 2
-            x: 2
-            width: ((1 - (freeSpaces / capacity)) * parent.width) - (x * 2)
+    Row {
+        anchors.fill: parent
+        spacing: 2
+        Repeater {
+            model: capacity
+            Rectangle {
+                width: 7
+                height: root.height
+                color: index < (capacity - freeSpaces) ? app.colorGreenBg : "white"
+                border.color: app.colorGreenBg
+            }
         }
     }
 }

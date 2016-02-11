@@ -62,7 +62,7 @@ Item {
     PercentageText {
         id: percentageText
         anchors.left: bar.right
-        anchors.leftMargin: 5
+        anchors.leftMargin: 3
         anchors.top: parkOverlayName.bottom
         anchors.topMargin: 10
         font: app.fontD.font
