@@ -97,9 +97,8 @@ Rectangle {
         id: settingsButton
         source: "qrc:/img/settings_icon.png"
         anchors.right: parent.right
-        anchors.top: parent.top
         anchors.rightMargin: 15
-        anchors.topMargin: 10
+        anchors.verticalCenter: parent.verticalCenter
 
         MouseArea {
             width: parent.width

@@ -219,7 +219,7 @@ Item {
 
             if (log.length > app.model.maxLogLength) {
                 // Trim log length:
-                removeCount = app.model.maxLogLength / 2
+                removeCount = 1
                 log.splice(0, removeCount)
             }
 

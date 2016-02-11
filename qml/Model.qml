@@ -4,7 +4,7 @@ import QtWebSockets 1.0
 Item {
     // Proxy model
 
-    property var currentModel: fakeModel
+    property var currentModel: xmlHttpRequestModel
 
     signal descriptionUpdated(int modelIndex)
     signal parkingSpacesUpdated(int modelIndex)
