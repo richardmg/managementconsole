@@ -43,7 +43,7 @@ Item {
         }
     }
 
-    function createEmptyParkingSpaceModel(garageId, parkingSpaceId)
+    function createEmptyParkingSpaceModel(garageId, parkingSpaceId, modificationTime)
     {
         return {
             "EMPTY_PARKING_SPACE_GENERATED_LOCALLY": true,
@@ -55,18 +55,18 @@ Item {
             "parkingSpaceOnSiteId": parkingSpaceId,
             "parkingDuration": 0,
             "licensePlateNumber": "",
-            "modificationDate": new Date().toString(),
+            "modificationDate": modificationTime.toString(),
         }
     }
 
-    function createEmptyLogEntry()
+    function createEmptyLogEntry(garageId, parkingSpaceId, modificationTime)
     {
         return {
             "id": 0,
             "parkingSpaceOnSiteId": 0,
             "status": "Free",
             "garageId": 0,
-            "modificationDate": new Date().toString(),
+            "modificationDate": modificationTime.toString(),
             "arrival": null,
             "licensePlateNumber": null,
             "statusInformation": null,
