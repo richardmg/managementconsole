@@ -79,6 +79,11 @@ Item {
             // Reload the whole log
             var maxLength = app.model.maxLogLength
             load("statistics/garage?garageId=" + id + "&numberOfEntries=" + maxLength, function(array) {
+
+                for (var j = 0; j < array.length; ++j)
+                    print(app.model.dateToHumanReadable(array[j].modificationDate))
+                print("--------------------------")
+
                 logs[modelIndex] = array
                 if (app.model.currentModel === root)
                     app.model.logUpdated(modelIndex, 0, 0)
@@ -88,7 +93,7 @@ Item {
 
         // Incremental update
         var log = logs[modelIndex]
-        var lastEntry = log[log.length - 1]
+        var lastEntry = log[0]
         var lastEntryDate = lastEntry.modificationDate
         var now = new Date().toISOString()
 
@@ -100,30 +105,30 @@ Item {
 
             print("first received entry date:", app.model.dateToHumanReadable(log[0].modificationDate))
 
-            var removeDuplicates = 0
-            for (var i = log.length - 1; i <= 0; --i) {
+            var duplicateCount = 0
+            for (var i = 0; i < log.length; ++i) {
                 if (log[i].modificationDate === lastEntryDate)
-                    ++removeDuplicates
+                    ++duplicateCount
             }
-            if (removeDuplicates > 0)
-                log.splice(log.length - removeDuplicates, removeDuplicates)
+            if (duplicateCount > 0)
+                log.splice(0, duplicateCount)
 
-            var appendCount = array.length
-            for (i = 0; i < appendCount; ++i)
-                log.push(array[i])
+            var addCount = array.length - duplicateCount
+            log = array.concat(log)
 
             var removeCount = 0
             var overFlow = log.length - app.model.maxLogLength
             if (overFlow > 0) {
-                // Trim log length:
                 removeCount = overFlow
-                log.splice(0, removeCount)
+                log.splice(log.length - removeCount, removeCount)
             }
 
-            print("duplicates:", removeDuplicates, "removeCount:", removeCount, "appendCount:", appendCount)
+            print("duplicates:", duplicateCount, "removeCount:", removeCount, "addCount:", addCount)
+
+            logs[modelIndex] = log
 
             if (app.model.currentModel === root)
-                app.model.logUpdated(modelIndex, removeCount, appendCount)
+                app.model.logUpdated(modelIndex, addCount, removeCount)
         })
     }
 

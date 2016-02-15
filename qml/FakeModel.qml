@@ -128,7 +128,7 @@ Item {
 
         spaces[parkingSpaceIndex] = entryCopy
         description.numberFreeParkingSpaces--
-        log.push(entryCopy)
+        log.splice(0, 0, entryCopy)
     }
 
     function addLogEntryOccupied(modelIndex, parkingSpaceIndex, modificationDate)
@@ -144,7 +144,7 @@ Item {
         entryCopy.FAKE_parkingDuration_start = entryCopy.modificationDate
 
         spaces[parkingSpaceIndex] = entryCopy
-        log.push(entryCopy)
+        log.splice(0, 0, entryCopy)
     }
 
     function addLogEntryToBeFree(modelIndex, parkingSpaceIndex, modificationDate)
@@ -162,7 +162,7 @@ Item {
         entryCopy.parkingDuration = Math.floor((endms - startms) / (1000 * 60))
 
         spaces[parkingSpaceIndex] = entryCopy
-        log.push(entryCopy)
+        log.splice(0, 0, entryCopy)
     }
 
     function addLogEntryFree(modelIndex, parkingSpaceIndex, modificationDate)
@@ -175,7 +175,7 @@ Item {
 
         description.numberFreeParkingSpaces++
         spaces[parkingSpaceIndex] = newEntry
-        log.push(newEntry)
+        log.splice(0, 0, newEntry)
     }
 
     function createRandomlicensePlateNumber()
@@ -211,18 +211,18 @@ Item {
             addLogEntry(modelIndex, new Date().toISOString())
             updateStamps[modelIndex] = new Date().toISOString()
 
-            var appendCount = 1
+            var addCount = 1
             var removeCount = 0
 
-            if (log.length > app.model.maxLogLength) {
-                // Trim log length:
-                removeCount = 1
-                log.splice(0, removeCount)
+            var overFlow = log.length - app.model.maxLogLength
+            if (overFlow > 0) {
+                removeCount = overFlow
+                log.splice(log.length - removeCount, removeCount)
             }
 
             app.model.updateTimeUpdated(modelIndex)
             app.model.descriptionUpdated(modelIndex)
-            app.model.logUpdated(modelIndex, removeCount, appendCount)
+            app.model.logUpdated(modelIndex, addCount, removeCount)
             app.model.parkingSpacesUpdated(modelIndex)
 
             interval = Math.round(500 + (Math.random() * 5000))

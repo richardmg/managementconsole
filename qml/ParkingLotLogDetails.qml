@@ -29,7 +29,7 @@ Rectangle {
         // parking lot, so to draw a graph, we need to traverse the log backwards
         // and calculate what the rate must have been at the time of each entry.
         var log = app.model.currentModel.logs[modelIndex]
-        for (var i = log.length - 1; i > 0; --i) {
+        for (var i = 0; i < log.length; ++i) {
             var entry = log[i]
             var entryTime = now - new Date(entry.modificationDate).getTime()
             var occupationRate = occupied * 100 / total

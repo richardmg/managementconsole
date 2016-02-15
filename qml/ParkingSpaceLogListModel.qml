@@ -9,10 +9,10 @@ ListModel {
 
     property var connections: Connections {
         target: app.model
-        onLogUpdated: updateModel(modelIndex, removed, appended)
+        onLogUpdated: updateModel(modelIndex, addCount, removeCount)
     }
 
-    function updateModel(modelIndex, removed, appended)
+    function updateModel(modelIndex, addCount, removeCount)
     {
         if (modelIndex !== parkLog.modelIndex)
             return
@@ -22,19 +22,17 @@ ListModel {
             return
 
         // We get notified how many entries that were removed from the
-        // beginning of the log, and how many that were added to the end.
+        // end of the log, and how many that were prepended in front.
         // If both are zero, it means the whole log was changed.
-        if (removed === 0 && appended === 0) {
+        if (addCount === 0 && removeCount === 0) {
             listModel.clear()
-            appended = log.length
+            addCount = log.length
         }
 
-        // We reverse the log, since we want the
-        // newest entries to show up on top
-        if (removed > 0)
-            listModel.remove(listModel.count - removed, removed)
+        if (removeCount > 0)
+            listModel.remove(listModel.count - removeCount, removeCount)
 
-        for (var i = log.length - appended; i < log.length; ++i) {
+        for (var i = addCount - 1; i >= 0; --i) {
             var entry = log[i]
 
             if (entry.status === "Free")
