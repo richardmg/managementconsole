@@ -36,6 +36,9 @@ Rectangle {
 
             graphPoints.append(entryTime, occupationRate)
 
+            // Important: we assume here (after clearification on mail) that status
+            // cannot transition directly from "Free" to "Occupied" without
+            // entering "ToBeOccupied" in-between.
             if (entry.status === "Free") {
                 // If this entry freed up a space, it means that the
                 // occupation rate must have been bigger before.
