@@ -4,8 +4,8 @@ import QtQuick.Layouts 1.2
 Rectangle {
     id: root
 
-    property var parkingSpaceModel: app.model.createEmptyParkingSpaceModel(0, 0, new Date())
-    property var arrivalDate: new Date()
+    property var parkingSpaceModel: app.model.createEmptyParkingSpaceModel(0, 0, new Date().toISOString())
+    property string arrivalDate: new Date().toISOString()
 
     property bool isFree: parkingSpaceModel.status === "Free"
     property bool isOccupied: parkingSpaceModel.status === "Occupied"
@@ -123,8 +123,7 @@ Rectangle {
 
     function formatDateString(dateStr)
     {
-        var date = new Date(dateStr)
-        return date.toDateString() + " at " + app.model.dateToHms(date, false)
+        return new Date(dateStr).toDateString() + " at " + app.model.dateToHms(dateStr, false)
     }
 
     function createParkingDurationLabel(parkingDuration)

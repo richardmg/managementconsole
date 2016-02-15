@@ -14,7 +14,7 @@ Rectangle {
     property ExpandableContainer expandableContainer
 
     property var description: app.model.createEmptyDescription()
-    property var updateTime: new Date()
+    property string updateTime: new Date().toISOString()
 
     color: "white"
 
@@ -156,7 +156,7 @@ Rectangle {
 
                     TextEdit {
                         id: logTime
-                        text: app.model.dateToDmy(new Date(modificationDate)) + " | " + app.model.dateToHms(new Date(modificationDate), false)
+                        text: app.model.dateToHms(modificationDate)
                         font: app.fontB.font
                         readOnly: true
                         color: app.colorDarkFg

@@ -127,7 +127,7 @@ Rectangle {
             Text {
                 x: chartView.plotArea.x + ((chartView.plotArea.width / xLables.count) * index)
                 y: 215
-                text: app.model.dateToHms(new Date(now - (index * axisX.max / xLables.count)))
+                text: app.model.dateToHms(new Date(now - (index * axisX.max / xLables.count)).toISOString())
                 color: Qt.rgba(0.2, 0.2, 0.2, 1)
             }
         }
@@ -189,7 +189,7 @@ Rectangle {
 
                     TextEdit {
                         id: logTime
-                        text: app.model.dateToHms(new Date(modificationDate), false)
+                        text: app.model.dateToHms(modificationDate, false)
                         font: app.fontB.font
                         readOnly: true
                         color: app.colorDarkFg

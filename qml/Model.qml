@@ -60,8 +60,8 @@ Item {
             "parkingSpaceOnSiteId": parkingSpaceId,
             "parkingDuration": 0,
             "licensePlateNumber": "",
-            "modificationDate": modificationDate.toString(),
-            "FAKE_parkingDuration_start": modificationDate.toString()
+            "modificationDate": modificationDate,
+            "FAKE_parkingDuration_start": modificationDate
         }
     }
 
@@ -73,7 +73,7 @@ Item {
             "parkingSpaceOnSiteId": 0,
             "status": "Free",
             "garageId": 0,
-            "modificationDate": modificationDate.toString(),
+            "modificationDate": modificationDate,
             "arrival": null,
             "licensePlateNumber": null,
             "statusInformation": null,
@@ -87,8 +87,9 @@ Item {
         return new Array
     }
 
-    function dateToDmy(date)
+    function dateToDmy(dateStr)
     {
+        var date = new Date(dateStr)
         var d = date.getDate()
         var m = date.getMonth() + 1
         var y = date.getFullYear() - 2000
@@ -97,13 +98,19 @@ Item {
         return d + "." + m + "." + y
     }
 
-    function dateToHms(date, useSeconds)
+    function dateToHms(dateStr, useSeconds)
     {
+        var date = new Date(dateStr)
         var h = date.getHours()
         var m = date.getMinutes()
         h = (h < 10) ? "0" + h : h
         m = (m < 10) ? "0" + m : m
         return h + ":" + m
+    }
+
+    function dateToHumanReadable(dateStr)
+    {
+        return dateToDmy(dateStr) + " | " + dateToHms(dateStr, false)
     }
 
 }

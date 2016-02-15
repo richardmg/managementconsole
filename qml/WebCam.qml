@@ -30,9 +30,7 @@ Rectangle {
         var date = app.model.currentModel.updateStamps[modelIndex]
         if (!date)
             return ""
-        var formattedDate = app.model.dateToDmy(date)
-        var formattedTime = app.model.dateToHms(date, false)
-        return formattedDate + " | " + formattedTime
+        return app.model.dateToHumanReadable(date)
     }
 
     Flickable {

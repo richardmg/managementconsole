@@ -40,7 +40,7 @@ Item {
         var count = 30
         var twoMin = 1000 * 60 * 2
         for (var i = 0; i < count; ++i) {
-            var modificationDate = new Date(now.getTime() - ((count - i) * twoMin))
+            var modificationDate = new Date(now.getTime() - ((count - i) * twoMin)).toISOString()
             addLogEntry(modelIndex, modificationDate)
         }
     }
@@ -57,7 +57,7 @@ Item {
             newDescriptions.push(app.model.createEmptyDescription(i))
             newParkingSpaces.push([])
             newLogs.push([])
-            newUpdateStamps.push(new Date())
+            newUpdateStamps.push(new Date().toISOString())
             var now = new Date()
             for (var j = 0; j < newDescriptions[i].numberTotalParkingSpaces; ++j)
                 newParkingSpaces[i].push(app.model.createEmptyParkingSpaceModel(i, j, now))
@@ -124,7 +124,7 @@ Item {
         var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
         entryCopy.status = "ToBeOccupied"
         entryCopy.licensePlateNumber = createRandomlicensePlateNumber()
-        entryCopy.modificationDate = modificationDate.toString()
+        entryCopy.modificationDate = modificationDate
 
         spaces[parkingSpaceIndex] = entryCopy
         description.numberFreeParkingSpaces--
@@ -138,9 +138,9 @@ Item {
         var log = logs[modelIndex]
 
         var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
-        entryCopy.arrival = new Date().toString()
+        entryCopy.arrival = modificationDate
         entryCopy.status = "Occupied"
-        entryCopy.modificationDate = modificationDate.toString()
+        entryCopy.modificationDate = modificationDate
         entryCopy.FAKE_parkingDuration_start = entryCopy.modificationDate
 
         spaces[parkingSpaceIndex] = entryCopy
@@ -155,10 +155,10 @@ Item {
 
         var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
         entryCopy.status = "ToBeFree"
-        entryCopy.modificationDate = modificationDate.toString()
+        entryCopy.modificationDate = modificationDate
 
         var startms = new Date(entryCopy.FAKE_parkingDuration_start).getTime()
-        var endms = modificationDate.getTime()
+        var endms = new Date(modificationDate).getTime()
         entryCopy.parkingDuration = Math.floor((endms - startms) / (1000 * 60))
 
         spaces[parkingSpaceIndex] = entryCopy
@@ -208,8 +208,8 @@ Item {
         onTriggered: {
             var modelIndex = Math.round(Math.random() * (descriptions.length - 1))
             var log = logs[modelIndex]
-            addLogEntry(modelIndex, new Date())
-            updateStamps[modelIndex] = new Date()
+            addLogEntry(modelIndex, new Date().toISOString())
+            updateStamps[modelIndex] = new Date().toISOString()
 
             var appendCount = 1
             var removeCount = 0

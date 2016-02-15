@@ -50,7 +50,7 @@ Item {
                 parkingSpaces = new Array(descriptions.length)
 
             for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex) {
-                updateStamps[modelIndex] = new Date()
+                updateStamps[modelIndex] = new Date().toISOString()
                 updateParkingspaces(modelIndex)
                 updateGarageStatistics(modelIndex)
                 if (app.model.currentModel === root) {
@@ -92,9 +92,14 @@ Item {
         var lastEntryDate = lastEntry.modificationDate
         var now = new Date().toISOString()
 
+        print("last entry date:", app.model.dateToHumanReadable(lastEntryDate))
+
         load("statistics/garage?garageId=" + id + "&start=" + lastEntryDate + "&end=" + now, function(array) {
             // Remove entries with date equal to lastEntryDate
             // Append all the new ones (which should include the ones removed as well)
+
+            print("first received entry date:", app.model.dateToHumanReadable(log[0].modificationDate))
+
             var removeDuplicates = 0
             for (var i = log.length - 1; i <= 0; --i) {
                 if (log[i].modificationDate === lastEntryDate)
