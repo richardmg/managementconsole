@@ -67,10 +67,51 @@ Item {
     function updateGarageStatistics(modelIndex)
     {
         var id = descriptions[modelIndex].id
-        load("statistics/garage?garageId=" + id + "&numberOfEntries=60", function(array) {
-            logs[modelIndex] = array
+
+        if (logs.length === 0) {
+            // Reload the whole log
+            var maxLength = app.model.maxLogLength
+            load("statistics/garage?garageId=" + id + "&numberOfEntries=" + maxLength, function(array) {
+                logs[modelIndex] = array
+                if (app.model.currentModel === root)
+                    app.model.logUpdated(modelIndex, 0, 0)
+            })
+            return
+        }
+
+        // Incremental update
+        var log = logs[modelIndex]
+        var lastEntry = log[log.length - 1]
+        var lastEntryDate = lastEntry.modificationDate
+        var now = new Date().toISOString()
+
+        load("statistics/garage?garageId=" + id + "&start=" + lastEntryDate + "&end=" + now, function(array) {
+            // Remove entries with date equal to lastEntryDate
+            // Append all the new ones (which should include the ones removed as well)
+            var removeDuplicates = 0
+            for (var i = log.length - 1; i <= 0; --i) {
+                if (log[i].modificationDate === lastEntryDate)
+                    ++removeDuplicates
+            }
+            if (removeDuplicates > 0)
+                log.splice(log.length - removeDuplicates, removeDuplicates)
+
+            var appendCount = array.length
+            for (i = 0; i < appendCount; ++i)
+                log.push(array[i])
+
+            var removeCount = 0
+            var overFlow = log.length - app.model.maxLogLength
+            if (overFlow > 0) {
+                // Trim log length:
+                removeCount = overFlow
+                log.splice(0, removeCount)
+            }
+
+            print("removed:", removeCount, "appended:", appendCount)
+
             if (app.model.currentModel === root)
-                app.model.logUpdated(modelIndex, 0, 0)
+                app.model.logUpdated(modelIndex, removeCount, appendCount)
         })
     }
 
