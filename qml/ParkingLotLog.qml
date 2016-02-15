@@ -85,7 +85,7 @@ Rectangle {
                     font: app.fontE.font
                     x: 10
                     anchors.bottom: headerParkName.bottom
-                    text: updateTime.getDay() + "." + updateTime.getMonth() + "." + updateTime.getFullYear()
+                    text: app.model.dateToDmy(updateTime)
                 }
 
                 IconButton {

@@ -21,8 +21,16 @@ Rectangle {
         onUpdateTimeUpdated: {
             if (modelIndex !== root.modelIndex)
                 return
-//            updateTime = app.model.currentModel.updateStamps[modelIndex]
+            timeStamp.text = createTimeStampLabel()
         }
+    }
+
+    function createTimeStampLabel()
+    {
+        var date = app.model.currentModel.updateStamps[modelIndex]
+        var formattedDate = app.model.dateToDmy(date)
+        var formattedTime = app.model.dateToHms(date, false)
+        return formattedDate + " | " + formattedTime
     }
 
     Flickable {
@@ -46,11 +54,12 @@ Rectangle {
             color: "black"
             opacity: 0.6
         }
+
         Text {
             id: timeStamp
             anchors.centerIn: timeStampBg
             font: app.fontH.font
-            text: "27.02.16 | 11.56"
+            text: createTimeStampLabel()
             color: "white"
         }
     }

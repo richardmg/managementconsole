@@ -83,6 +83,16 @@ Item {
         return new Array
     }
 
+    function dateToDmy(date)
+    {
+        var d = date.getDate()
+        var m = date.getMonth() + 1
+        var y = date.getFullYear() - 2000
+        d = (d < 10) ? "0" + d : d
+        m = (m < 10) ? "0" + m : m
+        return d + "." + m + "." + y
+    }
+
     function dateToHms(date, useSeconds)
     {
         var h = date.getHours()
