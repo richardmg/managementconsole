@@ -4,7 +4,7 @@ import QtWebSockets 1.0
 Item {
     // Proxy model
 
-    property var currentModel: fakeModel
+    property var currentModel: xmlHttpRequestModel
 
     signal descriptionUpdated(int modelIndex)
     signal parkingSpacesUpdated(int modelIndex)
@@ -15,7 +15,7 @@ Item {
     property var xmlHttpRequestModel: XmlHttpRequestModel {}
 
     property int maxLogLength: 100
-    property int pollIntervalMs: 10000
+    property int pollIntervalMs: 5000
     property string locationNameFilter: "Rovte"
     property string cityNameFilter: ".*"
 
@@ -113,4 +113,12 @@ Item {
         return dateToDmy(dateStr) + " | " + dateToHms(dateStr, false)
     }
 
+    function trimArrayInFront(array, max)
+    {
+        var removed = 0
+        var overFlow = array.length - max
+        if (overFlow > 0)
+            array.splice(array.length - overFlow, overFlow)
+        return overFlow
+    }
 }
