@@ -16,9 +16,13 @@ Item {
 
     property int maxLogLength: 100
     property int pollIntervalMs: 10000
+    property string locationNameFilter: "Rovte"
+    property string cityNameFilter: ".*"
 
     Component.onCompleted: currentModel.reload()
     onCurrentModelChanged: currentModel.reload()
+    onLocationNameFilterChanged: currentModel.reload()
+    onCityNameFilterChanged: currentModel.reload()
 
     // Uncomment the following signal handlers to get debug output!
 

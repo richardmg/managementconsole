@@ -37,7 +37,14 @@ Item {
     function updateGarages()
     {
         load("garage", function(array) {
-            descriptions = array
+            var locationNameRegExp = new RegExp(app.model.locationNameFilter);
+            var filteredDescriptions = []
+            for (var i = 0; i < array.length; ++i) {
+                if (locationNameRegExp.test(array[i].locationName))
+                    filteredDescriptions.push(array[i])
+            }
+
+            descriptions = filteredDescriptions
 
             if (parkingSpaces.length !== descriptions.length)
                 parkingSpaces = new Array(descriptions.length)

@@ -29,7 +29,7 @@ Rectangle {
     {
         var date = app.model.currentModel.updateStamps[modelIndex]
         if (!date)
-            return
+            return ""
         var formattedDate = app.model.dateToDmy(date)
         var formattedTime = app.model.dateToHms(date, false)
         return formattedDate + " | " + formattedTime

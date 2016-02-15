@@ -87,8 +87,6 @@ TopLevelPage {
             exclusiveGroup: dataSourceGroup
         }
 
-        Rectangle { width: 10; height: 10; color:"transparent"; }
-
         CheckBox {
             text: "Use offline map"
             onCheckedChanged: {
@@ -96,6 +94,40 @@ TopLevelPage {
         }
 
         Rectangle { width: 10; height: 10; color:"transparent"; }
+
+        GridLayout {
+            columns: 2
+
+            Text {
+                text: "Location name filter:"
+            }
+
+            TextField {
+                Layout.preferredWidth: 400
+                text: app.model.locationNameFilter
+                placeholderText: "Regular expression"
+                onAccepted: {
+                    app.model.locationNameFilter = text
+                    focus = false
+                }
+            }
+
+            Text {
+                text: "City name filter:"
+            }
+
+            TextField {
+                Layout.preferredWidth: 400
+                text: app.model.cityNameFilter
+                placeholderText: "Regular expression"
+                onAccepted: {
+                    app.model.cityNameFilter = text
+                    focus = false
+                }
+            }
+        }
+
+        Rectangle { width: 10; height: 20; color:"transparent"; }
 
         Row {
             spacing: 10
