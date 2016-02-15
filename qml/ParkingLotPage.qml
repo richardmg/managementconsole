@@ -34,6 +34,7 @@ TopLevelPage {
                     id: webcam
                     width: parent.width
                     height: parent.height
+                    modelIndex: root.modelIndex
                     expandableContainer: imageContainer
                 }
             }
