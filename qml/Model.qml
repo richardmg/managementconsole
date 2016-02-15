@@ -38,7 +38,7 @@ Item {
             "locationName": "",
             "latitude": 0,
             "longitude": 0,
-            "numberFreeParkingSpaces": 0,
+            "numberFreeParkingSpaces": 8,
             "numberTotalParkingSpaces": 8,
             "webcamUrl": "qrc:/img/parkinglot.jpg"
         }
