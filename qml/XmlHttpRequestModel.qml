@@ -15,6 +15,8 @@ Item {
     property var logs: []
     property var updateStamps: []
 
+    property bool pendingUpdate: false
+
     onBaseUrlChanged: update()
 
     function reload()
@@ -23,6 +25,7 @@ Item {
         logs = []
         updateStamps = []
         descriptions = []
+        pendingUpdate = false
 
         update()
     }
@@ -36,6 +39,10 @@ Item {
 
     function updateGarages()
     {
+        if (pendingUpdate)
+            return
+        pendingUpdate = true
+
         load("garage", function(array) {
             var locationNameRegExp = new RegExp(app.model.locationNameFilter);
             var filteredDescriptions = []
@@ -78,10 +85,19 @@ Item {
 
         if (logs.length === 0) {
             // Reload the whole log
-            load("statistics/garage?garageId=" + id + "&numberOfEntries=" + app.model.maxLogLength, function(array) {
+
+//            load("statistics/garage?garageId=" + id + "&numberOfEntries=" + app.model.maxLogLength, function(array) {
+
+            var start = new Date(new Date(now).getTime() - (1000 * 60 * 60 * 24)).toISOString()
+            load("statistics/garage?garageId=" + id + "&start=" + start + "&end=" + now, function(array) {
+                app.model.chopArray(array, app.model.maxLogLength)
+
                 logs[modelIndex] = array
+
                 if (app.model.currentModel === root)
                     app.model.logUpdated(modelIndex, 0, 0)
+
+                pendingUpdate = false
             })
             return
         }
@@ -92,6 +108,7 @@ Item {
 
         load("statistics/garage?garageId=" + id + "&start=" + latestEntryDate + "&end=" + now, function(array) {
             app.model.chopArray(array, app.model.maxLogLength)
+
 
             var duplicateCount = 0
             for (var i = 0; i < log.length; ++i) {
@@ -106,11 +123,13 @@ Item {
             log = array.concat(log)
             var removeCount = app.model.chopArray(log, app.model.maxLogLength)
 
-//            print("duplicates:", duplicateCount, "removeCount:", removeCount, "addCount:", addCount, "log length:", log.length)
+            print("duplicates:", duplicateCount, "removeCount:", removeCount, "addCount:", addCount, "log length:", log.length)
 
             logs[modelIndex] = log
             if (app.model.currentModel === root)
                 app.model.logUpdated(modelIndex, addCount, removeCount)
+
+            pendingUpdate = false
         })
     }
 
