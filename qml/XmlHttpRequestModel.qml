@@ -115,7 +115,7 @@ Item {
                 log.splice(0, removeCount)
             }
 
-            print("removed:", removeCount, "appended:", appendCount)
+            print("duplicates:", removeDuplicates, "removeCount:", removeCount, "appendCount:", appendCount)
 
             if (app.model.currentModel === root)
                 app.model.logUpdated(modelIndex, removeCount, appendCount)

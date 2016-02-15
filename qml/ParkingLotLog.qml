@@ -156,7 +156,7 @@ Rectangle {
 
                     TextEdit {
                         id: logTime
-                        text: app.model.dateToHms(new Date(modificationDate), false)
+                        text: app.model.dateToDmy(new Date(modificationDate)) + " | " + app.model.dateToHms(new Date(modificationDate), false)
                         font: app.fontB.font
                         readOnly: true
                         color: app.colorDarkFg
