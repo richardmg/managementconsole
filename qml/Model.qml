@@ -15,9 +15,9 @@ Item {
     property var xmlHttpRequestModel: XmlHttpRequestModel {}
 
     property int maxLogLength: 100
-    property int pollIntervalMs: 5000
-    property string locationNameFilter: "Rovte"
-    property string cityNameFilter: ".*"
+    property int pollIntervalMs: 20 * 1000
+    property string locationNameFilter: "London"
+    property string cityNameFilter: ""
 
     Component.onCompleted: currentModel.reload()
     onCurrentModelChanged: currentModel.reload()
@@ -113,12 +113,12 @@ Item {
         return dateToDmy(dateStr) + " | " + dateToHms(dateStr, false)
     }
 
-    function trimArrayInFront(array, max)
+    function chopArray(array, max)
     {
         var removed = 0
         var overFlow = array.length - max
         if (overFlow > 0)
             array.splice(array.length - overFlow, overFlow)
-        return overFlow
+        return Math.max(0, overFlow)
     }
 }

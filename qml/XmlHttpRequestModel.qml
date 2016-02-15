@@ -78,11 +78,7 @@ Item {
 
         if (logs.length === 0) {
             // Reload the whole log
-//            load("statistics/garage?garageId=" + id + "&numberOfEntries=" + app.model.maxLogLength, function(array) {
-            var start = new Date(new Date(now).getTime() - (1000 * 60 * 60 * 24)).toISOString()
-
-            load("statistics/garage?garageId=" + id + "&start=" + start + "&end=" + now, function(array) {
-                app.model.trimArrayInFront(array, app.model.maxLogLength)
+            load("statistics/garage?garageId=" + id + "&numberOfEntries=" + app.model.maxLogLength, function(array) {
                 logs[modelIndex] = array
                 if (app.model.currentModel === root)
                     app.model.logUpdated(modelIndex, 0, 0)
@@ -95,7 +91,8 @@ Item {
         var latestEntryDate = log[0].modificationDate
 
         load("statistics/garage?garageId=" + id + "&start=" + latestEntryDate + "&end=" + now, function(array) {
-            // Remove entries with date equal to latestEntryDate
+            app.model.chopArray(array, app.model.maxLogLength)
+
             var duplicateCount = 0
             for (var i = 0; i < log.length; ++i) {
                 if (log[i].modificationDate === latestEntryDate)
@@ -107,7 +104,7 @@ Item {
             // Merge the new log with the old log
             var addCount = array.length - duplicateCount
             log = array.concat(log)
-            var removeCount = app.model.trimArrayInFront(log, app.model.maxLogLength)
+            var removeCount = app.model.chopArray(log, app.model.maxLogLength)
 
 //            print("duplicates:", duplicateCount, "removeCount:", removeCount, "addCount:", addCount, "log length:", log.length)
 

@@ -21,6 +21,11 @@ ListModel {
         if (!log)
             return
 
+        if (addCount === 549) {
+        print("add/remove:", addCount, removeCount)
+            console.trace()
+        }
+
         // We get notified how many entries that were removed from the
         // end of the log, and how many that were prepended in front.
         // If both are zero, it means the whole log was changed.

@@ -212,7 +212,7 @@ Item {
             updateStamps[modelIndex] = new Date().toISOString()
 
             var addCount = 1
-            var removeCount = app.model.trimArrayInFront(log, app.model.maxLogLength)
+            var removeCount = app.model.chopArray(log, app.model.maxLogLength)
 
             app.model.updateTimeUpdated(modelIndex)
             app.model.descriptionUpdated(modelIndex)
