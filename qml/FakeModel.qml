@@ -24,6 +24,9 @@ Item {
 
     function update()
     {
+        if (app.model.currentModel !== root)
+            return
+
         for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex) {
             app.model.updateTimeUpdated(modelIndex)
             app.model.descriptionUpdated(modelIndex)

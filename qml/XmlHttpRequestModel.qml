@@ -29,6 +29,8 @@ Item {
 
     function update()
     {
+        if (app.model.currentModel !== root)
+            return
         updateGarages()
     }
 
