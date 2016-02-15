@@ -29,6 +29,8 @@ Rectangle {
         // parking lot, so to draw a graph, we need to traverse the log backwards
         // and calculate what the rate must have been at the time of each entry.
         var log = app.model.currentModel.logs[modelIndex]
+        axisX.max = now - new Date(log[log.length - 1].modificationDate).getTime()
+
         for (var i = 0; i < log.length; ++i) {
             var entry = log[i]
             var entryTime = now - new Date(entry.modificationDate).getTime()
