@@ -29,12 +29,14 @@ Rectangle {
                 avgLat += Number(desc[i].latitude)
                 avgLon += Number(desc[i].longitude)
             }
-            print("lat:", avgLat, "lon:", avgLon)
             avgLat /= desc.length
             avgLon /= desc.length
 
+            // Move center a bit down to compansate for text bubble
+            avgLat += 1
+
             moveToLatLon(avgLat, avgLon)
-            zoomLevel = 5
+            zoomLevel = 6
 
             if (map.center.latitude !== avgLat || map.center.longitude !== avgLon)
                 centerOnAllParksWhenMapReadyTimer.restart()
@@ -144,6 +146,7 @@ Rectangle {
     }
 
     IconButton {
+        id: closeButton
         baseName: expandableContainer.expanded ? "Contract" : "Expand"
         anchors.top: parent.top
         anchors.right: parent.right
@@ -151,6 +154,14 @@ Rectangle {
         anchors.topMargin: 12
         onClicked: expandableContainer.toggle()
     }
+
+//    IconButton {
+//        baseName: "Locate"
+//        anchors.top: closeButton.bottom
+//        anchors.horizontalCenter: closeButton.horizontalCenter
+//        anchors.topMargin: 10
+//        onClicked: centerOnAllParks()
+//    }
 
     // Experimental
     // Map.center does not support animations by default, so we need some extra properties
