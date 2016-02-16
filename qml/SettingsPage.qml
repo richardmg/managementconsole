@@ -103,6 +103,7 @@ TopLevelPage {
             }
 
             TextField {
+                id: locationNameFilter
                 Layout.preferredWidth: 400
                 text: app.model.locationNameFilter
                 placeholderText: "Regular expression"
@@ -117,6 +118,7 @@ TopLevelPage {
             }
 
             TextField {
+                id: cityNameFilter
                 Layout.preferredWidth: 400
                 text: app.model.cityNameFilter
                 placeholderText: "Regular expression"
@@ -141,6 +143,10 @@ TopLevelPage {
                 text: "Reset configuration"
                 onClicked: {
                     app.model.xmlHttpRequestModel.baseUrl = app.model.xmlHttpRequestModel.originalBaseUrl
+                    locationNameFilter.text = app.model.defaultLocationNameFilter
+                    cityNameFilter.text = app.model.defaultCityNameFilter
+                    app.model.locationNameFilter = locationNameFilter.text
+                    app.model.cityNameFilter = cityNameFilter.text
                 }
             }
         }

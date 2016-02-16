@@ -16,8 +16,11 @@ Item {
 
     property int maxLogLength: 100
     property int pollIntervalMs: 20 * 1000
-    property string locationNameFilter: "London"
-    property string cityNameFilter: ""
+    property string locationNameFilter: defaultLocationNameFilter
+    property string cityNameFilter: defaultCityNameFilter
+
+    readonly property string defaultLocationNameFilter: "Theaterparkhaus|Rovte|Horw"
+    readonly property string defaultCityNameFilter: ""
 
     Component.onCompleted: currentModel.reload()
     onCurrentModelChanged: currentModel.reload()
@@ -26,9 +29,9 @@ Item {
 
     // Uncomment the following signal handlers to get debug output!
 
-//    onDescriptionUpdated: {
-//        print("Description updated:", modelIndex, JSON.stringify(currentModel.descriptions[modelIndex], 0, "   "))
-//    }
+    onDescriptionUpdated: {
+        print("Description updated:", modelIndex, JSON.stringify(currentModel.descriptions[modelIndex], 0, "   "))
+    }
 
 //    onParkingSpacesUpdated: {
 //        print("Parking spaces updated:", modelIndex, JSON.stringify(currentModel.parkingSpaces[modelIndex], 0, "   "))
