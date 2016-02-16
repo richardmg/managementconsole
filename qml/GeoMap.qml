@@ -20,9 +20,25 @@ Rectangle {
 
     function centerOnAllParks()
     {
-        map.fitViewportToMapItems()
-        if (mapNotReady())
-            centerOnAllParksWhenMapReadyTimer.restart()
+//        map.fitViewportToMapItems()
+        var desc = app.model.currentModel.descriptions
+        if (desc.length > 0) {
+            var avgLat = 0.0
+            var avgLon = 0.0
+            for (var i = 0; i < desc.length; ++i) {
+                avgLat += Number(desc[i].latitude)
+                avgLon += Number(desc[i].longitude)
+            }
+            print("lat:", avgLat, "lon:", avgLon)
+            avgLat /= desc.length
+            avgLon /= desc.length
+
+            moveToLatLon(avgLat, avgLon)
+            zoomLevel = 5
+
+            if (map.center.latitude !== avgLat || map.center.longitude !== avgLon)
+                centerOnAllParksWhenMapReadyTimer.restart()
+        }
     }
 
     function getOverlay(modelIndex)
@@ -36,8 +52,10 @@ Rectangle {
     Connections {
         target: app.model
         onDescriptionUpdated: {
-            if (descriptionCount !== app.model.currentModel.descriptions.length)
+            if (descriptionCount !== app.model.currentModel.descriptions.length) {
                 recreateOverlay()
+                centerOnAllParks()
+            }
         }
     }
 
@@ -58,9 +76,7 @@ Rectangle {
             // Calling fitViewportToMapItems before the map is ready will not cause
             // it to change. And there seems to be no way to check for that condition.
             // So we need to poll...
-            map.fitViewportToMapItems()
-            if (mapNotReady())
-                centerOnAllParksWhenMapReadyTimer.restart()
+            centerOnAllParks()
         }
     }
 
