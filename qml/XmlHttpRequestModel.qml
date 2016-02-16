@@ -51,6 +51,12 @@ Item {
                     filteredDescriptions.push(array[i])
             }
 
+            for (i = 0; i < array.length; ++i) {
+                // WORKAROUND UNTIL FIXED: server is storing location using , instead of .
+                array[i].latitude = array[i].latitude.replace(",", ".")
+                array[i].longitude = array[i].longitude.replace(",", ".")
+            }
+
             descriptions = filteredDescriptions
 
             if (parkingSpaces.length !== descriptions.length)
