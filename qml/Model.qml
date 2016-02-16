@@ -29,9 +29,9 @@ Item {
 
     // Uncomment the following signal handlers to get debug output!
 
-    onDescriptionUpdated: {
-        print("Description updated:", modelIndex, JSON.stringify(currentModel.descriptions[modelIndex], 0, "   "))
-    }
+//    onDescriptionUpdated: {
+//        print("Description updated:", modelIndex, JSON.stringify(currentModel.descriptions[modelIndex], 0, "   "))
+//    }
 
 //    onParkingSpacesUpdated: {
 //        print("Parking spaces updated:", modelIndex, JSON.stringify(currentModel.parkingSpaces[modelIndex], 0, "   "))
