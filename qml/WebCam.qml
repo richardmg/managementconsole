@@ -40,7 +40,7 @@ Rectangle {
 
         Image {
             id: webcam
-            fillMode: Image.PreserveAspectFit
+            fillMode: expandableContainer.expanded ? Image.Stretch : Image.PreserveAspectFit
             width: parent.width
             source: app.model.currentModel.descriptions[modelIndex].webcamUrl
         }

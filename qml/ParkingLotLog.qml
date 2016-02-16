@@ -124,7 +124,7 @@ Rectangle {
             model: ParkingSpaceLogListModel { modelIndex: parkLog.modelIndex }
 
             delegate: Item {
-                width: parent.width
+                width: listView.width
                 height: logMessage.paintedHeight + 20
 
                 RowLayout {
