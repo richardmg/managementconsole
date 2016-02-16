@@ -46,6 +46,7 @@ Window {
     property alias mainViewPage: mainViewPage
     property alias detailPages: detailPages
     property alias settingsView: settingsPage
+    property alias keyboard: keyboard
 
     Model {
         id: model
@@ -71,5 +72,6 @@ Window {
     }
 
     Keyboard {
+        id: keyboard
     }
 }

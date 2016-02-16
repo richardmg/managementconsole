@@ -6,29 +6,24 @@ InputPanel {
     z: 99
 
     y: parent.height
+
     anchors.left: parent.left
     anchors.right: parent.right
 
-    states: State {
-        name: "visible"
-        when: Qt.inputMethod.visible
+    signal aboutToOpen
+    signal aboutToClose
 
-        PropertyChanges {
-            target: inputPanel
-            y: parent.height - inputPanel.height
-        }
-    }
+    Behavior on y { NumberAnimation{ easing.type: Easing.InOutQuad } }
 
-    transitions: Transition {
-        from: ""
-        to: "visible"
-        reversible: true
-
-        ParallelAnimation {
-            NumberAnimation {
-                properties: "y"
-                duration: 250
-                easing.type: Easing.InOutQuad
+    Connections {
+        target: Qt.inputMethod
+        onVisibleChanged: {
+            if (Qt.inputMethod.visible) {
+                inputPanel.y = inputPanel.parent.height - inputPanel.height
+                aboutToOpen()
+            } else {
+                inputPanel.y = inputPanel.parent.height
+                aboutToClose()
             }
         }
     }
