@@ -53,7 +53,7 @@ TopLevelPage {
     Flickable {
         id: flickable
         anchors.fill: parent
-        contentHeight: settingsGrid.height + app.keyboard.height
+        contentHeight: settingsGrid.height + (app.keyboard ? app.keyboard.height : 0)
         clip: true
 
         GridLayout {

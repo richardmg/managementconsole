@@ -46,7 +46,7 @@ Window {
     property alias mainViewPage: mainViewPage
     property alias detailPages: detailPages
     property alias settingsView: settingsPage
-    property alias keyboard: keyboard
+    property alias keyboard: keyboardLoader.item
 
     Model {
         id: model
@@ -71,7 +71,10 @@ Window {
         id: settingsPage
     }
 
-    Keyboard {
-        id: keyboard
+    Loader {
+        id: keyboardLoader
+        active: Qt.platform.os !== "osx"
+        source: "qrc:/qml/Keyboard.qml"
+        anchors.fill: parent
     }
 }
