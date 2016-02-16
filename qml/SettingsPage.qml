@@ -6,6 +6,7 @@ import QtWebSockets 1.0
 import "qrc:/components/qml"
 
 TopLevelPage {
+    id: root
 
     //=====================================
     // Sync data source with model
@@ -36,8 +37,17 @@ TopLevelPage {
 
     Connections {
         target: app.keyboard
-        onAboutToOpen: flickable.contentY = flickable.mapFromItem(app.activeFocusItem, 0, 0).y
-        onAboutToClose: flickable.contentY = 0
+        onAboutToOpen: {
+            if (!root.visible)
+                return
+            flickable.contentY = flickable.mapFromItem(app.activeFocusItem, 0, 0).y
+        }
+        onAboutToClose: {
+            if (!root.visible)
+                return
+            flickable.contentY = 0
+            app.activeFocusItem.focus = false
+        }
     }
 
     Flickable {
