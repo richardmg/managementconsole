@@ -51,5 +51,7 @@
         <file alias="Vehicle_icon.png">img/Vehicle_icon.png</file>
         <file alias="parkinglot.jpg">img/parkinglot.jpg</file>
         <file alias="settings_icon.png">img/Settings_btn.png</file>
+        <file alias="Zoom_out_btn.png">img/Zoom_out_btn.png</file>
+        <file alias="Zoom_out_Pressed_btn.png">img/Zoom_out_btn.png</file>
     </qresource>
 </RCC>

@@ -155,13 +155,13 @@ Rectangle {
         onClicked: expandableContainer.toggle()
     }
 
-//    IconButton {
-//        baseName: "Locate"
-//        anchors.top: closeButton.bottom
-//        anchors.horizontalCenter: closeButton.horizontalCenter
-//        anchors.topMargin: 10
-//        onClicked: centerOnAllParks()
-//    }
+    IconButton {
+        baseName: "Zoom_out"
+        anchors.top: closeButton.bottom
+        anchors.horizontalCenter: closeButton.horizontalCenter
+        anchors.topMargin: 10
+        onClicked: centerOnAllParks()
+    }
 
     // Experimental
     // Map.center does not support animations by default, so we need some extra properties
