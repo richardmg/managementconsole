@@ -69,4 +69,7 @@ Window {
     SettingsPage {
         id: settingsPage
     }
+
+    Keyboard {
+    }
 }

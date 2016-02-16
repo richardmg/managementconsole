@@ -125,7 +125,7 @@ Rectangle {
 
         Repeater {
             id: xLables
-            model: 10
+            model: 6
             Text {
                 x: chartView.plotArea.x + ((chartView.plotArea.width / xLables.count) * index)
                 y: 215
