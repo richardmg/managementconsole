@@ -15,12 +15,16 @@ TopLevelPage {
     ExclusiveGroup {
         id: dataSourceGroup
         onCurrentChanged: {
+            var prevModel = app.model.currentModel
             if (current === remoteSource)
                 app.model.currentModel = app.model.xmlHttpRequestModel
             else if (current === offlineSource)
                 app.model.currentModel = app.model.fakeModel
-            app.model.currentModel.reload()
-            app.mainViewPage.parkMap.centerOnAllParks()
+
+            if (prevModel !== app.model.currentModel) {
+                app.model.currentModel.reload()
+                app.mainViewPage.parkMap.centerOnAllParks()
+            }
         }
     }
 
