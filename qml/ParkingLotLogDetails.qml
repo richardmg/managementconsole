@@ -191,7 +191,7 @@ Rectangle {
 
                     TextEdit {
                         id: logTime
-                        text: app.model.dateToHms(modificationDate, false)
+                        text: app.model.dateToHumanReadable(modificationDate, false)
                         font: app.fontB.font
                         readOnly: true
                         color: app.colorDarkFg
