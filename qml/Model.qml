@@ -19,7 +19,7 @@ Item {
     property string locationNameFilter: defaultLocationNameFilter
     property string cityNameFilter: defaultCityNameFilter
 
-    readonly property string defaultLocationNameFilter: "Theaterparkhaus|Rovte|Horw"
+    readonly property string defaultLocationNameFilter: "Theaterparkhaus|Sterntor"
     readonly property string defaultCityNameFilter: ""
 
     Component.onCompleted: currentModel.reload()
