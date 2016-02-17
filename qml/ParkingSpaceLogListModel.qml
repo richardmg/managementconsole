@@ -21,6 +21,8 @@ ListModel {
         if (!log)
             return
 
+//        print("update", app.model.currentModel.descriptions[modelIndex].locationName + ":", "addCount:", addCount, "removeCount:", removeCount)
+
         // We get notified how many entries that were removed from the
         // end of the log, and how many that were prepended in front.
         // If both are zero, it means the whole log was changed.
