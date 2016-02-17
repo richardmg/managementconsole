@@ -17,8 +17,6 @@ Item {
 
     property bool pendingUpdate: false
 
-    onBaseUrlChanged: update()
-
     function reload()
     {
         parkingSpaces = []

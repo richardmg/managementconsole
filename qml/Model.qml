@@ -23,9 +23,6 @@ Item {
     readonly property string defaultCityNameFilter: ""
 
     Component.onCompleted: currentModel.reload()
-    onCurrentModelChanged: currentModel.reload()
-    onLocationNameFilterChanged: currentModel.reload()
-    onCityNameFilterChanged: currentModel.reload()
 
     // Uncomment the following signal handlers to get debug output!
 

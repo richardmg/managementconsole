@@ -19,6 +19,7 @@ TopLevelPage {
                 app.model.currentModel = app.model.xmlHttpRequestModel
             else if (current === offlineSource)
                 app.model.currentModel = app.model.fakeModel
+            app.model.currentModel.reload()
             app.mainViewPage.parkMap.centerOnAllParks()
         }
     }
@@ -131,6 +132,7 @@ TopLevelPage {
                     placeholderText: "Regular expression"
                     onAccepted: {
                         app.model.locationNameFilter = text
+                        app.model.currentModel.reload()
                         focus = false
                     }
                 }
@@ -146,6 +148,7 @@ TopLevelPage {
                     placeholderText: "Regular expression"
                     onAccepted: {
                         app.model.cityNameFilter = text
+                        app.model.currentModel.reload()
                         focus = false
                     }
                 }
@@ -169,6 +172,7 @@ TopLevelPage {
                         cityNameFilter.text = app.model.defaultCityNameFilter
                         app.model.locationNameFilter = locationNameFilter.text
                         app.model.cityNameFilter = cityNameFilter.text
+                        app.model.currentModel.reload()
                     }
                 }
             }
