@@ -73,7 +73,7 @@ Window {
 
     Loader {
         id: keyboardLoader
-        active: Qt.platform.os !== "osx"
+        active: Qt.platform.os == "linux" || Screen.height > app.height
         source: "qrc:/qml/Keyboard.qml"
         anchors.fill: parent
     }
