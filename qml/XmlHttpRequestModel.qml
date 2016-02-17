@@ -85,10 +85,11 @@ Item {
             // Reload the whole log
             var start = new Date(new Date(now).getTime() - (1000 * 60 * 60 * 24)).toISOString()
             load("statistics/garage?garageId=" + id + "&start=" + start + "&end=" + now, function(array) {
+
+//            print("log for", descriptions[modelIndex].locationName + ":", JSON.stringify(array, 0, "   "))
+
                 app.model.chopArray(array, app.model.maxLogLength)
-
                 logs[modelIndex] = array
-
                 if (app.model.currentModel === root)
                     app.model.logUpdated(modelIndex, 0, 0)
 
@@ -102,6 +103,9 @@ Item {
         var latestEntryDate = log[0].modificationDate
 
         load("statistics/garage?garageId=" + id + "&start=" + latestEntryDate + "&end=" + now, function(array) {
+
+//            print("update log for", descriptions[modelIndex].locationName + ":", JSON.stringify(array, 0, "   "))
+
             app.model.chopArray(array, app.model.maxLogLength)
 
             var duplicateCount = 0
