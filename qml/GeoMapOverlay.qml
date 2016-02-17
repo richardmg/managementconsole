@@ -72,7 +72,10 @@ Item {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: app.mainViewPage.selectedIndex = root.modelIndex
+        onClicked: {
+            app.mainViewPage.selectedIndex = root.modelIndex
+            app.mainViewPage.parkMap.centerOnPark(root.modelIndex)
+        }
     }
 }
 
