@@ -101,8 +101,8 @@ Item {
     function dateToHms(dateStr, useSeconds)
     {
         var date = new Date(dateStr)
-        var h = date.getHours()
-        var m = date.getMinutes()
+        var h = date.getUTCHours()
+        var m = date.getUTCMinutes()
         h = (h < 10) ? "0" + h : h
         m = (m < 10) ? "0" + m : m
         return h + ":" + m
