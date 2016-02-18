@@ -12,7 +12,7 @@ Rectangle {
 
     property bool isFree: parkingSpaceModel.status === "Free"
     property bool isOccupied: parkingSpaceModel.status === "Occupied"
-    property bool isReserved: parkingSpaceModel.status === "Booked"
+    property bool isBooked: parkingSpaceModel.status === "Booked"
     property bool isLeaving: parkingSpaceModel.status === "ToBeFree"
 
     Text {
@@ -31,7 +31,7 @@ Rectangle {
         anchors.margins: 5
         color: app.colorLightBg
         Text {
-            text: isOccupied ? parkingSpaceModel.licensePlateNumber : isReserved ? "Reserved" : isLeaving ? "Leaving" : ""
+            text: isOccupied ? parkingSpaceModel.licensePlateNumber : isBooked ? "Booked" : isLeaving ? "Leaving" : ""
             font: app.fontA.font
             color: isOccupied ? "black" : app.colorSelectedBg
             anchors.centerIn: parent
