@@ -45,7 +45,7 @@ Rectangle {
                 // If this entry freed up a space, it means that the
                 // occupation rate must have been bigger before.
                 occupied++
-            } else if (entry.status === "Booked") {
+            } else if (entry.status === "Booked" || entry.status === "ToBeOccupied") {
                 occupied--
             }
         }
