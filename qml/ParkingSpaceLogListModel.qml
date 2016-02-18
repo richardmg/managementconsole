@@ -47,8 +47,10 @@ ListModel {
                 entry.message = entry.licensePlateNumber + " is leaving space " + entry.parkingSpaceOnSiteId
             else if (entry.status === "Malfunction")
                 entry.message = "Malfunction on space " + entry.parkingSpaceOnSiteId
-            else
+            else {
+                print("WARNING: Unknown parking space status:", entry.status)
                 entry.message = "Unknown event at " + entry.parkingSpaceOnSiteId
+            }
 
             listModel.insert(0, entry)
         }
