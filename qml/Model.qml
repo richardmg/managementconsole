@@ -15,12 +15,11 @@ Item {
     property var xmlHttpRequestModel: XmlHttpRequestModel {}
 
     property int maxLogLength: 100
-    property int pollIntervalMs: 20 * 1000
+    property int pollIntervalMs: defaultPollIntervalMs
     property string locationNameFilter: defaultLocationNameFilter
-    property string cityNameFilter: defaultCityNameFilter
 
     readonly property string defaultLocationNameFilter: "Theaterparkhaus|Sterntor|Rovte"
-    readonly property string defaultCityNameFilter: ""
+    readonly property string defaultPollIntervalMs: 20 * 1000
 
     Component.onCompleted: currentModel.reload()
 

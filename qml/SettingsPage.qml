@@ -142,17 +142,20 @@ TopLevelPage {
                 }
 
                 Text {
-                    text: "City name filter:"
+                    text: "Server update interval:"
                 }
 
                 TextField {
-                    id: cityNameFilter
+                    id: pollInterval
                     Layout.preferredWidth: 400
-                    text: app.model.cityNameFilter
-                    placeholderText: "Regular expression"
+                    text: app.model.pollIntervalMs / 1000
+                    placeholderText: "seconds"
                     onAccepted: {
-                        app.model.cityNameFilter = text
-                        app.model.currentModel.reload()
+                        var number = Number(text)
+                        if (number < 10)
+                            number = 10
+                        text = number
+                        app.model.pollIntervalMs = Number(number * 1000)
                         focus = false
                     }
                 }
@@ -173,9 +176,9 @@ TopLevelPage {
                     onClicked: {
                         app.model.xmlHttpRequestModel.baseUrl = app.model.xmlHttpRequestModel.originalBaseUrl
                         locationNameFilter.text = app.model.defaultLocationNameFilter
-                        cityNameFilter.text = app.model.defaultCityNameFilter
                         app.model.locationNameFilter = locationNameFilter.text
-                        app.model.cityNameFilter = cityNameFilter.text
+                        app.model.pollIntervalMs = app.model.defaultPollIntervalMs
+                        pollInterval.text = app.model.pollIntervalMs / 1000
                         app.model.currentModel.reload()
                     }
                 }
