@@ -51,8 +51,11 @@ Item {
 
             descriptions = filteredDescriptions
 
-            if (parkingSpaces.length !== descriptions.length)
+            if (parkingSpaces.length !== descriptions.length) {
                 parkingSpaces = new Array(descriptions.length)
+                logs = new Array(descriptions.length)
+                updateStamps = new Array(descriptions.length)
+            }
 
             for (var modelIndex = 0; modelIndex < descriptions.length; ++modelIndex) {
                 updateStamps[modelIndex] = new Date().toISOString()
@@ -78,10 +81,13 @@ Item {
 
     function updateGarageStatistics(modelIndex)
     {
+        pendingUpdate = false
+
         var id = descriptions[modelIndex].id
         var now = new Date().toISOString()
+        var log = logs[modelIndex]
 
-        if (logs.length === 0) {
+        if (!log) {
             // Reload the whole log
             var start = new Date(new Date(now).getTime() - (1000 * 60 * 60 * 24)).toISOString()
             load("statistics/garage?garageId=" + id + "&start=" + start + "&end=" + now, function(array) {
@@ -92,14 +98,11 @@ Item {
                 logs[modelIndex] = array
                 if (app.model.currentModel === root)
                     app.model.logUpdated(modelIndex, 0, 0)
-
-                pendingUpdate = false
             })
             return
         }
 
         // Incremental update
-        var log = logs[modelIndex]
         var latestEntryDate = log[0].modificationDate
 
         load("statistics/garage?garageId=" + id + "&start=" + latestEntryDate + "&end=" + now, function(array) {
@@ -126,8 +129,6 @@ Item {
             logs[modelIndex] = log
             if (app.model.currentModel === root)
                 app.model.logUpdated(modelIndex, addCount, removeCount)
-
-            pendingUpdate = false
         })
     }
 
