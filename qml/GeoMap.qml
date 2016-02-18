@@ -156,7 +156,7 @@ Rectangle {
     }
 
     IconButton {
-        baseName: "Zoom_out"
+        baseName: "MapFit"
         anchors.top: closeButton.bottom
         anchors.horizontalCenter: closeButton.horizontalCenter
         anchors.topMargin: 10
