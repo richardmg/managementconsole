@@ -87,11 +87,11 @@ Item {
             if (type === 0) {
                 var parkingSpaceIndex = getRandomParkingSpaceWithStatus(modelIndex, "Free")
                 if (parkingSpaceIndex !== -1) {
-                    addLogEntryToBeOccupied(modelIndex, parkingSpaceIndex, modificationDate)
+                    addLogEntryBooked(modelIndex, parkingSpaceIndex, modificationDate)
                     break
                 }
             } else if (type === 1) {
-                parkingSpaceIndex = getRandomParkingSpaceWithStatus(modelIndex, "ToBeOccupied")
+                parkingSpaceIndex = getRandomParkingSpaceWithStatus(modelIndex, "Booked")
                 if (parkingSpaceIndex !== -1) {
                     addLogEntryOccupied(modelIndex, parkingSpaceIndex, modificationDate)
                     break
@@ -115,14 +115,14 @@ Item {
         }
     }
 
-    function addLogEntryToBeOccupied(modelIndex, parkingSpaceIndex, modificationDate)
+    function addLogEntryBooked(modelIndex, parkingSpaceIndex, modificationDate)
     {
         var description = descriptions[modelIndex]
         var spaces = parkingSpaces[modelIndex]
         var log = logs[modelIndex]
 
         var entryCopy = JSON.parse(JSON.stringify(spaces[parkingSpaceIndex]))
-        entryCopy.status = "ToBeOccupied"
+        entryCopy.status = "Booked"
         entryCopy.licensePlateNumber = createRandomlicensePlateNumber()
         entryCopy.modificationDate = modificationDate
 

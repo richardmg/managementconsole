@@ -41,7 +41,7 @@ ListModel {
                 entry.message = "Space " + entry.parkingSpaceOnSiteId + " is now free"
             else if (entry.status === "Occupied")
                 entry.message = entry.licensePlateNumber + " arrived at space " + entry.parkingSpaceOnSiteId
-            else if (entry.status === "ToBeOccupied")
+            else if (entry.status === "Booked")
                 entry.message = entry.licensePlateNumber + " reserved space " + entry.parkingSpaceOnSiteId
             else if (entry.status === "ToBeFree")
                 entry.message = entry.licensePlateNumber + " is leaving space " + entry.parkingSpaceOnSiteId

@@ -40,12 +40,12 @@ Rectangle {
 
             // Important: we assume here (after clearification on mail) that status
             // cannot transition directly from "Free" to "Occupied" without
-            // entering "ToBeOccupied" in-between.
+            // entering "Booked" in-between.
             if (entry.status === "Free") {
                 // If this entry freed up a space, it means that the
                 // occupation rate must have been bigger before.
                 occupied++
-            } else if (entry.status === "ToBeOccupied") {
+            } else if (entry.status === "Booked") {
                 occupied--
             }
         }

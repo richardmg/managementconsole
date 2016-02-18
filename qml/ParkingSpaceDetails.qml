@@ -9,7 +9,7 @@ Rectangle {
 
     property bool isFree: parkingSpaceModel.status === "Free"
     property bool isOccupied: parkingSpaceModel.status === "Occupied"
-    property bool isReserved: parkingSpaceModel.status === "ToBeOccupied"
+    property bool isReserved: parkingSpaceModel.status === "Booked"
     property bool isLeaving: parkingSpaceModel.status === "ToBeFree"
 
     MouseArea {
