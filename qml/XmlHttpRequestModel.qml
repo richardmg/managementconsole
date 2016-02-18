@@ -86,6 +86,8 @@ Item {
             var start = new Date(new Date(now).getTime() - (1000 * 60 * 60 * 24)).toISOString()
             load("statistics/garage?garageId=" + id + "&start=" + start + "&end=" + now, function(array) {
 
+//                print("reload log for", descriptions[modelIndex].locationName + ":", JSON.stringify(array, 0, "   "))
+
                 fixModificationDate(array)
 
                 app.model.chopArray(array, app.model.maxLogLength)
