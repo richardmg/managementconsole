@@ -88,8 +88,6 @@ Item {
 
 //                print("reload log for", descriptions[modelIndex].locationName + ":", JSON.stringify(array, 0, "   "))
 
-                fixModificationDate(array)
-
                 app.model.chopArray(array, app.model.maxLogLength)
                 logs[modelIndex] = array
                 if (app.model.currentModel === root)
@@ -109,8 +107,6 @@ Item {
 //            print("update log for", descriptions[modelIndex].locationName + ":", JSON.stringify(array, 0, "   "))
 
             app.model.chopArray(array, app.model.maxLogLength)
-
-            fixModificationDate(array)
 
             var duplicateCount = 0
             for (var i = 0; i < log.length; ++i) {
@@ -162,16 +158,6 @@ Item {
         repeat: true
         onTriggered: {
             update()
-        }
-    }
-
-    function fixModificationDate(array)
-    {
-        // Workaround. Parsing dates that has length less than 23 fails
-        // for some reason, resulting in the hour being one less than it should
-        for (var i = 0; i < array.length; ++i) {
-            while (array[i].modificationDate.length !== 23)
-                array[i].modificationDate += "0"
         }
     }
 }
