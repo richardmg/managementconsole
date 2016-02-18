@@ -15,7 +15,7 @@ Rectangle {
     {
         var garage = app.model.currentModel.descriptions[modelIndex]
         moveToLatLon(garage.latitude, garage.longitude)
-        zoomLevel = 15
+        zoomLevel = 16
     }
 
     function centerOnAllParks()
