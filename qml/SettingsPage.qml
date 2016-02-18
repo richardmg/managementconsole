@@ -105,6 +105,7 @@ TopLevelPage {
                         number = 10
                     text = number
                     app.model.pollIntervalMs = Number(number * 1000)
+                    app.model.currentModel.update()
                     focus = false
                 }
             }

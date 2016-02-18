@@ -32,6 +32,7 @@ Item {
     {
         if (app.model.currentModel !== root)
             return
+        updateTimer.restart()
         updateGarages()
     }
 
@@ -154,11 +155,13 @@ Item {
 
 
     Timer {
+        id: updateTimer
         running: app.model.currentModel === root
         interval: app.model.pollIntervalMs
         repeat: true
         onTriggered: {
-            update()
+            if (app.model.currentModel === root)
+                update()
         }
     }
 }
