@@ -88,7 +88,7 @@ Item {
         var now = new Date().toISOString()
         var log = logs[modelIndex]
 
-        if (!log) {
+        if (!log || log.length === 0) {
             // Reload the whole log
             var start = new Date(new Date(now).getTime() - (1000 * 60 * 60 * 24)).toISOString()
             load("statistics/garage?garageId=" + id + "&start=" + start + "&end=" + now, function(array) {
