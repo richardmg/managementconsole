@@ -98,7 +98,7 @@ Item {
                 app.model.chopArray(array, app.model.maxLogLength)
                 logs[modelIndex] = array
                 if (app.model.currentModel === root)
-                    app.model.logUpdated(modelIndex, 0, 0)
+                    app.model.logUpdated(modelIndex, -1, 0)
             })
             return
         }

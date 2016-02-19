@@ -5,7 +5,7 @@ ListModel {
 
     property int modelIndex: -1
 
-    Component.onCompleted: updateModel(modelIndex, 0, 0)
+    Component.onCompleted: updateModel(modelIndex, -1, 0)
 
     property var connections: Connections {
         target: app.model
@@ -25,8 +25,8 @@ ListModel {
 
         // We get notified how many entries that were removed from the
         // end of the log, and how many that were prepended in front.
-        // If both are zero, it means the whole log was changed.
-        if (addCount === 0 && removeCount === 0) {
+        // If addCount === -1, it means the whole log needs to update.
+        if (addCount === -1) {
             listModel.clear()
             addCount = log.length
         }
