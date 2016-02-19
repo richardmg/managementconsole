@@ -37,14 +37,18 @@ ListModel {
         for (var i = addCount - 1; i >= 0; --i) {
             var entry = log[i]
 
+            var licensePlate = entry.licensePlateNumber ? entry.licensePlateNumber : "Car"
+
             if (entry.status === "Free")
                 entry.message = "Space " + entry.parkingSpaceOnSiteId + " is now free"
             else if (entry.status === "Occupied")
-                entry.message = entry.licensePlateNumber + " arrived at space " + entry.parkingSpaceOnSiteId
-            else if (entry.status === "Booked" || entry.status === "ToBeOccupied")
-                entry.message = entry.licensePlateNumber + " booked space " + entry.parkingSpaceOnSiteId
+                entry.message = licensePlate + " arrived at space " + entry.parkingSpaceOnSiteId
+            else if (entry.status === "Booked")
+                entry.message = licensePlate + " booked space " + entry.parkingSpaceOnSiteId
+            else if (entry.status === "ToBeOccupied")
+                entry.message = licensePlate + " enters parking lot"
             else if (entry.status === "ToBeFree")
-                entry.message = entry.licensePlateNumber + " is leaving space " + entry.parkingSpaceOnSiteId
+                entry.message = licensePlate + " is leaving space " + entry.parkingSpaceOnSiteId
             else if (entry.status === "Malfunction")
                 entry.message = "Malfunction on space " + entry.parkingSpaceOnSiteId
             else {
