@@ -33,6 +33,10 @@ Item {
 //        print("Parking spaces updated:", modelIndex, JSON.stringify(currentModel.parkingSpaces[modelIndex], 0, "   "))
 //    }
 
+//    onLogUpdated: {
+//        print("Log updated:", modelIndex, JSON.stringify(currentModel.logs[modelIndex], 0, "   "))
+//    }
+
     function createEmptyDescription()
     {
         return {
